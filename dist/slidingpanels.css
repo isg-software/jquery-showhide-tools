@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* Sliding Panels:
+	„column“ panels (rather narrow and high, typically can contain a multiline select box)
+	are arranged horizontally from left to right. The root panel should always be visible. Each
+	panel may have up to one successor, which then slides out from left to right underneath its
+	predecessor (like a drawer).
+	
+	This file contains a demo style sheet. Feel free to create your own modified versions
+	in order to adapt to your web-site's styles.
+*/
+.slidingpanels {
+  overflow-x: scroll;
+  padding: 10px 0;
+}
+.slidingpanel {
+  position: relative;
+  left: 0;
+  display: inline-block;
+  z-index: 1;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.slidingpanel p {
+  white-space: normal;
+}
+.slidingpanel .slidingpanel {
+  left: -1em;
+}
+.slidingpanel .content {
+  position: relative;
+  display: inline-block;
+  z-index: 2;
+  background-color: #eee;
+  box-shadow: 5px 0 10px #bbb;
+  padding: 0.5em;
+  padding-left: 1.5em;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+.slidingpanel .content select {
+  min-width: 10em;
+}
+.slidingpanel .inithidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.slidingpanel .overlay {
+  background-color: white;
+  box-shadow: 0 0 5px #777;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  position: absolute;
+  top: 1.5em;
+}
+/*# sourceMappingURL=slidingpanels.css.map */
