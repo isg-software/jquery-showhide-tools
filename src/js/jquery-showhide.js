@@ -129,7 +129,7 @@
 	 * @function isTopBelowViewport
 	 * @memberOf jQuery.fn
 	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
-	 * defines the viewport to check against. The default viewport is the whole window..
+	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is substracted from the calculated viewport bottom, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
 	 * top is not yet quite below viewport, but below viewport bottom minus delta.
@@ -150,7 +150,7 @@
 	 * @function isTopBelowViewport
 	 * @memberOf jQuery.fn
 	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
-	 * defines the viewport to check against. The default viewport is the whole window..
+	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is added from the calculated viewport top, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
 	 * top might be in viewport, but less that delta pixels below the viewport top.
@@ -181,11 +181,44 @@
 		return i.nodeLeft >= i.winLeft && i.nodeLeft <= i.winRight;
 	};
 	
+	/**
+	 * jQuery plug-in function: checks whether the left of the first element in the set of matched elements
+	 * is not within the viewport but lies to the right of it.
+	 * Like {@link jQuery.fn.isTopBelowViewport}, but meant for horizontally scrolling viewports.
+	 * <p>Usage pattern:</p>
+	 * <pre><code>if ($(selector).isLeftRightOutOfViewport())</code></pre>
+	 * @function isLeftRightOutOfViewport
+	 * @memberOf jQuery.fn
+	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to check against. The default viewport is the whole window.
+	 * @param {int} [delta=0] The delta is substracted from the calculated viewport right, i.e.
+	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
+	 * top is not yet quite right out of the viewport, but to the right of viewport right minus delta.
+	 * @return {boolean} true if the left of the first element of the implicit argument is
+	 * to the right of the right-hand side of the viewport (minus delta)
+	 */
 	$.fn.isLeftRightOutOfViewport = function(viewport = $(window), delta = 0) {
 		const i = getViewportInfo(this, viewport);
 		return i.nodeLeft > i.winRight - delta;
 	};
 	
+	/**
+	 * jQuery plug-in function: checks whether the left of the first element in the set of matched elements
+	 * is not within the viewport but to the left of it. The element itself may be partially visible, but 
+	 * at least its left part is cut off.
+	 * Like {@link jQuery.fn.isTopAboveViewport}, but meant for horizontally scrolling viewports.
+	 * <p>Usage pattern:</p>
+	 * <pre><code>if ($(selector).isLeftLeftOutOfViewport())</code></pre>
+	 * @function isLeftLeftOutOfViewport
+	 * @memberOf jQuery.fn
+	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to check against. The default viewport is the whole window.
+	 * @param {int} [delta=0] The delta is added from the calculated viewport left, i.e.
+	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
+	 * top might be in viewport, but less that delta pixels below the left viewport edge.
+	 * @return {boolean} true if the left side of the first element of the implicit argument is
+	 * to the left of the viewport (plus delta)
+	 */
 	$.fn.isLeftLeftOutOfViewport = function(viewport = $(window), delta = 0) {
 		const i = getViewportInfo(this, viewport);
 		return i.nodeLeft < i.winLeft + delta;

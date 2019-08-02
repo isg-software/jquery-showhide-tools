@@ -244,7 +244,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line194">line 194</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line227">line 227</a>
     </li></ul></dd>
     
 
@@ -628,7 +628,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line212">line 212</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line245">line 245</a>
     </li></ul></dd>
     
 
@@ -694,7 +694,7 @@ within the viewport
     
 
     
-    <h4 class="name" id=".isTopBelowViewport"><span class="type-signature">(static) </span>isTopBelowViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>, delta<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isLeftLeftOutOfViewport"><span class="type-signature">(static) </span>isLeftLeftOutOfViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>, delta<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
 
     
@@ -702,11 +702,12 @@ within the viewport
 
 
 <div class="description">
-    jQuery plug-in function: checks whether the top of the first element in the set of matched elements
-is not within the viewport but lies beneath (so a user has to scroll forwards in order for
-the element to enter the viewport).
+    jQuery plug-in function: checks whether the left of the first element in the set of matched elements
+is not within the viewport but to the left of it. The element itself may be partially visible, but 
+at least its left part is cut off.
+Like jQuery.fn.isTopAboveViewport, but meant for horizontally scrolling viewports.
 <p>Usage pattern:</p>
-<pre><code>if ($(selector).isTopBelowViewport())</code></pre>
+<pre><code>if ($(selector).isLeftLeftOutOfViewport())</code></pre>
 </div>
 
 
@@ -779,7 +780,7 @@ the element to enter the viewport).
             
 
             <td class="description last">jQuery resultset, the first element in this set 
-defines the viewport to check against. The default viewport is the whole window..</td>
+defines the viewport to check against. The default viewport is the whole window.</td>
         </tr>
 
     
@@ -818,9 +819,9 @@ defines the viewport to check against. The default viewport is the whole window.
                 </td>
             
 
-            <td class="description last">The delta is substracted from the calculated viewport bottom, i.e.
+            <td class="description last">The delta is added from the calculated viewport left, i.e.
 if you enter a positive value, the function will return true "earlier", i.e. even if the
-top is not yet quite below viewport, but below viewport bottom minus delta.</td>
+top might be in viewport, but less that delta pixels below the left viewport edge.</td>
         </tr>
 
     
@@ -861,7 +862,7 @@ top is not yet quite below viewport, but below viewport bottom minus delta.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line123">line 123</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line205">line 205</a>
     </li></ul></dd>
     
 
@@ -890,8 +891,234 @@ top is not yet quite below viewport, but below viewport bottom minus delta.</td>
 
         
 <div class="param-desc">
-    true if the top of the first element of the implicit argument is
-below the bottom of the viewport (minus delta)
+    true if the left side of the first element of the implicit argument is
+to the left of the viewport (plus delta)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".isLeftRightOutOfViewport"><span class="type-signature">(static) </span>isLeftRightOutOfViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>, delta<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: checks whether the left of the first element in the set of matched elements
+is not within the viewport but lies to the right of it.
+Like <a href="jQuery.fn.html#.isTopBelowViewport">jQuery.fn.isTopBelowViewport</a>, but meant for horizontally scrolling viewports.
+<p>Usage pattern:</p>
+<pre><code>if ($(selector).isLeftRightOutOfViewport())</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to check against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delta</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">The delta is substracted from the calculated viewport right, i.e.
+if you enter a positive value, the function will return true "earlier", i.e. even if the
+top is not yet quite right out of the viewport, but to the right of viewport right minus delta.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line184">line 184</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    true if the left of the first element of the implicit argument is
+to the right of the right-hand side of the viewport (minus delta)
 </div>
 
 
@@ -1005,7 +1232,7 @@ at least its top is cut off.
             
 
             <td class="description last">jQuery resultset, the first element in this set 
-defines the viewport to check against. The default viewport is the whole window..</td>
+defines the viewport to check against. The default viewport is the whole window.</td>
         </tr>
 
     
@@ -1118,6 +1345,232 @@ top might be in viewport, but less that delta pixels below the viewport top.</td
 <div class="param-desc">
     true if the top of the first element of the implicit argument is
 above the top of the viewport (plus delta)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".isTopBelowViewport"><span class="type-signature">(static) </span>isTopBelowViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>, delta<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: checks whether the top of the first element in the set of matched elements
+is not within the viewport but lies beneath (so a user has to scroll forwards in order for
+the element to enter the viewport).
+<p>Usage pattern:</p>
+<pre><code>if ($(selector).isTopBelowViewport())</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to check against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delta</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">The delta is substracted from the calculated viewport bottom, i.e.
+if you enter a positive value, the function will return true "earlier", i.e. even if the
+top is not yet quite below viewport, but below viewport bottom minus delta.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line123">line 123</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    true if the top of the first element of the implicit argument is
+below the bottom of the viewport (minus delta)
 </div>
 
 
@@ -1353,7 +1806,7 @@ within the viewport
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Aug 02 2019 19:26:02 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Aug 02 2019 23:03:45 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>
