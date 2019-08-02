@@ -1,4 +1,32 @@
-// @codekit-append "sliding-panels"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: jquery-showhide.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: jquery-showhide.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// @codekit-append "sliding-panels"
 /**
  * @license 
  * Copyright (c) 2018, Immo Schulz-Gerlach, www.isg-software.de 
@@ -26,7 +54,7 @@
  */
  
  /**
- * Namespace of jQuery. Usually bound to the alias <code>$</code>.
+ * Namespace of jQuery. Usually bound to the alias &lt;code>$&lt;/code>.
  *  
  * @see http://jquery.com/
  * @namespace jQuery 
@@ -105,8 +133,8 @@
 	/**
 	 * jQuery plug-in function: checks whether the top of the first element in the set of matched elements
 	 * is visible within the viewport.
-	 * <p>Usage pattern:</p>
-	 * <pre><code>if ($(selector).isTopInViewport())</code></pre>
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>if ($(selector).isTopInViewport())&lt;/code>&lt;/pre>
 	 * @function isTopInViewport
 	 * @memberOf jQuery.fn
 	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
@@ -117,15 +145,15 @@
 	 */
 	$.fn.isTopInViewport = function(viewport = $(window)) {
 		const i = getViewportInfo(this, viewport);
-		return i.nodeTop >= i.winTop && i.nodeTop <= i.winBottom;
+		return i.nodeTop >= i.winTop &amp;&amp; i.nodeTop &lt;= i.winBottom;
 	};
 	
 	/**
 	 * jQuery plug-in function: checks whether the top of the first element in the set of matched elements
 	 * is not within the viewport but lies beneath (so a user has to scroll forwards in order for
 	 * the element to enter the viewport).
-	 * <p>Usage pattern:</p>
-	 * <pre><code>if ($(selector).isTopBelowViewport())</code></pre>
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>if ($(selector).isTopBelowViewport())&lt;/code>&lt;/pre>
 	 * @function isTopBelowViewport
 	 * @memberOf jQuery.fn
 	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
@@ -145,8 +173,8 @@
 	 * jQuery plug-in function: checks whether the top of the first element in the set of matched elements
 	 * is not within the viewport but lies above. The element itself may be partially visible, but 
 	 * at least its top is cut off.
-	 * <p>Usage pattern:</p>
-	 * <pre><code>if ($(selector).isTopAboveViewport())</code></pre>
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>if ($(selector).isTopAboveViewport())&lt;/code>&lt;/pre>
 	 * @function isTopBelowViewport
 	 * @memberOf jQuery.fn
 	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
@@ -159,15 +187,15 @@
 	 */
 	$.fn.isTopAboveViewport = function(viewport = $(window), delta = 0) {
 		const i = getViewportInfo(this, viewport);
-		return i.nodeTop < i.winTop + delta;
+		return i.nodeTop &lt; i.winTop + delta;
 	};
 	
 	/**
 	 * jQuery plug-in function: checks whether the left of the first element in the set of matched elements
 	 * is visible within the viewport. 
 	 * Like {@link jQuery.fn.isTopInViewport}, but meant for horizontally scrolling viewports.
-	 * <p>Usage pattern:</p>
-	 * <pre><code>if ($(selector).isLeftInViewport())</code></pre>
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>if ($(selector).isLeftInViewport())&lt;/code>&lt;/pre>
 	 * @function isLeftInViewport
 	 * @memberOf jQuery.fn
 	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
@@ -178,7 +206,7 @@
 	 */
 	$.fn.isLeftInViewport = function(viewport = $(window)) {
 		const i = getViewportInfo(this, viewport);
-		return i.nodeLeft >= i.winLeft && i.nodeLeft <= i.winRight;
+		return i.nodeLeft >= i.winLeft &amp;&amp; i.nodeLeft &lt;= i.winRight;
 	};
 	
 	$.fn.isLeftRightOutOfViewport = function(viewport = $(window), delta = 0) {
@@ -188,14 +216,14 @@
 	
 	$.fn.isLeftLeftOutOfViewport = function(viewport = $(window), delta = 0) {
 		const i = getViewportInfo(this, viewport);
-		return i.nodeLeft < i.winLeft + delta;
+		return i.nodeLeft &lt; i.winLeft + delta;
 	};
 	
 	/**
 	 * jQuery plug-in function: checks whether the bottom of the first element in the set of matched elements
 	 * is visible within the viewport.
-	 * <p>Usage pattern:</p>
-	 * <pre><code>if ($(selector).isBottomInViewport())</code></pre>
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>if ($(selector).isBottomInViewport())&lt;/code>&lt;/pre>
 	 * @function isBottomInViewport
 	 * @memberOf jQuery.fn
 	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
@@ -206,15 +234,15 @@
 	 */
 	$.fn.isBottomInViewport = function(viewport = $(window)) {
 		const i = getViewportInfo(this, viewport);
-		return i.nodeBottom >= i.winTop && i.nodeBottom <= i.winBottom;
+		return i.nodeBottom >= i.winTop &amp;&amp; i.nodeBottom &lt;= i.winBottom;
 	};
 	
 	/**
 	 * jQuery plug-in function: checks whether the right of the first element in the set of matched elements
 	 * is visible within the viewport. 
 	 * Like {@link jQuery.fn.isBottomInViewport}, but meant for horizontally scrolling viewports.
-	 * <p>Usage pattern:</p>
-	 * <pre><code>if ($(selector).isLeftInViewport())</code></pre>
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>if ($(selector).isLeftInViewport())&lt;/code>&lt;/pre>
 	 * @function isLeftInViewport
 	 * @memberOf jQuery.fn
 	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
@@ -225,7 +253,7 @@
 	 */
 	$.fn.isRightInViewport = function(viewport = $(window)) {
 		const i = getViewportInfo(this, viewport);
-		return i.nodeRight >= i.winLeft && i.nodeRight <= i.winRight;
+		return i.nodeRight >= i.winLeft &amp;&amp; i.nodeRight &lt;= i.winRight;
 	};
 	
 	$.fn.viewportAlignBottom = function(viewport = $(window), tolerance = 30, duration = $.fn.showOrHideSection.DEFAULTS.duration, viewportInfo) {
@@ -292,7 +320,7 @@
 		
 		//store state in hidden field (if exists)
 		const findstore = expandAndApplySelector(block, opts.store);
-		if (findstore && findstore.length) { //found
+		if (findstore &amp;&amp; findstore.length) { //found
 			const store = findstore.get(0);
 			if (showHide==='hide')
 				store.value="";
@@ -302,7 +330,7 @@
 		
 		function complete() {
 			//scroll?
-			if (opts.scroll && showHide === "show") {
+			if (opts.scroll &amp;&amp; showHide === "show") {
 				if (block.isTopBelowViewport(opts.viewport, 50)) {
 					block.scrollDownIntoView(opts.viewport, opts.scrollTolerance, opts.duration);
 				} else if (block.isTopAboveViewport(opts.viewport, 50)) {
@@ -323,10 +351,10 @@
 				opacity: showHide
 				}, opts.duration, opts.easing, complete);
 
-		if (showHide === 'show' && typeof opts.onShow === "function") {
+		if (showHide === 'show' &amp;&amp; typeof opts.onShow === "function") {
 			opts.onShow.call(block.get(0), block, toggle);
 		}
-		if (showHide === 'hide' && typeof opts.onHide === "function") {
+		if (showHide === 'hide' &amp;&amp; typeof opts.onHide === "function") {
 			opts.onHide.call(block.get(0), block, toggle);
 		}
 		if (typeof opts.onToggle === "function") {
@@ -441,14 +469,14 @@
 	 **/
 	$.fn.appendMoreLinks = function(options) {
 		const opts = $.extend({}, $.fn.appendMoreLinks.DEFAULTS, options);
-		this.append(" <a href='#!' class='" + opts.moreLinkClass + "'>" + opts.moreLinkLabel + "</a>");
+		this.append(" &lt;a href='#!' class='" + opts.moreLinkClass + "'>" + opts.moreLinkLabel + "&lt;/a>");
 		//Soeben eingefügte Links nun mit Leben ausstatten:
 		$("a." + opts.moreLinkClass).click(function() {
 			$(this).hide();
 			//Suche den .more-Block zum Link.
 			var finder = $(this).parent(); //Ausgangspunkt ist der Vorfahr des .more-Links (Block der Klasse .appendMore)
 			var found = finder.next(opts.moreContentSelector);
-			while (!found.length && finder.length) { //Pr¸fe ansonsten noch die Nachfolger der Vorfahren
+			while (!found.length &amp;&amp; finder.length) { //Pr¸fe ansonsten noch die Nachfolger der Vorfahren
 				finder = finder.parent();
 				found = finder.next(opts.moreContentSelector);
 			}
@@ -461,8 +489,31 @@
 	
 	$.fn.appendMoreLinks.DEFAULTS = {
 		moreLinkClass: "moreLink",
-		moreLinkLabel: "more&nbsp;&hellip;",
+		moreLinkLabel: "more&amp;nbsp;&amp;hellip;",
 		moreContentSelector: ".more"
 	};
 	
 }(jQuery));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Aug 02 2019 19:26:02 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

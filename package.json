@@ -11,5 +11,6 @@
   },
   "optionalDependencies": {
     "jquery-folding-arrow-icon": "^1.0.3"
-  }
+  },
+  "devDependencies": {}
 }

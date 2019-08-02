@@ -39,6 +39,39 @@
 		"sC": 3,
 		"tS": 1
 		},
+	"/dist/lang-css-min.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/dist/lang-css-min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/dist/linenumber-min.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/dist/linenumber-min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/dist/prettify-min.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/dist/prettify-min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
 	"/dist/slidingpanels.css": {
 		"aP": 1,
 		"bl": 0,
@@ -55,6 +88,20 @@
 		"hM": 0,
 		"oA": 0,
 		"oAP": "/dist/slidingpanels.css.map",
+		"oF": 0
+		},
+	"/doc": {
+		"ft": 65536,
+		"oA": 1,
+		"oAP": "/build/doc",
+		"oF": 0
+		},
+	"/jsdoc.sh": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/jsdoc.sh",
 		"oF": 0
 		},
 	"/LICENSE": {
@@ -2222,10 +2269,10 @@
 	"npmCreatePackageLock": 1,
 	"npmInstallOptionalDependencies": 0,
 	"npmSaveExactVersion": 0,
-	"npmTargetDependencyListType": 4,
+	"npmTargetDependencyListType": 2,
 	"overrideExternalServerCSS": 0,
 	"previewPathAddition": "",
-	"skippedFoldersString": "log, _logs, logs, _cache, cache, .idea, /storage/framework/sessions, node_modules",
+	"skippedFoldersString": "_cache,cache,.idea,log,_logs,logs,node_modules,/storage/framework/sessions,doc",
 	"sourceFolderName": "source",
 	"susyVersion": 3,
 	"tsAllowSyntheticDefaultImports": 0,
