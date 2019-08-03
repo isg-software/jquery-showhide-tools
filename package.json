@@ -10,7 +10,8 @@
     "jquery": "^3.4.1"
   },
   "optionalDependencies": {
-    "jquery-folding-arrow-icon": "^1.0.3"
+    "jquery-folding-arrow-icon": "^1.0.3",
+    "jquery.scrollto": "^2.1.2"
   },
   "devDependencies": {}
 }

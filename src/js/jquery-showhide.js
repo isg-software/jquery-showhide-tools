@@ -109,7 +109,7 @@
 	 * <pre><code>if ($(selector).isTopInViewport())</code></pre>
 	 * @function isTopInViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @return {boolean} true if the top of the first element of the implicit argument is
 	 * within the viewport
@@ -128,7 +128,7 @@
 	 * <pre><code>if ($(selector).isTopBelowViewport())</code></pre>
 	 * @function isTopBelowViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is substracted from the calculated viewport bottom, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
@@ -149,7 +149,7 @@
 	 * <pre><code>if ($(selector).isTopAboveViewport())</code></pre>
 	 * @function isTopBelowViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is added from the calculated viewport top, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
@@ -170,7 +170,7 @@
 	 * <pre><code>if ($(selector).isLeftInViewport())</code></pre>
 	 * @function isLeftInViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @return {boolean} true if the left of the first element of the implicit argument is
 	 * within the viewport
@@ -189,7 +189,7 @@
 	 * <pre><code>if ($(selector).isLeftRightOutOfViewport())</code></pre>
 	 * @function isLeftRightOutOfViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is substracted from the calculated viewport right, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
@@ -211,7 +211,7 @@
 	 * <pre><code>if ($(selector).isLeftLeftOutOfViewport())</code></pre>
 	 * @function isLeftLeftOutOfViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is added from the calculated viewport left, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
@@ -231,7 +231,7 @@
 	 * <pre><code>if ($(selector).isBottomInViewport())</code></pre>
 	 * @function isBottomInViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @return {boolean} true if the bottom of the first element of the implicit argument is
 	 * within the viewport
@@ -250,7 +250,7 @@
 	 * <pre><code>if ($(selector).isLeftInViewport())</code></pre>
 	 * @function isLeftInViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @return {boolean} true if the right of the first element of the implicit argument is
 	 * within the viewport
@@ -261,18 +261,89 @@
 		return i.nodeRight >= i.winLeft && i.nodeRight <= i.winRight;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries vertical scroll in order to align the bottom of the first
+	 * element in the set of matched elements (jQuery result set) with the bottom of the viewport.
+	 * The alignment isn't always quite accurate, also an exact alignment with the bottom of the viewport
+	 * often isn't desirable, a little margin between the viewport and the element may look better.
+	 * That's why a tolerance is specified, defaulting to 30 px. This means, the plug-in will try
+	 * to align the bottom of the matched element approximately 30px above the bottom of the viewport,
+	 * the effective margin may be smaller.
+	 * <p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
+	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+	 * will be instantaneous, without animation.
+ 	 * <p>Usage pattern:</p>
+	 * <pre><code>$("#mySection").viewportAlignBottom();</code></pre>
+	 * @function viewportAlignBottom
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=30] approx. margin between bottom of the element and bottom of the viewport, see above
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.viewportAlignBottom = function(viewport = $(window), tolerance = 30, duration = $.fn.showOrHideSection.DEFAULTS.duration, viewportInfo) {
 		const i = viewportInfo ? viewportInfo : getViewportInfo(this, viewport);
 		scrollTo(viewport, i.nodeBottom - i.winHeight + tolerance, duration); 
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries vertical scroll in order to align the top of the first
+	 * element in the set of matched elements (jQuery result set) with the top of the viewport.
+	 * The alignment isn't always quite accurate, also an exact alignment with the top of the viewport
+	 * often isn't desirable, a little margin between the upper window edge and the element may look better.
+	 * That's why a tolerance is specified, defaulting to 20 px. This means, the plug-in will try
+	 * to align the top of the matched element approximately 20px above the top of the viewport,
+	 * the effective margin may be smaller.
+	 * <p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
+	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+	 * will be instantaneous, without animation.
+ 	 * <p>Usage pattern:</p>
+	 * <pre><code>$("#mySection").viewportAlignTop();</code></pre>
+	 * @function viewportAlignTop
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=20] approx. margin between top of the element and top of the viewport, see above
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.viewportAlignTop = function(viewport = $(window), tolerance = 20, duration = $.fn.showOrHideSection.DEFAULTS.duration, viewportInfo) {
 		const i = viewportInfo ? viewportInfo : getViewportInfo(this, viewport);
 		scrollTo(viewport, i.nodeTop - tolerance, duration);
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries to scroll the selected section into view. The section
+	 * is the first element of the matched elements (jQuery result set).
+	 * If this sections height (minus twice the tolerance) is larger than the viewport's height,
+	 * it will be aligned by its top (see {@link jQuery.fn.viewportAlignTop viewportAlignTop}),
+	 * otherwise it will be aligned by its bottom (see {@link jQuery.fn.viewportAlignBottom viewportAlignBottom}).
+	 * If the current viewport is above the target element, this will result in scrolling down only
+	 * as far as necessary to get the whole element into view (or to get its top into view, if it's too
+	 * large for the viewport).
+ 	 * <p>Usage pattern:</p>
+	 * <pre><code>$("#mySection").scrollDownIntoView();</code></pre>
+	 * @function scrollDownIntoView
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=30] tolerance / approx. margin to be left free between the viewport
+	 * edges and the target element
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.scrollDownIntoView = function(viewport = $(window), tolerance = 30, duration = $.fn.showOrHideSection.DEFAULTS.duration) {
 		const i = getViewportInfo(this, viewport);
 		if (i.nodeHeight + 2 * tolerance > i.winHeight) 
@@ -282,18 +353,81 @@
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries horizontal scroll in order to align the right of the first
+	 * element in the set of matched elements (jQuery result set) with the right of the viewport.
+	 * (Horizontal version of {@link jQuery.fn.viewportAlignBottom}.)
+	 * <p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
+	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+	 * will be instantaneous, without animation.
+ 	 * <p>Usage pattern:</p>
+	 * <pre><code>$("#mySection").viewportAlignRight();</code></pre>
+	 * @function viewportAlignRight
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=30] approx. margin between right of the element and right of the viewport, see above
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.viewportAlignRight = function(viewport = $(window), tolerance = 30, duration = $.fn.showOrHideSection.DEFAULTS.duration, viewportInfo) {
 		const i = viewportInfo ? viewportInfo : getViewportInfo(this, viewport);
 		scrollTo(viewport, i.nodeRight - i.winWidth + tolerance, duration, true);
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries horizontal scroll in order to align the left of the first
+	 * element in the set of matched elements (jQuery result set) with the left end of the viewport.
+	 * (Horizontal version of {@link jQuery.fn.viewportAlignTop}.)
+	 * <p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
+	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+	 * will be instantaneous, without animation.
+ 	 * <p>Usage pattern:</p>
+	 * <pre><code>$("#mySection").viewportAlignLeft();</code></pre>
+	 * @function viewportAlignLeft
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=20] approx. margin between left of the element and left of the viewport, see above
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.viewportAlignLeft = function(viewport = $(window), tolerance = 20, duration = $.fn.showOrHideSection.DEFAULTS.duration, viewportInfo) {
 		const i = viewportInfo ? viewportInfo : getViewportInfo(this, viewport);
 		scrollTo(viewport, i.nodeLeft - tolerance, duration, true);
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries to horizontally scroll the selected section into view. The section
+	 * is the first element of the matched elements (jQuery result set).
+	 * If this sections width (minus twice the tolerance) is larger than the viewport's width,
+	 * it will be aligned by its left (see {@link jQuery.fn.viewportAlignLeft viewportAlignLeft}),
+	 * otherwise it will be aligned by its bottom (see {@link jQuery.fn.viewportAlignRight viewportAlignRight}).
+	 * If the current viewport is to the left of the target element, this will result in scrolling right only
+	 * as far as necessary to get the whole element into view (or to get its left into view, if it's too
+	 * large for the viewport).
+ 	 * <p>Usage pattern:</p>
+	 * <pre><code>$("#mySection").scrollRightIntoView();</code></pre>
+	 * @function scrollRightIntoView
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=30] tolerance / approx. margin to be left free between the viewport
+	 * edges and the target element
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.scrollRightIntoView = function(viewport = $(window), tolerance = 30, duration = $.fn.showOrHideSection.DEFAULTS.duration) {
 		const i = getViewportInfo(this, viewport);
 		if (i.nodeWidth + 2 * tolerance > i.winWidth) 
@@ -367,12 +501,45 @@
 		}
 	}
 	
+	/**
+	 * jQuery plug-in function: Saves options for {@link jQuery.fn.showOrHideSection} as well
+	 * as similar functions like {@link jQuery.fn.showSection} permanently in a data cache
+	 * associated with all of the selected elements.
+	 * So whenever you later call something like <code>$(selector).showOrHideSection()</code>
+	 * for the same selector or one selecting a subset of that used for this setup, the options
+	 * passed to this setup function will be used during that showOrHide operation.
+	 * @function setupShowOrHideSection
+	 * @memberOf jQuery.fn
+	 * @param {object} options An object defining options for the showOrHideSection(), showSection()
+	 * oder hideSection() functions. See {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS options}
+	 * for a list of available options and their default values. For any option you omit in your options
+	 * argument, the default option will be used. So this argument only needs to specify options
+	 * that differ from the defaults.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.setupShowOrHideSection = function(options) {
 		if (typeof options !== "object")
 			throw "Argument to setupShowOrHideSection must be an object (containing options to be stored as setup)!";
 		this.data(SHOW_HIDE_OPTIONS_SECTION_DATA_NAME, options);
 	}
 	
+	/**
+	 * jQuery plug-in function: Toggle a section: If it's visible, hide it, if it's hidden, show it.
+	 * In difference to standard jQuery functions, this one supports changing a class of 
+	 * a toggle control (like a button or link used to trigger this showOrHide action), so this
+	 * control may reflect the state (hidden or showing). Also a third element used for 
+	 * transmitting the state in a form post request can be implicitly updated.
+	 * @function showOrHideSection()
+	 * @memberOf jQuery.fn
+	 * @param {object} [options] Options for this function. This is merged with the setup.
+	 * If no options are given at all, the setup is used (see {@link jQuery.fn.setupShowOrHideSection}).
+	 * If no setup has been made, the {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS} are used.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 * @see jQuery.fn.showSection
+	 * @see jQuery.fn.hideSection
+	 */
 	$.fn.showOrHideSection = function(options) {
         this.each(function() {
 	        const opts = getShowOrHideOptions($(this), options);
@@ -382,7 +549,20 @@
         });
 		return this;
 	};
-		
+	
+	/**
+	 * jQuery plug-in function: Show a section: If it's hidden, show it, if it's already visible,
+	 * do nothing.
+	 * @function showSection
+	 * @memberOf jQuery.fn
+	 * @param {object} [options] Options for this function. This is merged with the setup.
+	 * If no options are given at all, the setup is used (see {@link jQuery.fn.setupShowOrHideSection}).
+	 * If no setup has been made, the {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS} are used.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 * @see jQuery.fn.showOrHideSection()
+	 * @see jQuery.fn.hideSection
+	 */
 	$.fn.showSection = function(options) {
         this.each(function() {
     	    const opts = getShowOrHideOptions($(this), options);
@@ -390,7 +570,20 @@
         });
 		return this;
 	};
-		
+	
+	/**
+	 * jQuery plug-in function: HIde a section: If it's showing, hide it, if it's already hidden,
+	 * do nothing.
+	 * @function hideSection
+	 * @memberOf jQuery.fn
+	 * @param {object} [options] Options for this function. This is merged with the setup.
+	 * If no options are given at all, the setup is used (see {@link jQuery.fn.setupShowOrHideSection}).
+	 * If no setup has been made, the {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS} are used.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 * @see jQuery.fn.showOrHideSection()
+	 * @see jQuery.fn.showSection
+	 */
 	$.fn.hideSection = function(options) {
         this.each(function() {
         	const opts = getShowOrHideOptions($(this), options);
@@ -435,6 +628,16 @@
 		return expandAndApplySelector(this, opts.toggle);
 	}
 	
+	/**
+	 * @namespace showOrHideSection
+	 * @memberOf jQuery.fn
+	 */
+	/**
+	 * Default settings for many of the jQuery plug-in-functions of this package.
+	 * @member DEFAULTS
+	 * @memberOf jQuery.fn.showOrHideSection
+	 * @property {int} duration =200 Default duration for animations (scrolling, expanding or collapsing elements).
+	 */
 	$.fn.showOrHideSection.DEFAULTS = {
 		classShowing: "showing",
 		classHidden: "hidden",
