@@ -242,7 +242,7 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line574">line 574</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line578">line 578</a>
     </li></ul></dd>
     
 
@@ -896,7 +896,7 @@ within the viewport
     jQuery plug-in function: checks whether the left of the first element in the set of matched elements
 is not within the viewport but to the left of it. The element itself may be partially visible, but 
 at least its left part is cut off.
-Like jQuery.fn.isTopAboveViewport, but meant for horizontally scrolling viewports.
+Like <a href="jQuery.fn.html#.isTopAboveViewport">jQuery.fn.isTopAboveViewport</a>, but meant for horizontally scrolling viewports.
 <p>Usage pattern:</p>
 <pre><code>if ($(selector).isLeftLeftOutOfViewport())</code></pre>
 </div>
@@ -1338,6 +1338,232 @@ to the right of the right-hand side of the viewport (minus delta)
     
 
     
+    <h4 class="name" id=".isTopAboveViewport"><span class="type-signature">(static) </span>isTopAboveViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>, delta<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: checks whether the top of the first element in the set of matched elements
+is not within the viewport but lies above. The element itself may be partially visible, but 
+at least its top is cut off.
+<p>Usage pattern:</p>
+<pre><code>if ($(selector).isTopAboveViewport())</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to check against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delta</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">The delta is added from the calculated viewport top, i.e.
+if you enter a positive value, the function will return true "earlier", i.e. even if the
+top might be in viewport, but less that delta pixels below the viewport top.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    true if the top of the first element of the implicit argument is
+above the top of the viewport (plus delta)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".isTopBelowViewport"><span class="type-signature">(static) </span>isTopBelowViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>, delta<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
 
@@ -1536,232 +1762,6 @@ top is not yet quite below viewport, but below viewport bottom minus delta.</td>
 <div class="param-desc">
     true if the top of the first element of the implicit argument is
 below the bottom of the viewport (minus delta)
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".isTopBelowViewport"><span class="type-signature">(static) </span>isTopBelowViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>, delta<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    jQuery plug-in function: checks whether the top of the first element in the set of matched elements
-is not within the viewport but lies above. The element itself may be partially visible, but 
-at least its top is cut off.
-<p>Usage pattern:</p>
-<pre><code>if ($(selector).isTopAboveViewport())</code></pre>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>viewport</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">jqr</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    $(window)
-                
-                </td>
-            
-
-            <td class="description last">jQuery resultset, the first element in this set 
-defines the viewport to check against. The default viewport is the whole window.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>delta</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-
-            <td class="description last">The delta is added from the calculated viewport top, i.e.
-if you enter a positive value, the function will return true "earlier", i.e. even if the
-top might be in viewport, but less that delta pixels below the viewport top.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line144">line 144</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    true if the top of the first element of the implicit argument is
-above the top of the viewport (plus delta)
 </div>
 
 
@@ -2700,11 +2700,15 @@ allows for chaining several jQuery plug-in calls on the same result set.
 
 
 <div class="description">
-    jQuery plug-in function: Toggle a section: If it's visible, hide it, if it's hidden, show it.
-In difference to standard jQuery functions, this one supports changing a class of 
-a toggle control (like a button or link used to trigger this showOrHide action), so this
-control may reflect the state (hidden or showing). Also a third element used for 
-transmitting the state in a form post request can be implicitly updated.
+    jQuery plug-in function: Toggle a section: If the <em>condition</em> is true, show the section,
+otherwise hide it. The condition can be specified by a predicate in the options argument,
+the default condition (if none is specified by the caller) is that the selected element
+is not visible (<code>!$(this).is(":visible")</code>).
+<p>This function does not only show or hide the selected element(s), it also supports,
+changing the class of a toggle control (like a button or link used to trigger this 
+showOrHide action), so this toggle control may reflect the state (hidden or showing). 
+Also a form element used for transmitting the current visibility state in a post request 
+can be implicitly updated.
 </div>
 
 
@@ -2995,7 +2999,7 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line553">line 553</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line557">line 557</a>
     </li></ul></dd>
     
 
@@ -4159,7 +4163,7 @@ allows for chaining several jQuery plug-in calls on the same result set.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Aug 03 2019 23:47:59 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Aug 05 2019 20:43:01 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

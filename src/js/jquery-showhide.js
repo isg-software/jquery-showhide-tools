@@ -147,7 +147,7 @@
 	 * at least its top is cut off.
 	 * <p>Usage pattern:</p>
 	 * <pre><code>if ($(selector).isTopAboveViewport())</code></pre>
-	 * @function isTopBelowViewport
+	 * @function isTopAboveViewport
 	 * @memberOf jQuery.fn
 	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
@@ -470,9 +470,9 @@
 		function complete() {
 			//scroll?
 			if (opts.scroll && showHide === "show") {
-				if (block.isTopBelowViewport(opts.viewport, 50)) {
+				if (block.isTopBelowViewport(opts.viewport, opts.scrollTriggerTolerance)) {
 					block.scrollDownIntoView(opts.viewport, opts.scrollTolerance, opts.duration);
-				} else if (block.isTopAboveViewport(opts.viewport, 50)) {
+				} else if (block.isTopAboveViewport(opts.viewport, opts.scrollTriggerTolerance)) {
 					block.viewportAlignTop(opts.viewport, opts.scrollTolerance, opts.duration);
 				}
 			}
@@ -525,11 +525,15 @@
 	}
 	
 	/**
-	 * jQuery plug-in function: Toggle a section: If it's visible, hide it, if it's hidden, show it.
-	 * In difference to standard jQuery functions, this one supports changing a class of 
-	 * a toggle control (like a button or link used to trigger this showOrHide action), so this
-	 * control may reflect the state (hidden or showing). Also a third element used for 
-	 * transmitting the state in a form post request can be implicitly updated.
+	 * jQuery plug-in function: Toggle a section: If the <em>condition</em> is true, show the section,
+	 * otherwise hide it. The condition can be specified by a predicate in the options argument,
+	 * the default condition (if none is specified by the caller) is that the selected element
+	 * is not visible (<code>!$(this).is(":visible")</code>).
+	 * <p>This function does not only show or hide the selected element(s), it also supports,
+	 * changing the class of a toggle control (like a button or link used to trigger this 
+	 * showOrHide action), so this toggle control may reflect the state (hidden or showing). 
+	 * Also a form element used for transmitting the current visibility state in a post request 
+	 * can be implicitly updated.
 	 * @function showOrHideSection()
 	 * @memberOf jQuery.fn
 	 * @param {object} [options] Options for this function. This is merged with the setup.
@@ -592,7 +596,7 @@
 		return this;
 	};
 	
-	
+	//FIXME: hard-wired class names "showing" and "hidden"! Evaluate options instead!
 	$.fn.showOrHideChildren = function(childrenSelect, options) {
         this.each(function() {
         	const opts = getShowOrHideOptions($(this), options);
@@ -636,7 +640,91 @@
 	 * Default settings for many of the jQuery plug-in-functions of this package.
 	 * @member DEFAULTS
 	 * @memberOf jQuery.fn.showOrHideSection
-	 * @property {int} duration =200 Default duration for animations (scrolling, expanding or collapsing elements).
+	 * @property {string} classShowing ="showing" Name of a CSS class which should be added to 
+	 * the toggle element (see property toggle) when showing the corresponding section and removed
+	 * when hiding the section.
+	 * @property {string} classHidden ="hidden" Name of a CSS class which should be added to 
+	 * the toggle element (see property toggle) when hiding the corresponding section and removed
+	 * when showing the section.
+	 * @property {string} [easing] A string indicating which easing function to use for the 
+	 * show or hide transition. 
+	 * See <a href="https://api.jquery.com/animate/">jQuery.animate()</a>. 
+	 * If undefined (default), jQuery.animate()'s default easing function will be used.
+	 * @property {boolean} horizontalAnimation =false: Default tries vertical easing when
+	 * showing or hiding a section, set to true in order to change to horizontal easing.
+	 * @property {int} duration =200 Default duration for animations (scrolling, 
+	 * or easing when expanding or collapsing elements).
+	 * @property {boolean} scroll =false. When false (default), any call to 
+	 * {@link jQuery.fn.showSection showSection()} or 
+	 * {@link jQuery.fn.showOrHideSection showOrHideSection()} (for showing)
+	 * will simply show the target section regardless of whether it is in the viewport or not,
+	 * i.e. not ensuring that the user will see the newly showing section.
+	 * Set this to true to ensure that the newly shown section will be scrolled into viewport:
+	 * If the section is {@link jQuery.fn.isTopBelowViewport below viewport}, the page will
+	 * {@link jQuery.fn.scrollDownIntoView scroll down until the section is in view},
+	 * if {@link jQuery.fn.isTopAboveViewport the section's top is above viewport} (the 
+	 * section might be partially showing or not at all, but the start of the section is 
+	 * not in view), the page will {@link jQuery.fn.viewportAlignTop scroll up} to show
+	 * the beginning of the newly shown section.
+	 * @property {int} [scrollTriggerTolerance] =50 Tolerance for the decisions if/when to
+	 * trigger a scroll. Only evaluated, of course, if option <code>scroll</code> is true.
+	 * See tolerance parameter of {@link jQuery.fn.isTopBelowViewport} resp.
+	 * {@link jQuery.fn.isTopAboveViewport}.
+	 * @property {int} [scrollTolerance] Tolerance for the scroll operation (see option <code>scroll</scroll>}).
+	 * If left undefined (default), the default tolerance of the called scroll function
+	 * ({@link jQuery.fn.scrollDownIntoView} resp. {@link jQuery.fn.viewportAlignTop}) will be used.
+	 * @property {string} toggle = "#${id}_h" String pattern for a jQuery selector string used
+	 * to find the section heading element (usually containing a toggle control) whose class 
+	 * list is to be changed in order to reflect the visibility state of the section. 
+	 * For example: If you have a link or button and have
+	 * bound a function to it's click event in order to call <code>$("#mySection").showOrHide()</code>,
+	 * i.e. a link or button which is used to toggle the visibility of a section with the example
+	 * ID "mySection", then you may define this link or button to be the toggle control.
+	 * When the section in invisible, the toggle link or button will have class "hidden", otherwise
+	 * class "showing" by default (see options <code>classShowing</code> and <code>classHidden</code>).
+	 * The control is usually a child element of some "header" element (which may but does not have to
+	 * contain a heading text for the section). And, depending on the heading element's <code>class</code>
+	 * list, CSS rules can define different optical state representations for the section state,
+	 * e.g. by changing an icon.<br>
+	 * The default value of this <code>toggle</code> property is "#${id}_h". In this string,
+	 * any occurrance of "${xyz}" will first be replaced by calling $(this).prop("xyz"). In this
+	 * case, when showing or hiding the section with ID "mySection", the toggle selector will resolve
+	 * to "#mySection_h". Then this selector will be used a jQuery search parameter to perform something
+	 * like <code>$("#mySection_h").addClass("showing").removeClass("hidden")</code>.
+	 * If you leave this setting on its default value, all you have to do is to make sure, that
+	 * the ID if each toggle control equals the actual section's ID with appended suffix "_h".
+	 * If you don't like this default convention, specify a different pattern string.
+	 * @property {string} [store] A pattern string similar to option <code>toggle</code>
+	 * specifying a pattern for a jQuery selector string for finding a form element in which to
+	 * store the current visibility state. The syntax is the same as for <code>toggle</code>.
+	 * The default is undefined, which means that no such form control is used. If you are
+	 * designing an HTML form with expandable and collapsable sections and you want the current
+	 * state (whether a specific section is visible or hidden) to persist even when submitting
+	 * the form, you may introduce hidden fields to your form, one per hideable section, 
+	 * and associate them with the sections by specifying this option. For example, if you
+	 * set the ID of each of those hidden fields to the ID of the corresponding section
+	 * with a suffix of "_state" appended, then set this option to: <code>#${id}_state</code>.
+	 * Then for each section the state will be submitted the following way: The hidden field
+	 * will be empty if the section is hidden, and the hidden field will be non-empty (value "X"),
+	 * if the section is showing. Then your server application may evaluate this form data
+	 * and take care of initialising each section's visibility in the response page it produces.
+	 * @property {string} ariaExpandedSelector ="#${id}_h a[href]:first, #${id}_h button:first"
+	 * String pattern for a jQuery selector string,
+	 * see option <code>toggle</code>. This default value is meant for the case that the 
+	 * <code>toggle</code> selector selects heading element <em>containing</em> a toggle control
+	 * which is a button or a link. That's why this selector searches for the first link or button
+	 * inside the section heading selected by "#${id}_h" (which is the default value for the
+	 * <code>toggle</code> option, see above). If you change the toggle option, you should change
+	 * this option accordingly. Or if your toggle selector does not select an element
+	 * <em>containing</em> the actual toggle control (link or button), but the control itself,
+	 * you should also change this option (to the same value as <code>toggle</code> in that case).
+	 * <br><em>Meaning of this selector</em>: For the element found by this selector (if any),
+	 * the attribute <code>"aria-expanded"</code> will be set to <code>true</code> if the section
+	 * is visible or <code>false</code> if the section is hidden.
+	 * This is done for better accessibility: A screen reader will then not only read the
+	 * toggle's text (link or button label), but will also announce the state (expanded or collapsed)
+	 * of the section, and clicking that control will change this state.
+	 * @property {predicate} [condition] TODO
 	 */
 	$.fn.showOrHideSection.DEFAULTS = {
 		classShowing: "showing",
@@ -645,9 +733,9 @@
 		horizontalAnimation: false,
 		duration: 200,
 		scroll: false,
+		scrollTriggerTolerance: 50,
 		scrollTolerance: undefined,
 		toggle: "#${id}_h",
-//		store: "#${id}_state"
 		store: undefined,
 		ariaExpandedSelector: "#${id}_h a[href]:first, #${id}_h button:first",
 		condition: undefined,
