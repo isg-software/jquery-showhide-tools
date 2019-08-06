@@ -447,18 +447,18 @@
 	
 	function doShowOrHideBlock(block, showHide, opts) {
 	
-		//switch class of toggle element (if exists)
-		const toggle = expandAndApplySelector(block, opts.toggle);
+		//switch class of heading element (if exists)
+		const h = $(this).getSectionHeading(opts);
 		//for any found heading (one or none) change class:
-		toggle.toggleClass(opts.classShowing, showHide !== 'hide');
-		toggle.toggleClass(opts.classHidden, showHide === 'hide');
+		h.toggleClass(opts.classShowing, showHide !== 'hide');
+		h.toggleClass(opts.classHidden, showHide === 'hide');
 		
 		//store aria attribute
-		const ariaTarget = expandAndApplySelector(block, opts.ariaExpandedSelector).first();
+		const ariaTarget = expandAndApplySelector(block, opts.toggleSelector).first();
 		ariaTarget.attr("aria-expanded", "" + (showHide !== 'hide'));
 		
 		//store state in hidden field (if exists)
-		const findstore = expandAndApplySelector(block, opts.store);
+		const findstore = expandAndApplySelector(block, opts.storeSelector);
 		if (findstore && findstore.length) { //found
 			const store = findstore.get(0);
 			if (showHide==='hide')
@@ -491,13 +491,13 @@
 				}, opts.duration, opts.easing, complete);
 
 		if (showHide === 'show' && typeof opts.onShow === "function") {
-			opts.onShow.call(block.get(0), block, toggle);
+			opts.onShow.call(block.get(0), block, h);
 		}
 		if (showHide === 'hide' && typeof opts.onHide === "function") {
-			opts.onHide.call(block.get(0), block, toggle);
+			opts.onHide.call(block.get(0), block, h);
 		}
 		if (typeof opts.onToggle === "function") {
-			opts.onToggle.call(block.get(0), block, toggle);
+			opts.onToggle.call(block.get(0), block, h);
 		}
 	}
 	
@@ -530,8 +530,7 @@
 	 * the default condition (if none is specified by the caller) is that the selected element
 	 * is not visible (<code>!$(this).is(":visible")</code>).
 	 * <p>This function does not only show or hide the selected element(s), it also supports,
-	 * changing the class of a toggle control (like a button or link used to trigger this 
-	 * showOrHide action), so this toggle control may reflect the state (hidden or showing). 
+	 * changing the class of a heading, so this may reflect the state (hidden or showing). 
 	 * Also a form element used for transmitting the current visibility state in a post request 
 	 * can be implicitly updated.
 	 * @function showOrHideSection()
@@ -597,16 +596,16 @@
 	};
 	
 	//FIXME: hard-wired class names "showing" and "hidden"! Evaluate options instead!
+	//TODO: condition support ? Compare with showOrHide!
 	$.fn.showOrHideChildren = function(childrenSelect, options) {
         this.each(function() {
         	const opts = getShowOrHideOptions($(this), options);
-            //switch class of toggle element 
-            const toggle = $(this).getSectionToggle(options);
+            //switch class of heading element 
+            const h = $(this).getSectionHeading(options);
 
-            var showing = toggle.hasClass("showing");
-            //switch class of block heading (if exists)
-            toggle.toggleClass("showing", !showing);
-            toggle.toggleClass("hidden", showing);
+            var showing = h.hasClass("showing");
+            h.toggleClass("showing", !showing);
+            h.toggleClass("hidden", showing);
 
             var showHide = showing ? "hide" : "show";
 
@@ -627,9 +626,9 @@
 		return this;
 	};
 	
-	$.fn.getSectionToggle = function(options) {
+	$.fn.getSectionHeading = function(options) {
 		const opts = getShowOrHideOptions(this, options);
-		return expandAndApplySelector(this, opts.toggle);
+		return expandAndApplySelector(this, opts.headingSelector);
 	}
 	
 	/**
@@ -641,10 +640,10 @@
 	 * @member DEFAULTS
 	 * @memberOf jQuery.fn.showOrHideSection
 	 * @property {string} classShowing ="showing" Name of a CSS class which should be added to 
-	 * the toggle element (see property toggle) when showing the corresponding section and removed
+	 * the heading element (see property headingSelector) when showing the corresponding section and removed
 	 * when hiding the section.
 	 * @property {string} classHidden ="hidden" Name of a CSS class which should be added to 
-	 * the toggle element (see property toggle) when hiding the corresponding section and removed
+	 * the heading element (see property headingSelector) when hiding the corresponding section and removed
 	 * when showing the section.
 	 * @property {string} [easing] A string indicating which easing function to use for the 
 	 * show or hide transition. 
@@ -673,9 +672,16 @@
 	 * @property {int} [scrollTolerance] Tolerance for the scroll operation (see option <code>scroll</scroll>}).
 	 * If left undefined (default), the default tolerance of the called scroll function
 	 * ({@link jQuery.fn.scrollDownIntoView} resp. {@link jQuery.fn.viewportAlignTop}) will be used.
-	 * @property {string} toggle = "#${id}_h" String pattern for a jQuery selector string used
-	 * to find the section heading element (usually containing a toggle control) whose class 
-	 * list is to be changed in order to reflect the visibility state of the section. 
+	 * @property {string} headingSelector = "#${id}_h" String pattern for a jQuery selector string used
+	 * to find the section heading element.
+	 * This heading element is an HTML element usually above the hideable section itself
+	 * and is supposed to be always visible (even if the section is hidden) and to visually
+	 * reflect the state (i.e. by an icon), indicating, whether it refers to the following visible
+	 * section or to a hidden section. It also usually contains a toggle control (like a link or button) 
+	 * to trigger an event which will expand a hidden section or hide the visible section.
+	 * TODO:
+	  CHECK/UPDATE THE FOLLOWING TEXT	 
+	 
 	 * For example: If you have a link or button and have
 	 * bound a function to it's click event in order to call <code>$("#mySection").showOrHide()</code>,
 	 * i.e. a link or button which is used to toggle the visibility of a section with the example
@@ -694,9 +700,12 @@
 	 * If you leave this setting on its default value, all you have to do is to make sure, that
 	 * the ID if each toggle control equals the actual section's ID with appended suffix "_h".
 	 * If you don't like this default convention, specify a different pattern string.
-	 * @property {string} [store] A pattern string similar to option <code>toggle</code>
+	 
+	 
+	 
+	 * @property {string} [storeSelector] A pattern string similar to option <code>headingSelector</code>
 	 * specifying a pattern for a jQuery selector string for finding a form element in which to
-	 * store the current visibility state. The syntax is the same as for <code>toggle</code>.
+	 * store the current visibility state. The syntax is the same as for <code>headingSelector</code>.
 	 * The default is undefined, which means that no such form control is used. If you are
 	 * designing an HTML form with expandable and collapsable sections and you want the current
 	 * state (whether a specific section is visible or hidden) to persist even when submitting
@@ -708,16 +717,16 @@
 	 * will be empty if the section is hidden, and the hidden field will be non-empty (value "X"),
 	 * if the section is showing. Then your server application may evaluate this form data
 	 * and take care of initialising each section's visibility in the response page it produces.
-	 * @property {string} ariaExpandedSelector ="#${id}_h a[href]:first, #${id}_h button:first"
+	 * @property {string} toggleSelector ="#${id}_h a[href]:first, #${id}_h button:first"
 	 * String pattern for a jQuery selector string,
-	 * see option <code>toggle</code>. This default value is meant for the case that the 
-	 * <code>toggle</code> selector selects heading element <em>containing</em> a toggle control
+	 * see option <code>headingSelector</code>. This default value is meant for the case that the 
+	 * <code>headingSelector</code> selector selects heading element <em>containing</em> a toggle control
 	 * which is a button or a link. That's why this selector searches for the first link or button
 	 * inside the section heading selected by "#${id}_h" (which is the default value for the
-	 * <code>toggle</code> option, see above). If you change the toggle option, you should change
-	 * this option accordingly. Or if your toggle selector does not select an element
+	 * <code>headingSelector</code> option, see above). If you change the headingSelector option, you should change
+	 * this option accordingly. Or if your headingSelector does not select an element
 	 * <em>containing</em> the actual toggle control (link or button), but the control itself,
-	 * you should also change this option (to the same value as <code>toggle</code> in that case).
+	 * you should also change this option (to the same value as <code>headingSelector</code> in that case).
 	 * <br><em>Meaning of this selector</em>: For the element found by this selector (if any),
 	 * the attribute <code>"aria-expanded"</code> will be set to <code>true</code> if the section
 	 * is visible or <code>false</code> if the section is hidden.
@@ -735,9 +744,9 @@
 		scroll: false,
 		scrollTriggerTolerance: 50,
 		scrollTolerance: undefined,
-		toggle: "#${id}_h",
-		store: undefined,
-		ariaExpandedSelector: "#${id}_h a[href]:first, #${id}_h button:first",
+		headingSelector: "#${id}_h",
+		storeSelector: undefined,
+		toggleSelector: "#${id}_h a[href]:first, #${id}_h button:first",
 		condition: undefined,
 		viewport: $(window),
 		onToggle: undefined,
