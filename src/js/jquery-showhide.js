@@ -1,4 +1,5 @@
 // @codekit-append "sliding-panels"
+// @codekit-append "appendMoreLinks"
 /**
  * @license 
  * Copyright (c) 2018, Immo Schulz-Gerlach, www.isg-software.de 
@@ -502,7 +503,7 @@
 	}
 	
 	/**
-	 * jQuery plug-in function: Saves options for {@link jQuery.fn.showOrHideSection} as well
+	 * jQuery plug-in function: Saves options for {@link jQuery.fn.showOrHideSection()} as well
 	 * as similar functions like {@link jQuery.fn.showSection} permanently in a data cache
 	 * associated with all of the selected elements.
 	 * So whenever you later call something like <code>$(selector).showOrHideSection()</code>
@@ -546,7 +547,8 @@
 	$.fn.showOrHideSection = function(options) {
         this.each(function() {
 	        const opts = getShowOrHideOptions($(this), options);
-            const condition = typeof opts.condition !== "undefined" ? opts.condition : !$(this).is(":visible");
+            const condition = typeof opts.condition === "undefined" ? !$(this).is(":visible")
+            		: typeof opts.condition === "function" ? opts.condition(this) : opts.condition;
             const showHide = condition ? "show" : "hide";
             doShowOrHideBlock($(this), showHide, opts);
         });
@@ -595,6 +597,7 @@
 		return this;
 	};
 	
+	//TODO: Document
 	//FIXME: hard-wired class names "showing" and "hidden"! Evaluate options instead!
 	//TODO: condition support ? Compare with showOrHide!
 	$.fn.showOrHideChildren = function(childrenSelect, options) {
@@ -626,6 +629,20 @@
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in: Simple getter function for getting the header element to a section
+	 * as defined by the {@link jQuery.fn.showOrHideSection.DEFAULTS headingSelector option}.
+	 * Mainly used internally by plug-in functions like {@link jQuery.fn.showOrHideSection()},
+	 * but may also be used internally.
+	 * @function getSectionHeading
+	 * @memberOf jQuery.fn
+	 * @param {object} [options] Options just like for {@link jQuery.fn.showOrHideSection()}.
+	 * Is searched for existance of the <code>headingSelector</code> option. If that's no present
+	 * (or no argument was given at all), the current {@link jQuery.fn.setupShowOrHideSection setup})
+	 * is used, and if no setup is present, the {@link jQuery.fn.showOrHideSection.DEFAULTS default value} 
+	 * will be used.
+	 * @return {jqr} jQuery resultset (possibly empty) with the heading element, if found.
+	 */
 	$.fn.getSectionHeading = function(options) {
 		const opts = getShowOrHideOptions(this, options);
 		return expandAndApplySelector(this, opts.headingSelector);
@@ -636,7 +653,10 @@
 	 * @memberOf jQuery.fn
 	 */
 	/**
-	 * Default settings for many of the jQuery plug-in-functions of this package.
+	 * This object defines the default settings for {@link jQuery.fn.showOrHideSection()} and
+	 * similar plug-in functions. 
+	 * The table also lists all possible properties for the <code>options</code> argument
+	 * of said functions.
 	 * @member DEFAULTS
 	 * @memberOf jQuery.fn.showOrHideSection
 	 * @property {string} classShowing ="showing" Name of a CSS class which should be added to 
@@ -655,7 +675,7 @@
 	 * or easing when expanding or collapsing elements).
 	 * @property {boolean} scroll =false. When false (default), any call to 
 	 * {@link jQuery.fn.showSection showSection()} or 
-	 * {@link jQuery.fn.showOrHideSection showOrHideSection()} (for showing)
+	 * {@link jQuery.fn.showOrHideSection() showOrHideSection()} (for showing)
 	 * will simply show the target section regardless of whether it is in the viewport or not,
 	 * i.e. not ensuring that the user will see the newly showing section.
 	 * Set this to true to ensure that the newly shown section will be scrolled into viewport:
@@ -677,20 +697,18 @@
 	 * This heading element is an HTML element usually above the hideable section itself
 	 * and is supposed to be always visible (even if the section is hidden) and to visually
 	 * reflect the state (i.e. by an icon), indicating, whether it refers to the following visible
-	 * section or to a hidden section. It also usually contains a toggle control (like a link or button) 
+	 * section or to a hidden section. It also usually is or contains a toggle control (like a link or button) 
 	 * to trigger an event which will expand a hidden section or hide the visible section.
-	 * TODO:
-	  CHECK/UPDATE THE FOLLOWING TEXT	 
-	 
-	 * For example: If you have a link or button and have
-	 * bound a function to it's click event in order to call <code>$("#mySection").showOrHide()</code>,
-	 * i.e. a link or button which is used to toggle the visibility of a section with the example
-	 * ID "mySection", then you may define this link or button to be the toggle control.
-	 * When the section in invisible, the toggle link or button will have class "hidden", otherwise
-	 * class "showing" by default (see options <code>classShowing</code> and <code>classHidden</code>).
-	 * The control is usually a child element of some "header" element (which may but does not have to
-	 * contain a heading text for the section). And, depending on the heading element's <code>class</code>
-	 * list, CSS rules can define different optical state representations for the section state,
+	 * For example: If you have a link or button and have bound a function to it's click event 
+	 * in order to call <code>$("#mySection").showOrHide()</code>, i.e. a link or button which 
+	 * is used to toggle the visibility of a section with the example ID "mySection", 
+	 * then this link or button is called the toggle control. You may define this toggle 
+	 * control itself to be the heading, but you might also define a larger container, say
+	 * a DIV, to be the header, and this (among others) contains the toggle control (button/link).
+	 * The heading (regardless if it's the control or a surrounding container) should be
+	 * designe to optically reflect the current toggle's state (section visible or invisible?).
+	 * This should be defined via CSS. In order to do so, the heading can have a showing or a
+	 * hidden class, so you may write CSS rules based on these classes to visualize the state,
 	 * e.g. by changing an icon.<br>
 	 * The default value of this <code>toggle</code> property is "#${id}_h". In this string,
 	 * any occurrance of "${xyz}" will first be replaced by calling $(this).prop("xyz"). In this
@@ -698,11 +716,25 @@
 	 * to "#mySection_h". Then this selector will be used a jQuery search parameter to perform something
 	 * like <code>$("#mySection_h").addClass("showing").removeClass("hidden")</code>.
 	 * If you leave this setting on its default value, all you have to do is to make sure, that
-	 * the ID if each toggle control equals the actual section's ID with appended suffix "_h".
+	 * the ID if each heading element equals the actual section's ID with appended suffix "_h".
 	 * If you don't like this default convention, specify a different pattern string.
-	 
-	 
-	 
+	 * @property {string} toggleSelector ="#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h"
+	 * String pattern for a jQuery selector string, see option <code>headingSelector</code>. 
+	 * This default value is meant for the case that the <code>headingSelector</code> selects 
+	 * a heading element which either <em>containing</em> a toggle control which is a button 
+	 * or a link (anchor with href attribute), or a heading element which <em>is itself</em>
+	 * such a button or a link. If the heading itself is not a button or link, the selector
+	 * selects the first button or link inside the heading.
+	 * This so-found button or link is expected to be the toggle control which a user can click
+	 * in order to show or hide the section.
+	 * If you modify the default headingSelector you'll probably also hav to change
+	 * this option accordingly. 
+	 * <br>What actually happens with the result is (currently): For the element found by this selector (if any),
+	 * the attribute <code>"aria-expanded"</code> will be set to <code>true</code> if the section
+	 * is visible or <code>false</code> if the section is hidden.
+	 * This is done for better accessibility: A screen reader will then not only read the
+	 * toggle's text (link or button label), but will also announce the state (expanded or collapsed)
+	 * of the section, and clicking that control will change this state.
 	 * @property {string} [storeSelector] A pattern string similar to option <code>headingSelector</code>
 	 * specifying a pattern for a jQuery selector string for finding a form element in which to
 	 * store the current visibility state. The syntax is the same as for <code>headingSelector</code>.
@@ -717,23 +749,43 @@
 	 * will be empty if the section is hidden, and the hidden field will be non-empty (value "X"),
 	 * if the section is showing. Then your server application may evaluate this form data
 	 * and take care of initialising each section's visibility in the response page it produces.
-	 * @property {string} toggleSelector ="#${id}_h a[href]:first, #${id}_h button:first"
-	 * String pattern for a jQuery selector string,
-	 * see option <code>headingSelector</code>. This default value is meant for the case that the 
-	 * <code>headingSelector</code> selector selects heading element <em>containing</em> a toggle control
-	 * which is a button or a link. That's why this selector searches for the first link or button
-	 * inside the section heading selected by "#${id}_h" (which is the default value for the
-	 * <code>headingSelector</code> option, see above). If you change the headingSelector option, you should change
-	 * this option accordingly. Or if your headingSelector does not select an element
-	 * <em>containing</em> the actual toggle control (link or button), but the control itself,
-	 * you should also change this option (to the same value as <code>headingSelector</code> in that case).
-	 * <br><em>Meaning of this selector</em>: For the element found by this selector (if any),
-	 * the attribute <code>"aria-expanded"</code> will be set to <code>true</code> if the section
-	 * is visible or <code>false</code> if the section is hidden.
-	 * This is done for better accessibility: A screen reader will then not only read the
-	 * toggle's text (link or button label), but will also announce the state (expanded or collapsed)
-	 * of the section, and clicking that control will change this state.
-	 * @property {predicate} [condition] TODO
+	 * @property {boolean_or_predicate} [condition] Defaults to undefined. If left undefined, the function
+	 * {@link jQuery.fn.showOrHideSection()} (<em>not</em> the unconditional {@link jQuery.fn.showSection}
+	 * or {@link jQuery.fn.showSection}) will simply toggle the section's visibility, i.e. if it's
+	 * visible, the function will hide it, otherwise it will show it. By setting this option,
+	 * you can specify a different condition which either statically or dynamically decides whether 
+	 * to try and hide or show the section: 
+	 * If you set condition to a simple boolean expression (evaluated to a boolean before the actual)
+	 * showOrHideSection() function is executed (this is usually not done in a 
+	 * {@link jQuery.fn.setupShowOrHideSection setup}, but directly in the options argument to the 
+	 * {@link jQuery.fn.showOrHideSection() showOrHideSection} function)), the section will be
+	 * shown (or keep visible if it already was) if the value is truthy, otherwise it will be (or keep)
+	 * hidden.
+	 * You may also set the option to be a one-argument-predicate, i.e. a (callback) function with one
+	 * parameter which returns a boolean value. This function will then be executed each time
+	 * showOrHideSection() is executed, its one argument set to a reference to the section itself,
+	 * and it can then decide whether to return true (show section) or false (hide section).
+	 * (Such a function would usually be set once in {@link jQuery.fn.setupShowOrHideSection}.)
+	 * @property {jqr} viewport =$(window) A jQuery resultset. which should contain one item
+	 * representing the viewport in which the section should be aligned. Will be used only if
+	 * the <code>scroll</code> option (see above) is true. This then defines the viewport
+	 * inside which the newly shown section should be aligned by scrolling (see scroll functions).
+	 * @property {function} [onToggle] Optional callback function which will be called
+	 * whenever the visibility of the section changes, i.e. the section gets collapsed (hidden)
+	 * or expanded (shown) again. Three arguments will be passed, so your call-back function may
+	 * accept up to three parameters: The first parameter gets assigned a plain reference to the
+	 * section. The second parameter gets assigned a jQuery resultset containing exactly the
+	 * same reference. The third parameter gets assigned a jQuery resultset containing the
+	 * heading reference (result found by the <code>headingSelector</code>, of course this set
+	 * can be empty if the headingSelector did not match any nodes).
+	 * @property {function} [onShow] Callback function just like onToggle, only this function
+	 * will only be called when the section gets shown, not if it gets hidden.
+	 * Actually, it will always be called if a showSection() command (or showOrHideSection() 
+	 * with truthy condition) gets executed even if the section already was visible.
+	 * @property {function} [onHide] Callback function just like onToggle, only this function
+	 * will only be called when the section gets hidden, not if it gets shown.
+	 * Actually, it will always be called if a hideSection() command (or showOrHideSection() 
+	 * with falsy condition) gets executed even if the section already was invisible.
 	 */
 	$.fn.showOrHideSection.DEFAULTS = {
 		classShowing: "showing",
@@ -746,56 +798,12 @@
 		scrollTolerance: undefined,
 		headingSelector: "#${id}_h",
 		storeSelector: undefined,
-		toggleSelector: "#${id}_h a[href]:first, #${id}_h button:first",
+		toggleSelector: "#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h",
 		condition: undefined,
 		viewport: $(window),
 		onToggle: undefined,
 		onShow: undefined,
 		onHide: undefined
-	};
-	
-	
-	
-	/* Ib) More-Links und More-Blocks 
-	 * 
-	 * Usage: Ein Block (z.B. Absatz) wird mit der Klasse .appendMore ausgestattet. 
-	 * (Der Mehr...-Link wird an den Inhalt des .appendMore-Blocks angefügt. Absätze können selbst von der Klasse appendMore sein, soll aber z.B. auf eine
-	 * Liste (ul) ein Mehr...-Link folgen, darf nicht die Liste selbst von der Klasse appendMore sein, sondern ist in einen Div-Block der Klasse appendMore einzufassen,
-	 * damit der Link sp‰ter *hinter* dem UL-Element eingef¸gt wird.)
-	 * Entweder folgt innerhalb dieses Blocks ein Kindelement der Klasse .more, oder als direkter Nachbar (Nachfolger) des .appendMore.Blocks
-	 * oder eines seiner Vorfahren. 
-	 * Geschachtelte Blöcke: Es ist erlaubt, dass ein appendMore-Block selbst innere appendMore-/More-Blöcke enthält. In dem Fall darf sein "eigener" more-Block
-	 * nicht ebenfalls ein Kindelement sein, sondern muss ein Nachfolger sein wie oben beschrieben.
-	 * Ist JavaScript aktiviert, wird an den Inhalt jedes appendMore-Blocks automatisch ein "Mehr..."-Link angefügt und die more-Blocks ausgeblendet.
-	 * Der Link blendet diese dann wieder ein. Nur für echte Block-Elemente der Klasse .more (Div, Absatz etc.) wird eine slideDown-Animation
-	 * angewendet. Ist der .more-Teil z.B. ein Span innerhalb eines Absatzes der Klasse .appendMore, so wird zwar das Einblenden des more-Blocks
-	 * funktionieren, jedoch ohne Animation (da die auf Inline-Elemente nicht anwendbar ist).
-	 * 
-	 **/
-	$.fn.appendMoreLinks = function(options) {
-		const opts = $.extend({}, $.fn.appendMoreLinks.DEFAULTS, options);
-		this.append(" <a href='#!' class='" + opts.moreLinkClass + "'>" + opts.moreLinkLabel + "</a>");
-		//Soeben eingefügte Links nun mit Leben ausstatten:
-		$("a." + opts.moreLinkClass).click(function() {
-			$(this).hide();
-			//Suche den .more-Block zum Link.
-			var finder = $(this).parent(); //Ausgangspunkt ist der Vorfahr des .more-Links (Block der Klasse .appendMore)
-			var found = finder.next(opts.moreContentSelector);
-			while (!found.length && finder.length) { //Pr¸fe ansonsten noch die Nachfolger der Vorfahren
-				finder = finder.parent();
-				found = finder.next(opts.moreContentSelector);
-			}
-			found.slideDown("fast");
-
-			return false; //Springen zum Anchor '#' vermeiden
-		});
-		return this;
-	};
-	
-	$.fn.appendMoreLinks.DEFAULTS = {
-		moreLinkClass: "moreLink",
-		moreLinkLabel: "more&nbsp;&hellip;",
-		moreContentSelector: ".more"
 	};
 	
 }(jQuery));
