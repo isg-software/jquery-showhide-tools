@@ -110,6 +110,9 @@
         <h3 class="subsection-title">Namespaces</h3>
 
         <dl>
+            <dt><a href="jQuery.fn.appendMoreLinks.html">appendMoreLinks</a></dt>
+            <dd></dd>
+        
             <dt><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></dt>
             <dd></dd>
         </dl>
@@ -119,6 +122,228 @@
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".appendMoreLinks()"><span class="type-signature">(static) </span>appendMoreLinks()<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in for showing only the first / top part of a section and appending a link
+(like "more…") enabling users to show the rest of the section if they want to read it.
+<p>Take this HTML code for <strong>example</strong>:</p>
+<pre><code class="html">
+&lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
+&lt;div class="more"&gt;
+    &lt;p&gt;Some more…&lt;/p&gt;
+    &lt;p&gt;Even more…&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+With JavaScript disabled, a user will see all thee paragraphs. With JavaScript enabled
+you may execute a code like the following example in order to hide all ".more" blocks
+on load and append a "more…" link to each ".appendMore" block, wich, when clicked, will
+show the following ".more" block (and hide the link).
+<pre><code class="javascript">
+$(function() {
+    $(".more").hide();
+    $(".appendMore").appendMoreLinks();
+});
+</code></pre>
+<ul>
+<li>Of course, a web page may contains more than one pair of some node of class "appendMore"
+followed by a node of class "more".</lo>
+<li>The appendMoreLinks() function will simply append the links which will show the following
+".more" node. It does <em>not</em> initially hide the ".more" sections, which you should do
+dynamically by javascript just like in the example above. This has the advantage over static
+style attributes in your HTML or a static CSS rule like (<code>.more{display:none}</code>)
+that this way, the whole content will be visible if JavaScript should be disabled by the user,
+which is also importent regarding accessibility.</li>
+<li>Of course you may choose different class names. If the "more" blocks should use different
+classes than "more", don't forget to set the option <code>moreContentSelector</code> accordingly!.</li>
+<li>The following ".more" node does not have to be descendant of the same parent node as the "appendMore" node,
+it may also be a descendant of one of the ".more"-links's parents, like for example:
+<pre><code class="html">&lt;div&gt;
+    &lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="more"&gt;…&lt;/div&gt;
+</li>
+<li>Nesting of "append-more-sections" is allowed. Example:
+<pre><code class="html">&lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
+&lt;div class="more"&gt;
+    &lt;p& class="appendMore"gt;Some more…&lt;/p&gt;
+    &lt;p& class="more"gt;Even more…&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+</li>
+<li>When clicking the more link, the next "more" section will be shown with a
+vertical slide-down transition. But this only works if the "more" section is a block
+element (not an inline element).</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An objects whose properties may specify options (override default options),
+see <a href="jQuery.fn.appendMoreLinks.html#.DEFAULTS">list of default options</a>, which also specifies
+all available/overridable options.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="appendMoreLinks.js.html">appendMoreLinks.js</a>, <a href="appendMoreLinks.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset it was called on, allows chainable method calls.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
 
         
             
@@ -4334,13 +4559,13 @@ allows for chaining several jQuery plug-in calls on the same result set.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li><li><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li><li><a href="jQuery.fn.appendMoreLinks.html">appendMoreLinks</a></li><li><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Aug 07 2019 21:47:14 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Aug 12 2019 20:27:32 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>
