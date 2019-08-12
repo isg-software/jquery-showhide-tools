@@ -39,39 +39,6 @@
 		"sC": 3,
 		"tS": 1
 		},
-	"/dist/lang-css-min.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/dist/lang-css-min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
-		},
-	"/dist/linenumber-min.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/dist/linenumber-min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
-		},
-	"/dist/prettify-min.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/dist/prettify-min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
-		},
 	"/dist/slidingpanels.css": {
 		"aP": 1,
 		"bl": 0,
@@ -152,6 +119,17 @@
 		"pME": 1,
 		"rFN": 0,
 		"uCM": 0
+		},
+	"/src/js/appendMoreLinks.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/dist/appendMoreLinks-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
 		},
 	"/src/js/apply-showhide-defaults.js": {
 		"bF": 0,
@@ -2267,9 +2245,9 @@
 		],
 	"npmAbbreviatedPath": "",
 	"npmCreatePackageLock": 1,
-	"npmInstallOptionalDependencies": 0,
+	"npmInstallOptionalDependencies": 1,
 	"npmSaveExactVersion": 0,
-	"npmTargetDependencyListType": 2,
+	"npmTargetDependencyListType": 4,
 	"overrideExternalServerCSS": 0,
 	"previewPathAddition": "",
 	"skippedFoldersString": "_cache,cache,.idea,log,_logs,logs,node_modules,/storage/framework/sessions,doc",

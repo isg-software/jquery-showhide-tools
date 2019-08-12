@@ -73,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line35">line 35</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
@@ -107,11 +107,380 @@
     
 
     
+        <h3 class="subsection-title">Namespaces</h3>
+
+        <dl>
+            <dt><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></dt>
+            <dd></dd>
+        </dl>
+    
 
     
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getSectionHeading"><span class="type-signature">(static) </span>getSectionHeading<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in: Simple getter function for getting the header element to a section
+as defined by the <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">headingSelector option</a>.
+Mainly used internally by plug-in functions like <a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a>,
+but may also be used internally.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Options just like for <a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a>.
+Is searched for existance of the <code>headingSelector</code> option. If that's no present
+(or no argument was given at all), the current <a href="jQuery.fn.html#.setupShowOrHideSection">setup</a>)
+is used, and if no setup is present, the <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">default value</a> 
+will be used.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line632">line 632</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    jQuery resultset (possibly empty) with the heading element, if found.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".hideSection"><span class="type-signature">(static) </span>hideSection<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: HIde a section: If it's showing, hide it, if it's already hidden,
+do nothing.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Options for this function. This is merged with the setup.
+If no options are given at all, the setup is used (see <a href="jQuery.fn.html#.setupShowOrHideSection">jQuery.fn.setupShowOrHideSection</a>).
+If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">DEFAULTS</a> are used.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line579">line 579</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a></li>
+        
+            <li><a href="jQuery.fn.html#.showSection">jQuery.fn.showSection</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
 
         
             
@@ -176,7 +545,7 @@ is visible within the viewport.
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">jqr</span>
 
 
             
@@ -244,7 +613,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line227">line 227</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line228">line 228</a>
     </li></ul></dd>
     
 
@@ -368,7 +737,7 @@ Like <a href="jQuery.fn.html#.isTopInViewport">jQuery.fn.isTopInViewport</a>, bu
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">jqr</span>
 
 
             
@@ -436,7 +805,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line165">line 165</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line166">line 166</a>
     </li></ul></dd>
     
 
@@ -560,7 +929,7 @@ Like <a href="jQuery.fn.html#.isBottomInViewport">jQuery.fn.isBottomInViewport</
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">jqr</span>
 
 
             
@@ -628,7 +997,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line245">line 245</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line246">line 246</a>
     </li></ul></dd>
     
 
@@ -705,7 +1074,7 @@ within the viewport
     jQuery plug-in function: checks whether the left of the first element in the set of matched elements
 is not within the viewport but to the left of it. The element itself may be partially visible, but 
 at least its left part is cut off.
-Like jQuery.fn.isTopAboveViewport, but meant for horizontally scrolling viewports.
+Like <a href="jQuery.fn.html#.isTopAboveViewport">jQuery.fn.isTopAboveViewport</a>, but meant for horizontally scrolling viewports.
 <p>Usage pattern:</p>
 <pre><code>if ($(selector).isLeftLeftOutOfViewport())</code></pre>
 </div>
@@ -753,7 +1122,7 @@ Like jQuery.fn.isTopAboveViewport, but meant for horizontally scrolling viewport
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">jqr</span>
 
 
             
@@ -862,7 +1231,7 @@ top might be in viewport, but less that delta pixels below the left viewport edg
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line205">line 205</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line206">line 206</a>
     </li></ul></dd>
     
 
@@ -979,7 +1348,7 @@ Like <a href="jQuery.fn.html#.isTopBelowViewport">jQuery.fn.isTopBelowViewport</
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">jqr</span>
 
 
             
@@ -1088,7 +1457,7 @@ top is not yet quite right out of the viewport, but to the right of viewport rig
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line184">line 184</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line185">line 185</a>
     </li></ul></dd>
     
 
@@ -1147,7 +1516,7 @@ to the right of the right-hand side of the viewport (minus delta)
     
 
     
-    <h4 class="name" id=".isTopBelowViewport"><span class="type-signature">(static) </span>isTopBelowViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>, delta<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id=".isTopAboveViewport"><span class="type-signature">(static) </span>isTopAboveViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>, delta<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
 
     
@@ -1205,7 +1574,7 @@ at least its top is cut off.
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">jqr</span>
 
 
             
@@ -1314,7 +1683,7 @@ top might be in viewport, but less that delta pixels below the viewport top.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line144">line 144</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -1431,7 +1800,7 @@ the element to enter the viewport).
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">jqr</span>
 
 
             
@@ -1540,7 +1909,7 @@ top is not yet quite below viewport, but below viewport bottom minus delta.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line123">line 123</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line124">line 124</a>
     </li></ul></dd>
     
 
@@ -1656,7 +2025,7 @@ is visible within the viewport.
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">jqr</span>
 
 
             
@@ -1724,7 +2093,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line105">line 105</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -1785,6 +2154,2171 @@ within the viewport
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id=".scrollDownIntoView"><span class="type-signature">(static) </span>scrollDownIntoView<span class="signature">(viewport<span class="signature-attributes">opt</span>, tolerance<span class="signature-attributes">opt</span>, duration<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Tries to scroll the selected section into view. The section
+is the first element of the matched elements (jQuery result set).
+If this sections height (minus twice the tolerance) is larger than the viewport's height,
+it will be aligned by its top (see <a href="jQuery.fn.html#.viewportAlignTop">viewportAlignTop</a>),
+otherwise it will be aligned by its bottom (see <a href="jQuery.fn.html#.viewportAlignBottom">viewportAlignBottom</a>).
+If the current viewport is above the target element, this will result in scrolling down only
+as far as necessary to get the whole element into view (or to get its top into view, if it's too
+large for the viewport).
+<p>Usage pattern:</p>
+<pre><code>$("#mySection").scrollDownIntoView();</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to align against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tolerance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    30
+                
+                </td>
+            
+
+            <td class="description last">tolerance / approx. margin to be left free between the viewport
+edges and the target element</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    200
+                
+                </td>
+            
+
+            <td class="description last">duration of the scrolling animation. The default value of 200ms is defined
+in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSection.DEFAULTS</a>, which may be overridden.
+(if the scrollTo plug-in is loaded).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line325">line 325</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".scrollRightIntoView"><span class="type-signature">(static) </span>scrollRightIntoView<span class="signature">(viewport<span class="signature-attributes">opt</span>, tolerance<span class="signature-attributes">opt</span>, duration<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Tries to horizontally scroll the selected section into view. The section
+is the first element of the matched elements (jQuery result set).
+If this sections width (minus twice the tolerance) is larger than the viewport's width,
+it will be aligned by its left (see <a href="jQuery.fn.html#.viewportAlignLeft">viewportAlignLeft</a>),
+otherwise it will be aligned by its bottom (see <a href="jQuery.fn.html#.viewportAlignRight">viewportAlignRight</a>).
+If the current viewport is to the left of the target element, this will result in scrolling right only
+as far as necessary to get the whole element into view (or to get its left into view, if it's too
+large for the viewport).
+<p>Usage pattern:</p>
+<pre><code>$("#mySection").scrollRightIntoView();</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to align against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tolerance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    30
+                
+                </td>
+            
+
+            <td class="description last">tolerance / approx. margin to be left free between the viewport
+edges and the target element</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    200
+                
+                </td>
+            
+
+            <td class="description last">duration of the scrolling animation. The default value of 200ms is defined
+in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSection.DEFAULTS</a>, which may be overridden.
+(if the scrollTo plug-in is loaded).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line409">line 409</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".setupShowOrHideSection"><span class="type-signature">(static) </span>setupShowOrHideSection<span class="signature">(options)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Saves options for <a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a> as well
+as similar functions like <a href="jQuery.fn.html#.showSection">jQuery.fn.showSection</a> permanently in a data cache
+associated with all of the selected elements.
+So whenever you later call something like <code>$(selector).showOrHideSection()</code>
+for the same selector or one selecting a subset of that used for this setup, the options
+passed to this setup function will be used during that showOrHide operation.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object defining options for the showOrHideSection(), showSection()
+oder hideSection() functions. See <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">DEFAULTS options</a>
+for a list of available options and their default values. For any option you omit in your options
+argument, the default option will be used. So this argument only needs to specify options
+that differ from the defaults.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line505">line 505</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".showOrHideSection()"><span class="type-signature">(static) </span>showOrHideSection()<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Toggle a section: If the <em>condition</em> is true, show the section,
+otherwise hide it. The condition can be specified by a predicate in the options argument,
+the default condition (if none is specified by the caller) is that the selected element
+is not visible (<code>!$(this).is(":visible")</code>).
+<p>This function does not only show or hide the selected element(s), it also supports,
+changing the class of a heading, so this may reflect the state (hidden or showing). 
+Also a form element used for transmitting the current visibility state in a post request 
+can be implicitly updated.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Options for this function. This is merged with the setup.
+If no options are given at all, the setup is used (see <a href="jQuery.fn.html#.setupShowOrHideSection">jQuery.fn.setupShowOrHideSection</a>).
+If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">DEFAULTS</a> are used.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line528">line 528</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="jQuery.fn.html#.showSection">jQuery.fn.showSection</a></li>
+        
+            <li><a href="jQuery.fn.html#.hideSection">jQuery.fn.hideSection</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".showSection"><span class="type-signature">(static) </span>showSection<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Show a section: If it's hidden, show it, if it's already visible,
+do nothing.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Options for this function. This is merged with the setup.
+If no options are given at all, the setup is used (see <a href="jQuery.fn.html#.setupShowOrHideSection">jQuery.fn.setupShowOrHideSection</a>).
+If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">DEFAULTS</a> are used.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line558">line 558</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a></li>
+        
+            <li><a href="jQuery.fn.html#.hideSection">jQuery.fn.hideSection</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".viewportAlignBottom"><span class="type-signature">(static) </span>viewportAlignBottom<span class="signature">(viewport<span class="signature-attributes">opt</span>, tolerance<span class="signature-attributes">opt</span>, duration<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Tries vertical scroll in order to align the bottom of the first
+element in the set of matched elements (jQuery result set) with the bottom of the viewport.
+The alignment isn't always quite accurate, also an exact alignment with the bottom of the viewport
+often isn't desirable, a little margin between the viewport and the element may look better.
+That's why a tolerance is specified, defaulting to 30 px. This means, the plug-in will try
+to align the bottom of the matched element approximately 30px above the bottom of the viewport,
+the effective margin may be smaller.
+<p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
+If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+will be instantaneous, without animation.
+<p>Usage pattern:</p>
+<pre><code>$("#mySection").viewportAlignBottom();</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to align against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tolerance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    30
+                
+                </td>
+            
+
+            <td class="description last">approx. margin between bottom of the element and bottom of the viewport, see above</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    200
+                
+                </td>
+            
+
+            <td class="description last">duration of the scrolling animation. The default value of 200ms is defined
+in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSection.DEFAULTS</a>, which may be overridden.
+(if the scrollTo plug-in is loaded).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line265">line 265</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".viewportAlignLeft"><span class="type-signature">(static) </span>viewportAlignLeft<span class="signature">(viewport<span class="signature-attributes">opt</span>, tolerance<span class="signature-attributes">opt</span>, duration<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Tries horizontal scroll in order to align the left of the first
+element in the set of matched elements (jQuery result set) with the left end of the viewport.
+(Horizontal version of <a href="jQuery.fn.html#.viewportAlignTop">jQuery.fn.viewportAlignTop</a>.)
+<p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
+If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+will be instantaneous, without animation.
+<p>Usage pattern:</p>
+<pre><code>$("#mySection").viewportAlignLeft();</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to align against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tolerance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    20
+                
+                </td>
+            
+
+            <td class="description last">approx. margin between left of the element and left of the viewport, see above</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    200
+                
+                </td>
+            
+
+            <td class="description last">duration of the scrolling animation. The default value of 200ms is defined
+in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSection.DEFAULTS</a>, which may be overridden.
+(if the scrollTo plug-in is loaded).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line383">line 383</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".viewportAlignRight"><span class="type-signature">(static) </span>viewportAlignRight<span class="signature">(viewport<span class="signature-attributes">opt</span>, tolerance<span class="signature-attributes">opt</span>, duration<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Tries horizontal scroll in order to align the right of the first
+element in the set of matched elements (jQuery result set) with the right of the viewport.
+(Horizontal version of <a href="jQuery.fn.html#.viewportAlignBottom">jQuery.fn.viewportAlignBottom</a>.)
+<p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
+If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+will be instantaneous, without animation.
+<p>Usage pattern:</p>
+<pre><code>$("#mySection").viewportAlignRight();</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to align against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tolerance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    30
+                
+                </td>
+            
+
+            <td class="description last">approx. margin between right of the element and right of the viewport, see above</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    200
+                
+                </td>
+            
+
+            <td class="description last">duration of the scrolling animation. The default value of 200ms is defined
+in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSection.DEFAULTS</a>, which may be overridden.
+(if the scrollTo plug-in is loaded).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line357">line 357</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".viewportAlignTop"><span class="type-signature">(static) </span>viewportAlignTop<span class="signature">(viewport<span class="signature-attributes">opt</span>, tolerance<span class="signature-attributes">opt</span>, duration<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Tries vertical scroll in order to align the top of the first
+element in the set of matched elements (jQuery result set) with the top of the viewport.
+The alignment isn't always quite accurate, also an exact alignment with the top of the viewport
+often isn't desirable, a little margin between the upper window edge and the element may look better.
+That's why a tolerance is specified, defaulting to 20 px. This means, the plug-in will try
+to align the top of the matched element approximately 20px above the top of the viewport,
+the effective margin may be smaller.
+<p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
+If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+will be instantaneous, without animation.
+<p>Usage pattern:</p>
+<pre><code>$("#mySection").viewportAlignTop();</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to align against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tolerance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    20
+                
+                </td>
+            
+
+            <td class="description last">approx. margin between top of the element and top of the viewport, see above</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    200
+                
+                </td>
+            
+
+            <td class="description last">duration of the scrolling animation. The default value of 200ms is defined
+in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSection.DEFAULTS</a>, which may be overridden.
+(if the scrollTo plug-in is loaded).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line295">line 295</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     
@@ -1800,13 +4334,13 @@ within the viewport
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li><li><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Aug 02 2019 23:03:45 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Aug 07 2019 21:47:14 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>
