@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Viewport Demos (vertical horizontal)</title>
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<!--script type="text/javascript" src="../src/js/jquery-showhide.js"></script-->
+	<script type="text/javascript">
+		$(function(){
+			$("#nojq, #more").hide();
+			var funcsel = $("#func");
+			var deltainput = $("#delta");
+			var container = $("#container");
+			
+			var A = $("#A");
+			var B = $("#B");
+			var C = $("#C");
+			var sA = $(".status .A");
+			var sB = $(".status .B");
+			var sC = $(".status .C");
+			
+			function getDelta() {
+				var delta = $.trim(deltainput.val());
+				delta = delta === "" ? undefined : parseInt(delta);
+				return delta;
+			}
+
+			function update(node, stat) {
+				var func = funcsel.val();
+				var b = func === "li" ? node.isLeftInViewport(container)
+						: func === "ri" ? node.isRightInViewport(container)
+						: func === "ll" ? node.isLeftLeftOutOfViewport(container, getDelta())
+						: node.isLeftRightOutOfViewport(container, getDelta());
+				node.toggleClass("yes", b);
+				node.toggleClass("no", !b);
+				stat.toggleClass("yes", b);
+				stat.toggleClass("no", !b);
+			}
+			
+			function updateAll() {
+				update(A, sA);
+				update(B, sB);
+				update(C, sC);
+			}
+			
+			function updateLabels() {
+				var func = funcsel.val();
+				if (func === "li")
+					$(".status span").text("isLeftInViewport($('#container'))");
+				else if (func === "ri")
+					$(".status span").text("isRightInViewport($('#container'))");
+				else if (func === "ll") {
+					var d = getDelta();
+					if (!d)
+						$(".status span").text("isLeftLeftOutOfViewport($('#container'))");
+					else
+						$(".status span").text("isLeftLeftOutOfViewport($('#container'), " + d + ")");
+				} else {
+					var d = getDelta();
+					if (!d)
+						$(".status span").text("isLeftRightOutOfViewport($('#container'))");
+					else
+						$(".status span").text("isLeftRightOutOfViewport($('#container'), " + d + ")");
+				}
+			}
+			
+			funcsel.change(function() {
+				var v = $(this).val();
+				if (v === "ll" || v === "lr")
+					$("#more").show();
+				else
+					$("#more").hide();
+				updateLabels(v);
+				updateAll();
+			}).change();
+
+			container.scroll(updateAll);
+			deltainput.change(updateAll).change(updateLabels);
+		});
+	</script>
+	<style type="text/css">
+		#container {
+			overflow-y: scroll;
+			display: flex;
+		}
+		.demoBox {
+			flex-shrink: 0;
+			flex-grow: 0;
+			margin: 0 1em;
+			display: inline-block;
+			height: 3em;
+			font-size: 300%;
+			font-weight: bold;
+			padding: 0.5em;
+			border: 3px solid navy;
+			border-radius: 0.5em;
+		}
+		.demoBox.yes {
+			background-color: #060;
+			color: white;
+		}
+		.demoBox.no {
+			background-color: #600;
+			color: white;
+		}
+		#A, #C {
+			width: 5em;
+		}
+		#B {
+			width: 120vw;
+		}
+		.status {
+			border-top: 1px solid silver;
+			border-bottom: 1px solid silver;
+			margin: 1em 0;
+			padding: 0.5em 0;
+		}
+		.status .yes::after {
+			content: " = true";
+			color: #050;
+		}
+		.status .no::after {
+			content: " = false";
+			color: #500;
+		}
+		#howto {
+			border: 1px solid silver;
+			border-radius: 1em;
+			padding: 1em;
+			margin: 2em 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at ../node_modules/jquery/dist/jquery.min.js.
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<h1>Demos / Examples for “vertical” viewport functions</h1>
+	<label for="func">Function to test:</label> <select id="func">
+		<option value="li">isLeftInViewport</option>
+		<option value="ri">isRightInViewport</option>
+		<option value="ll">isLeftLeftOutOfViewport</option>
+		<option value="lr">isLeftRightOutOfViewport</option>
+	</select>
+	<div id="more">
+		<label for="delta">Delta:</label>
+		<input id="delta"> (leave empty for default)
+	</div>
+	<p id="howto">
+		Scroll blocks below horizontally in order to update the status displays. The colors of the
+		large blocks A, B and C as well as the following "true"/"false" displays
+		will then update to represent the current return value (boolean) of the selected
+		plug-in function.
+	</p>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span>
+	</p>
+	<div id="container">
+		<div class="demoBox" id="A">
+			A
+		</div>
+		<div class="demoBox" id="B">
+			B
+		</div>
+		<div class="demoBox" id="C">
+			C
+		</div>
+	</div>
+</body>
+</html>

@@ -248,14 +248,14 @@
 	 * is visible within the viewport. 
 	 * Like {@link jQuery.fn.isBottomInViewport}, but meant for horizontally scrolling viewports.
 	 * <p>Usage pattern:</p>
-	 * <pre><code>if ($(selector).isLeftInViewport())</code></pre>
-	 * @function isLeftInViewport
+	 * <pre><code>if ($(selector).isRightInViewport())</code></pre>
+	 * @function isRightInViewport
 	 * @memberOf jQuery.fn
 	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @return {boolean} true if the right of the first element of the implicit argument is
 	 * within the viewport
-	 * @see jQuery.fn.isTopInViewport
+	 * @see jQuery.fn.isLeftInViewport
 	 */
 	$.fn.isRightInViewport = function(viewport = $(window)) {
 		const i = getViewportInfo(this, viewport);

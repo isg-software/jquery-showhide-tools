@@ -17,12 +17,20 @@
 		"oAP": "/.gitignore",
 		"oF": 0
 		},
-	"/demos/viewport.html": {
+	"/demos/viewport-horizontal.html": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/demos/viewport.html",
+		"oAP": "/demos/viewport-horizontal.html",
+		"oF": 0
+		},
+	"/demos/viewport-vertical.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/viewport-vertical.html",
 		"oF": 0
 		},
 	"/dist/apply-showhide-defaults-min.js": {

@@ -815,7 +815,7 @@ defines the viewport to check against. The default viewport is the whole window.
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li>jQuery.fn.isRightInViewport</li>
+            <li><a href="jQuery.fn.html#.isRightInViewport">jQuery.fn.isRightInViewport</a></li>
         </ul>
     </dd>
     
@@ -842,198 +842,6 @@ defines the viewport to check against. The default viewport is the whole window.
         
 <div class="param-desc">
     true if the left of the first element of the implicit argument is
-within the viewport
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".isLeftInViewport"><span class="type-signature">(static) </span>isLeftInViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    jQuery plug-in function: checks whether the right of the first element in the set of matched elements
-is visible within the viewport. 
-Like <a href="jQuery.fn.html#.isBottomInViewport">jQuery.fn.isBottomInViewport</a>, but meant for horizontally scrolling viewports.
-<p>Usage pattern:</p>
-<pre><code>if ($(selector).isLeftInViewport())</code></pre>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>viewport</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">jqr</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    $(window)
-                
-                </td>
-            
-
-            <td class="description last">jQuery resultset, the first element in this set 
-defines the viewport to check against. The default viewport is the whole window.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line246">line 246</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="jQuery.fn.html#.isTopInViewport">jQuery.fn.isTopInViewport</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    true if the right of the first element of the implicit argument is
 within the viewport
 </div>
 
@@ -1488,6 +1296,198 @@ top is not yet quite right out of the viewport, but to the right of viewport rig
 <div class="param-desc">
     true if the left of the first element of the implicit argument is
 to the right of the right-hand side of the viewport (minus delta)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".isRightInViewport"><span class="type-signature">(static) </span>isRightInViewport<span class="signature">(viewport<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: checks whether the right of the first element in the set of matched elements
+is visible within the viewport. 
+Like <a href="jQuery.fn.html#.isBottomInViewport">jQuery.fn.isBottomInViewport</a>, but meant for horizontally scrolling viewports.
+<p>Usage pattern:</p>
+<pre><code>if ($(selector).isRightInViewport())</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(window)
+                
+                </td>
+            
+
+            <td class="description last">jQuery resultset, the first element in this set 
+defines the viewport to check against. The default viewport is the whole window.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line246">line 246</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="jQuery.fn.html#.isLeftInViewport">jQuery.fn.isLeftInViewport</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    true if the right of the first element of the implicit argument is
+within the viewport
 </div>
 
 
@@ -4340,7 +4340,7 @@ allows for chaining several jQuery plug-in calls on the same result set.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Aug 07 2019 21:47:14 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Aug 14 2019 19:24:35 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

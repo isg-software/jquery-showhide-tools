@@ -2,24 +2,33 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Viewport Demos</title>
+	<title>Viewport Demos (vertical scrolling)</title>
 	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
-	<!--script type="text/javascript" src="../dist/jquery-showhide-min.js"></script-->
-	<script type="text/javascript" src="../src/js/jquery-showhide.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<!--script type="text/javascript" src="../src/js/jquery-showhide.js"></script-->
 	<script type="text/javascript">
 		$(function(){
 			$("#nojq, #more").hide();
 			var funcsel = $("#func");
 			var deltainput = $("#delta");
+			
+			var A = $("#A");
+			var B = $("#B");
+			var sA = $(".status .A");
+			var sB = $(".status .B");
+			
+			function getDelta() {
+				var delta = $.trim(deltainput.val());
+				delta = delta === "" ? undefined : parseInt(delta);
+				return delta;
+			}
 
 			function update(node, stat) {
 				var func = funcsel.val();
-				var delta = $.trim(deltainput.val());
-				delta = delta === "" ? undefined : parseInt(delta);
 				var b = func === "ti" ? node.isTopInViewport()
 						: func === "bi" ? node.isBottomInViewport()
-						: func === "ta" ? node.isTopAboveViewport(undefined, delta)
-						: node.isTopBelowViewport(undefined, delta);
+						: func === "ta" ? node.isTopAboveViewport(undefined, getDelta())
+						: node.isTopBelowViewport(undefined, getDelta());
 				node.toggleClass("yes", b);
 				node.toggleClass("no", !b);
 				stat.toggleClass("yes", b);
@@ -31,22 +40,39 @@
 				update(B, sB);
 			}
 			
+			function updateLabels() {
+				var func = funcsel.val();
+				if (func === "ti")
+					$(".status span").text("isTopInViewport()");
+				else if (func === "bi")
+					$(".status span").text("isBottomInViewport()");
+				else if (func === "ta") {
+					var d = getDelta();
+					if (!d)
+						$(".status span").text("isTopAboveViewport()");
+					else
+						$(".status span").text("isTopAboveViewport(undefined, " + d + ")");
+				} else {
+					var d = getDelta();
+					if (!d)
+						$(".status span").text("isTopBelowViewport()");
+					else
+						$(".status span").text("isTopBelowViewport(undefined, " + d + ")");
+				}
+			}
+			
 			funcsel.change(function() {
 				var v = $(this).val();
 				if (v === "ta" || v === "tb")
 					$("#more").show();
 				else
 					$("#more").hide();
+				updateLabels(v);
 				updateAll();
-			});
-			
-			var A = $("#A");
-			var B = $("#B");
-			var sA = $(".status .A");
-			var sB = $(".status .B");
+			}).change();
 
 			$(window).scroll(updateAll);
-			deltainput.change(updateAll);
+			deltainput.change(updateAll).change(updateLabels);
 		});
 	</script>
 	<style type="text/css">
@@ -72,12 +98,18 @@
 		#B {
 			height: 120vh;
 		}
+		.status {
+			border-top: 1px solid silver;
+			border-bottom: 1px solid silver;
+			margin: 1em 0;
+			padding: 0.5em 0;
+		}
 		.status .yes::after {
-			content: ": yes";
+			content: " = true";
 			color: #050;
 		}
 		.status .no::after {
-			content: ": no";
+			content: " = false";
 			color: #500;
 		}
 		#howto {
@@ -96,7 +128,7 @@
 		or modify this HTML file and change the src attribute of the script tag loading jQuery
 		to specify a different local path or a CDN URL.</p>
 	</div>
-	<h1>Demos / Examples for some of the viewport functions</h1>
+	<h1>Demos / Examples for “vertical” viewport functions</h1>
 	<label for="func">Function to test:</label> <select id="func">
 		<option value="ti">isTopInViewport</option>
 		<option value="bi">isBottomInViewport</option>
@@ -109,22 +141,27 @@
 	</div>
 	<p id="howto">
 		Scroll page (vertically) in order to update the status displays. The colors of the
-		large blocks A and B as well as the "yes"/"no" displays before and after each block
+		large blocks A and B as well as the "true"/"false" displays before and after each block
 		will then update to represent the current return value (boolean) of the selected
 		plug-in function.
 	</p>
-	<p class="status"><span class="A">A</span>, <span class="B">B</span></p>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span>
+	</p>
 	<div class="demoBox" id="A">
 		A
 	</div>
-	<hr>
-	<p class="status"><span class="A">A</span>, <span class="B">B</span></p>
-	<hr>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span>
+	</p>
 	<div class="demoBox" id="B">
 		B
 	</div>
-	<hr>
-	<p class="status"><span class="A">A</span>, <span class="B">B</span></p>
-	<hr>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span>
+	</p>
 </body>
 </html>
