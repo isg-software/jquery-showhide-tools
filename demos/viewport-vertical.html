@@ -4,6 +4,7 @@
 	<meta charset="utf-8" />
 	<title>Viewport Demos (vertical scrolling)</title>
 	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
 	<!--script type="text/javascript" src="../src/js/jquery-showhide.js"></script-->
 	<script type="text/javascript">
@@ -11,16 +12,30 @@
 			$("#nojq, #more").hide();
 			var funcsel = $("#func");
 			var deltainput = $("#delta");
+			var actionsel = $("#action");
+			var toleranceinput = $("#tolerance");
 			
 			var A = $("#A");
 			var B = $("#B");
+			var C = $("#C");
+			var D = $("#D");
+			var E = $("#E");
 			var sA = $(".status .A");
 			var sB = $(".status .B");
+			var sC = $(".status .C");
+			var sD = $(".status .D");
+			var sE = $(".status .E");
 			
 			function getDelta() {
 				var delta = $.trim(deltainput.val());
 				delta = delta === "" ? undefined : parseInt(delta);
 				return delta;
+			}
+			
+			function getTolerance() {
+				var t = $.trim(toleranceinput.val());
+				t = t === "" ? undefined : parseInt(t);
+				return t;
 			}
 
 			function update(node, stat) {
@@ -38,6 +53,9 @@
 			function updateAll() {
 				update(A, sA);
 				update(B, sB);
+				update(C, sC);
+				update(D, sD);
+				update(E, sE);
 			}
 			
 			function updateLabels() {
@@ -61,6 +79,25 @@
 				}
 			}
 			
+			function updateActionLabels() {
+				var func = actionsel.val();
+				var t = getTolerance();
+				$(".action-btn").each(function() {
+					var id = $(this).data("id");
+					var s = "$('#" + id + "').";
+					if (func === "vat")
+						s += "viewportAlignTop(";
+					else if (func === "vab")
+						s += "viewportAlignBottom(";
+					else
+						s += "scrollDownIntoView(";
+					if (t)
+						s += "undefined, " + t;
+					s += ")";
+					$(this).text(s);
+				});
+			}
+			
 			funcsel.change(function() {
 				var v = $(this).val();
 				if (v === "ta" || v === "tb")
@@ -73,6 +110,20 @@
 
 			$(window).scroll(updateAll);
 			deltainput.change(updateAll).change(updateLabels);
+			
+			actionsel.change(updateActionLabels).change();
+			toleranceinput.change(updateActionLabels);
+			
+			$(".action-btn").click(function() {
+				var id = $(this).data("id");
+				var func = actionsel.val();
+				if (func === "vat")
+					$("#"+id).viewportAlignTop(undefined, getTolerance());
+				else if (func === "vab")
+					$("#"+id).viewportAlignBottom(undefined, getTolerance());
+				else
+					$("#"+id).scrollDownIntoView(undefined, getTolerance());
+			});
 		});
 	</script>
 	<style type="text/css">
@@ -92,10 +143,13 @@
 			background-color: #600;
 			color: white;
 		}
-		#A {
+		#A, #E {
 			height: 5em;
 		}
-		#B {
+		#B, #D {
+			height: 2em;
+		}
+		#C {
 			height: 120vh;
 		}
 		.status {
@@ -139,29 +193,79 @@
 		<label for="delta">Delta:</label>
 		<input id="delta"> (leave empty for default)
 	</div>
+	<br>
+	<label for="action">Function to test by action button:</label>
+	<select id="action">
+		<option value="vat">viewportAlignTop</option>
+		<option value="vab">viewportAlignBottom</option>
+		<option value="sdv">scrollDownIntoView</option>
+	</select>
+	<div id="more2">
+		<label for="tolerance">Tolerance:</label>
+		<input id="tolerance"> (leave empty for default)
+	</div>
 	<p id="howto">
 		Scroll page (vertically) in order to update the status displays. The colors of the
-		large blocks A and B as well as the "true"/"false" displays before and after each block
+		large blocks A through E as well as the "true"/"false" displays before and after each block
 		will then update to represent the current return value (boolean) of the selected
 		plug-in function.
 	</p>
 	<p class="status">
-		$("#A").<span class="A">…</span><br>
-		$("#B").<span class="B">…</span>
+		$("#A").<span class="A">…</span> <button class="action-btn" data-id="A">…</button><br>
+		$("#B").<span class="B">…</span> <button class="action-btn" data-id="B">…</button><br>
+		$("#C").<span class="C">…</span> <button class="action-btn" data-id="C">…</button><br>
+		$("#D").<span class="D">…</span> <button class="action-btn" data-id="D">…</button><br>
+		$("#E").<span class="E">…</span> <button class="action-btn" data-id="E">…</button>
 	</p>
 	<div class="demoBox" id="A">
 		A
 	</div>
 	<p class="status">
 		$("#A").<span class="A">…</span><br>
-		$("#B").<span class="B">…</span>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
 	</p>
 	<div class="demoBox" id="B">
 		B
 	</div>
 	<p class="status">
 		$("#A").<span class="A">…</span><br>
-		$("#B").<span class="B">…</span>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
+	</p>
+	<div class="demoBox" id="C">
+		C
+	</div>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
+	</p>
+	<div class="demoBox" id="D">
+		D
+	</div>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
+	</p>
+	<div class="demoBox" id="E">
+		E
+	</div>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
 	</p>
 </body>
 </html>
