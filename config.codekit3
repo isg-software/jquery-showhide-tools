@@ -17,6 +17,14 @@
 		"oAP": "/.gitignore",
 		"oF": 0
 		},
+	"/demos/index.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/index.html",
+		"oF": 0
+		},
 	"/demos/viewport-horizontal.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -2265,7 +2273,7 @@
 	"npmSaveExactVersion": 0,
 	"npmTargetDependencyListType": 4,
 	"overrideExternalServerCSS": 0,
-	"previewPathAddition": "",
+	"previewPathAddition": "/demos/index.html",
 	"skippedFoldersString": "_cache,cache,.idea,log,_logs,logs,node_modules,/storage/framework/sessions,doc",
 	"sourceFolderName": "source",
 	"susyVersion": 3,
