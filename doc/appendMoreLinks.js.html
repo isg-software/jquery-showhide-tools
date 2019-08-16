@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: appendMoreLinks.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: appendMoreLinks.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+(function($){
+		
+	/**
+	 * Namespace for the {@link jQuery.fn.appendMoreLinks() appendMoreLinks() plug-in}.
+	 * @namespace appendMoreLinks
+	 * @memberOf jQuery.fn
+	 */
+	/**
+	 * jQuery plug-in for showing only the first / top part of a section and appending a link
+	 * (like "more…") enabling users to show the rest of the section if they want to read it.
+	 * &lt;p>Take this HTML code for &lt;strong>example&lt;/strong>:&lt;/p>
+	 * &lt;pre>&lt;code class="html">
+	 * &amp;lt;p class="appendMore"&amp;gt;Lorem Ipsum …&amp;lt;/p&amp;gt;
+	 * &amp;lt;div class="more"&amp;gt;
+	 *     &amp;lt;p&amp;gt;Some more…&amp;lt;/p&amp;gt;
+	 *     &amp;lt;p&amp;gt;Even more…&amp;lt;/p&amp;gt;
+	 * &amp;lt;/div&amp;gt;
+	 * &lt;/code>&lt;/pre>
+	 * With JavaScript disabled, a user will see all thee paragraphs. With JavaScript enabled
+	 * you may execute a code like the following example in order to hide all ".more" blocks
+	 * on load and append a "more…" link to each ".appendMore" block, wich, when clicked, will
+	 * show the following ".more" block (and hide the link).
+	 * &lt;pre>&lt;code class="javascript">
+	 * $(function() {
+	 *     $(".more").hide();
+	 *     $(".appendMore").appendMoreLinks();
+	 * });
+	 * &lt;/code>&lt;/pre>
+	 * &lt;ul>
+	 * &lt;li>Of course, a web page may contains more than one pair of some node of class "appendMore"
+	 * followed by a node of class "more".&lt;/lo>
+	 * &lt;li>The appendMoreLinks() function will simply append the links which will show the following
+	 * ".more" node. It does &lt;em>not&lt;/em> initially hide the ".more" sections, which you should do
+	 * dynamically by javascript just like in the example above. This has the advantage over static
+	 * style attributes in your HTML or a static CSS rule like (&lt;code>.more{display:none}&lt;/code>)
+	 * that this way, the whole content will be visible if JavaScript should be disabled by the user,
+	 * which is also importent regarding accessibility.&lt;/li>
+	 * &lt;li>Of course you may choose different class names. If the "more" blocks should use different
+	 * classes than "more", don't forget to set the option &lt;code>moreContentSelector&lt;/code> accordingly!.&lt;/li>
+	 * &lt;li>The following ".more" node does not have to be descendant of the same parent node as the "appendMore" node,
+	 * it may also be a descendant of one of the ".more"-links's parents, like for example:
+	 * &lt;pre>&lt;code class="html">&amp;lt;div&amp;gt;
+	 *     &amp;lt;p class="appendMore"&amp;gt;Lorem Ipsum …&amp;lt;/p&amp;gt;
+	 * &amp;lt;/div&amp;gt;
+	 * &amp;lt;div class="more"&amp;gt;…&amp;lt;/div&amp;gt;
+	 * &lt;/li>
+	 * &lt;li>Nesting of "append-more-sections" is allowed. Example:
+	 * &lt;pre>&lt;code class="html">&amp;lt;p class="appendMore"&amp;gt;Lorem Ipsum …&amp;lt;/p&amp;gt;
+	 * &amp;lt;div class="more"&amp;gt;
+	 *     &amp;lt;p&amp; class="appendMore"gt;Some more…&amp;lt;/p&amp;gt;
+	 *     &amp;lt;p&amp; class="more"gt;Even more…&amp;lt;/p&amp;gt;
+	 * &amp;lt;/div&amp;gt;
+	 * &lt;/code>&lt;/pre>
+	 * &lt;/li>
+	 * &lt;li>When clicking the more link, the next "more" section will be shown with a
+	 * vertical slide-down transition. But this only works if the "more" section is a block
+	 * element (not an inline element).&lt;/li>
+	 * &lt;/ul>
+	 * 
+	 *
+	 * @function appendMoreLinks()
+	 * @memberOf jQuery.fn
+	 * @param {object} [options] An objects whose properties may specify options (override default options),
+	 * see {@link jQuery.fn.appendMoreLinks.DEFAULTS list of default options}, which also specifies
+	 * all available/overridable options.
+	 * @returns {jqr} the same jQuery resultset it was called on, allows chainable method calls.
+	 */
+	$.fn.appendMoreLinks = function(options) {
+		const opts = $.extend({}, $.fn.appendMoreLinks.DEFAULTS, options);
+		this.append(" &lt;a href='#!' class='" + opts.moreLinkClass + "'>" + opts.moreLinkLabel + "&lt;/a>");
+		//Soeben eingefügte Links nun mit Leben ausstatten:
+		$("a." + opts.moreLinkClass).click(function() {
+			$(this).hide();
+			//Suche den .more-Block zum Link.
+			var finder = $(this).parent(); //Ausgangspunkt ist der Vorfahr des .more-Links (Block der Klasse .appendMore)
+			var found = finder.next(opts.moreContentSelector);
+			while (!found.length &amp;&amp; finder.length) { //Pr¸fe ansonsten noch die Nachfolger der Vorfahren
+				finder = finder.parent();
+				found = finder.next(opts.moreContentSelector);
+			}
+			found.slideDown("fast");
+
+			return false; //Springen zum Anchor '#' vermeiden
+		});
+		return this;
+	};
+	
+	/**
+	 * This object defines the default options for {@link jQuery.fn.appendMoreLinks()}.
+	 * This is also a complete list of all supported options which may be set/overridden
+	 * in the function's options argument.
+	 * @property {string} moreLinkClass ="moreLink" The {@link jQuery.fn.appendMoreLinks()} function will append
+	 * hyperlinks to the selected paragraphs. This option defines the content of the &lt;code>class&lt;/code>
+	 * attribute of those generated links. This has to be a single word (single class name) in order
+	 * for the plug-in to work properly. The class will be used internally, and you'll probably never need
+	 * to override it. But you may do so, e.g. in case you want to use the class yourself in your CSS
+	 * stylesheets.
+	 * @property {string} moreLinkLabel ="more&amp;nbsp;&amp;hellip;" This is the default link text (caption)
+	 * of the inserted hyperlinks (see above).
+	 * This is the option the most likely to be changed by a user, since this string isn't just used
+	 * internally but is actually visible content of your website. Especially if your site's content
+	 * language is not english, you will want to set this option in order to translate the link
+	 * label to your target language.
+	 * @property {string} moreContentSelector =".more" If the user clicks the generated "more..." link,
+	 * the plug-in is meant to show the following hidden section. In order to locate this, the plug-in
+	 * function needs to know a selector for searching the sections it should expand.
+	 * The default value (&lt;code>.more&lt;/code>) means, that the following section which should be
+	 * show/expanded, is simply the next node with class &lt;code>more&lt;/code>, see example HTML code
+	 * in {@link jQuery.fn.appendMoreLinks() appendMoreLink's documentation}.
+	 * @member DEFAULTS
+	 * @memberOf jQuery.fn.appendMoreLinks
+	 */
+	$.fn.appendMoreLinks.DEFAULTS = {
+		moreLinkClass: "moreLink",
+		moreLinkLabel: "more&amp;nbsp;&amp;hellip;",
+		moreContentSelector: ".more"
+	};
+
+}(jQuery));</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li><li><a href="jQuery.fn.appendMoreLinks.html">appendMoreLinks</a></li><li><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Aug 16 2019 18:01:01 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
