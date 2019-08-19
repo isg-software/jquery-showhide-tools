@@ -25,6 +25,14 @@
 		"oAP": "/demos/index.html",
 		"oF": 0
 		},
+	"/demos/showhide.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/showhide.html",
+		"oF": 0
+		},
 	"/demos/viewport-horizontal.html": {
 		"cB": 0,
 		"ft": 8192,

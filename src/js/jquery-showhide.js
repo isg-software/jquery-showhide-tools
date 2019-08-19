@@ -449,7 +449,7 @@
 	function doShowOrHideBlock(block, showHide, opts) {
 	
 		//switch class of heading element (if exists)
-		const h = $(this).getSectionHeading(opts);
+		const h = block.getSectionHeading(opts);
 		//for any found heading (one or none) change class:
 		h.toggleClass(opts.classShowing, showHide !== 'hide');
 		h.toggleClass(opts.classHidden, showHide === 'hide');
@@ -548,7 +548,7 @@
         this.each(function() {
 	        const opts = getShowOrHideOptions($(this), options);
             const condition = typeof opts.condition === "undefined" ? !$(this).is(":visible")
-            		: typeof opts.condition === "function" ? opts.condition(this) : opts.condition;
+            		: typeof opts.condition === "function" ? opts.condition.call(this, this) : opts.condition;
             const showHide = condition ? "show" : "hide";
             doShowOrHideBlock($(this), showHide, opts);
         });
@@ -761,11 +761,16 @@
 	 * {@link jQuery.fn.showOrHideSection() showOrHideSection} function)), the section will be
 	 * shown (or keep visible if it already was) if the value is truthy, otherwise it will be (or keep)
 	 * hidden.
-	 * You may also set the option to be a one-argument-predicate, i.e. a (callback) function with one
-	 * parameter which returns a boolean value. This function will then be executed each time
-	 * showOrHideSection() is executed, its one argument set to a reference to the section itself,
-	 * and it can then decide whether to return true (show section) or false (hide section).
+	 * You may also set the option to be a zero- or one-argument-predicate, i.e. a (callback) function
+	 * with zeor or one parameter which returns a boolean value. 
+	 * This function will then be executed each time <code>showOrHideSection()</code> is 
+	 * executed and it can then decide whether to return true (show section) or false (hide section).
 	 * (Such a function would usually be set once in {@link jQuery.fn.setupShowOrHideSection}.)
+	 * This call-back function gets passed a reference to the section itself that should be
+	 * shown or hidden (depending on the return value). This reference gets passed in the first
+	 * explicit argument as well as implicit argument (i.e. <code>this</code> also points to
+	 * the section). So you may refer to the section either via this (usually in a parameterless 
+	 * function) or to the parameter name of your choice, whatever you prefer.
 	 * @property {jqr} viewport =$(window) A jQuery resultset. which should contain one item
 	 * representing the viewport in which the section should be aligned. Will be used only if
 	 * the <code>scroll</code> option (see above) is true. This then defines the viewport
