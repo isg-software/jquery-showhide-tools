@@ -10,6 +10,10 @@
 	<script type="text/javascript">
 		$(function(){
 			$("#nojq, #more").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
+			
 			var funcsel = $("#func");
 			var deltainput = $("#delta");
 			var actionsel = $("#action");
@@ -128,6 +132,9 @@
 		});
 	</script>
 	<style type="text/css">
+		.error {
+			color: red;
+		}
 		#container {
 			overflow-y: scroll;
 			display: flex;
@@ -184,12 +191,21 @@
 	</style>
 </head>
 <body>
-	<div id="nojq">
+	<div id="nojq" class="error">
 		<h1>jQuery not found (or JavaScript not enabled)!</h1>
-		<p>This example searches for jQuery locally at ../node_modules/jquery/dist/jquery.min.js.
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
 		jQuery was not found there. Please eather install jQuery (via npm or manually)
 		or modify this HTML file and change the src attribute of the script tag loading jQuery
 		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noScrollTo" class="error">
+		<h1>jQuery plug-in "scrollTo" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery.scrollto/jquery.scrollTo.min.js</code>, but
+		it was not found there. jQuery.scrollTo is an <em>optional dependency</em>: 
+		The show/HideSection() plug-ins will still work, but auto-scrolling to a certain position in the viewport
+		will not be animated (smooth scrolling) without the scrollTo plug-in, but instead the
+		viewport will instantly "jump" to the target position.
+		</p>
 	</div>
 	<h1>Demos / Examples for “vertical” viewport functions</h1>
 	<label for="func">Function to test when scrolling:</label> 

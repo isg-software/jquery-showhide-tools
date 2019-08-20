@@ -455,11 +455,11 @@
 		h.toggleClass(opts.classHidden, showHide === 'hide');
 		
 		//store aria attribute
-		const ariaTarget = expandAndApplySelector(block, opts.toggleSelector).first();
+		const ariaTarget = expandAndApplySelector(block, opts.toggle).first();
 		ariaTarget.attr("aria-expanded", "" + (showHide !== 'hide'));
 		
 		//store state in hidden field (if exists)
-		const findstore = expandAndApplySelector(block, opts.storeSelector);
+		const findstore = expandAndApplySelector(block, opts.store);
 		if (findstore && findstore.length) { //found
 			const store = findstore.get(0);
 			if (showHide==='hide')
@@ -645,7 +645,7 @@
 	 */
 	$.fn.getSectionHeading = function(options) {
 		const opts = getShowOrHideOptions(this, options);
-		return expandAndApplySelector(this, opts.headingSelector);
+		return expandAndApplySelector(this, opts.heading);
 	}
 	
 	/**
@@ -660,10 +660,10 @@
 	 * @member DEFAULTS
 	 * @memberOf jQuery.fn.showOrHideSection
 	 * @property {string} classShowing ="showing" Name of a CSS class which should be added to 
-	 * the heading element (see property headingSelector) when showing the corresponding section and removed
+	 * the heading element (see property heading) when showing the corresponding section and removed
 	 * when hiding the section.
 	 * @property {string} classHidden ="hidden" Name of a CSS class which should be added to 
-	 * the heading element (see property headingSelector) when hiding the corresponding section and removed
+	 * the heading element (see property heading) when hiding the corresponding section and removed
 	 * when showing the section.
 	 * @property {string} [easing] A string indicating which easing function to use for the 
 	 * show or hide transition. 
@@ -689,11 +689,11 @@
 	 * trigger a scroll. Only evaluated, of course, if option <code>scroll</code> is true.
 	 * See tolerance parameter of {@link jQuery.fn.isTopBelowViewport} resp.
 	 * {@link jQuery.fn.isTopAboveViewport}.
-	 * @property {int} [scrollTolerance] Tolerance for the scroll operation (see option <code>scroll</scroll>}).
+	 * @property {int} [scrollTolerance] Tolerance for the scroll operation (see option <code>scroll</code>}).
 	 * If left undefined (default), the default tolerance of the called scroll function
 	 * ({@link jQuery.fn.scrollDownIntoView} resp. {@link jQuery.fn.viewportAlignTop}) will be used.
-	 * @property {string} headingSelector = "#${id}_h" String pattern for a jQuery selector string used
-	 * to find the section heading element.
+	 * @property {string|jqr} heading = "#${id}_h" String pattern for a jQuery selector string used
+	 * to find the section heading element (or alternatively a jquery resultset containing the heading element).
 	 * This heading element is an HTML element usually above the hideable section itself
 	 * and is supposed to be always visible (even if the section is hidden) and to visually
 	 * reflect the state (i.e. by an icon), indicating, whether it refers to the following visible
@@ -710,24 +710,25 @@
 	 * This should be defined via CSS. In order to do so, the heading can have a showing or a
 	 * hidden class, so you may write CSS rules based on these classes to visualize the state,
 	 * e.g. by changing an icon.<br>
-	 * The default value of this <code>toggle</code> property is "#${id}_h". In this string,
+	 * The default value of this <code>heading</code> property is "#${id}_h". In this string,
 	 * any occurrance of "${xyz}" will first be replaced by calling $(this).prop("xyz"). In this
-	 * case, when showing or hiding the section with ID "mySection", the toggle selector will resolve
+	 * case, when showing or hiding the section with ID "mySection", the selector will resolve
 	 * to "#mySection_h". Then this selector will be used a jQuery search parameter to perform something
 	 * like <code>$("#mySection_h").addClass("showing").removeClass("hidden")</code>.
 	 * If you leave this setting on its default value, all you have to do is to make sure, that
 	 * the ID if each heading element equals the actual section's ID with appended suffix "_h".
 	 * If you don't like this default convention, specify a different pattern string.
-	 * @property {string} toggleSelector ="#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h"
-	 * String pattern for a jQuery selector string, see option <code>headingSelector</code>. 
-	 * This default value is meant for the case that the <code>headingSelector</code> selects 
-	 * a heading element which either <em>containing</em> a toggle control which is a button 
-	 * or a link (anchor with href attribute), or a heading element which <em>is itself</em>
+	 * @property {string|jqr} toggle ="#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h"
+	 * String pattern for a jQuery selector string or alternatively a jQuery resultset, 
+	 * see option <code>heading</code>. 
+	 * This default value is meant for the case that the <code>heading</code> selects 
+	 * a heading element which either <em>contains</em> a toggle control (being either a button 
+	 * or a link, i.e. anchor with href attribute), or which <em>is itself</em>
 	 * such a button or a link. If the heading itself is not a button or link, the selector
 	 * selects the first button or link inside the heading.
 	 * This so-found button or link is expected to be the toggle control which a user can click
 	 * in order to show or hide the section.
-	 * If you modify the default headingSelector you'll probably also hav to change
+	 * If you modify the default heading selector you'll probably also hav to change
 	 * this option accordingly. 
 	 * <br>What actually happens with the result is (currently): For the element found by this selector (if any),
 	 * the attribute <code>"aria-expanded"</code> will be set to <code>true</code> if the section
@@ -735,9 +736,10 @@
 	 * This is done for better accessibility: A screen reader will then not only read the
 	 * toggle's text (link or button label), but will also announce the state (expanded or collapsed)
 	 * of the section, and clicking that control will change this state.
-	 * @property {string} [storeSelector] A pattern string similar to option <code>headingSelector</code>
+	 * @property {string|jqr} [store] A pattern string similar to option <code>heading</code>
 	 * specifying a pattern for a jQuery selector string for finding a form element in which to
-	 * store the current visibility state. The syntax is the same as for <code>headingSelector</code>.
+	 * store the current visibility state. The syntax is the same as for <code>heading</code>.
+	 * (Alternatively a jQuery resultset containing the form element to be used.)
 	 * The default is undefined, which means that no such form control is used. If you are
 	 * designing an HTML form with expandable and collapsable sections and you want the current
 	 * state (whether a specific section is visible or hidden) to persist even when submitting
@@ -762,7 +764,7 @@
 	 * shown (or keep visible if it already was) if the value is truthy, otherwise it will be (or keep)
 	 * hidden.
 	 * You may also set the option to be a zero- or one-argument-predicate, i.e. a (callback) function
-	 * with zeor or one parameter which returns a boolean value. 
+	 * with zero or one parameter which returns a boolean value. 
 	 * This function will then be executed each time <code>showOrHideSection()</code> is 
 	 * executed and it can then decide whether to return true (show section) or false (hide section).
 	 * (Such a function would usually be set once in {@link jQuery.fn.setupShowOrHideSection}.)
@@ -781,8 +783,8 @@
 	 * accept up to three parameters: The first parameter gets assigned a plain reference to the
 	 * section. The second parameter gets assigned a jQuery resultset containing exactly the
 	 * same reference. The third parameter gets assigned a jQuery resultset containing the
-	 * heading reference (result found by the <code>headingSelector</code>, of course this set
-	 * can be empty if the headingSelector did not match any nodes).
+	 * heading reference (result found by the <code>heading</code>, of course this set
+	 * can be empty if the heading selector did not match any nodes).
 	 * @property {function} [onShow] Callback function just like onToggle, only this function
 	 * will only be called when the section gets shown, not if it gets hidden.
 	 * Actually, it will always be called if a showSection() command (or showOrHideSection() 
@@ -801,9 +803,9 @@
 		scroll: false,
 		scrollTriggerTolerance: 50,
 		scrollTolerance: undefined,
-		headingSelector: "#${id}_h",
-		storeSelector: undefined,
-		toggleSelector: "#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h",
+		heading: "#${id}_h",
+		store: undefined,
+		toggle: "#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h",
 		condition: undefined,
 		viewport: $(window),
 		onToggle: undefined,

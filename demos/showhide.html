@@ -11,6 +11,9 @@
 	<script type="text/javascript">
 		$(function() {
 			$("#nojq").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
 
 			$("#demo1_toggle").click(function() {
 				$("#demo1").showOrHideSection();
@@ -29,7 +32,7 @@
 			
 			$("#demo3").setupShowOrHideSection({
 				scroll: true,
-				storeSelector: "#${id}_state",
+				store: "#${id}_state",
 				condition: function() {
 					return $("#demo3_chk:checked").length > 0;
 				}
@@ -69,6 +72,9 @@
 	</script>
 	
 	<style type="text/css">
+		.error {
+			color: red;
+		}
 		.sec_h.showing::after { 
 			content: ' Status: showing';
 			color: #070;
@@ -84,12 +90,21 @@
 	</style>
 </head>
 <body>
-	<div id="nojq">
+	<div id="nojq" class="error">
 		<h1>jQuery not found (or JavaScript not enabled)!</h1>
-		<p>This example searches for jQuery locally at ../node_modules/jquery/dist/jquery.min.js.
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
 		jQuery was not found there. Please eather install jQuery (via npm or manually)
 		or modify this HTML file and change the src attribute of the script tag loading jQuery
 		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noScrollTo" class="error">
+		<h1>jQuery plug-in "scrollTo" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery.scrollto/jquery.scrollTo.min.js</code>, but
+		it was not found there. jQuery.scrollTo is an <em>optional dependency</em>: 
+		The show/HideSection() plug-ins will still work, but auto-scrolling to a certain position in the viewport
+		will not be animated (smooth scrolling) without the scrollTo plug-in, but instead the
+		viewport will instantly "jump" to the target position.
+		</p>
 	</div>
 
 	<h1>Basic Show-Hide-Demos</h1>
@@ -149,7 +164,7 @@
 		<p>In this demo, some non-default options are set once upon page load by:</p>
 		<pre><code class="javascript">$("#demo3").setupShowOrHideSection({
     scroll: true,
-    storeSelector: "#${id}_state",
+    store: "#${id}_state",
     condition: function() {
         return $("#demo3_chk:checked").length > 0;
     }
@@ -181,13 +196,13 @@
 			current state of a section (visible or hidden) to your server as part of a form
 			submit? Then you can insert a <em>hidden input field</em> into your form and 
 			set up the showOrHide plug-in to set this to an empty string upon hiding the section
-			or a non-empty string "x" when showing it. This is done by the <strong>storeSelector</strong>
+			or a non-empty string "x" when showing it. This is done by the <strong>store</strong>
 			option. While normally a hidden input is preferrable, in this demo a visible
 			read-only input (labelled "Transmittable state") is used to visualize the technique.</p>
 		<p>This state input has the ID "demo3_state". 
 			In this simple example, the option could also have been set constantly to
-			<code>storeSelector: "#demo3_state"</code>, but the demonstrated syntax
-			<code>storeSelector: "#${id}_state"</code> is recommended: In this syntax, the
+			<code>store: "#demo3_state"</code>, but the demonstrated syntax
+			<code>store: "#${id}_state"</code> is recommended: In this syntax, the
 			expression "${id}" is dynamically replaced by the ID of the section which is about
 			to be shown or hidden (<code>"demo3"</code> in this case).
 			This syntax may also be used in a common setup which is applied to more than one section,
