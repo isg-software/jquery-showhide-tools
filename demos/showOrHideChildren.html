@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Demo for showOrHideChildren()</title>
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<!--script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script-->
+	<!--script type="text/javascript" src="../dist/jquery-showhide-min.js"></script-->
+	<script type="text/javascript" src="../src/js/jquery-showhide.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#nojq").hide();
+			$("tr:nth-child(1)").showChildren(".more", {
+				duration: 0,
+				heading: ".toggle",
+				toggle: ".toggle",
+				restrictSelectorsToChildren: true
+			});
+			$("tr:nth-child(2)").hideChildren(".more", {
+				duration: 0,
+				heading: ".toggle",
+				toggle: ".toggle",
+				restrictSelectorsToChildren: true
+			});
+
+			$(".toggle").click(function() {
+				var me = $(this);
+				var tr = me.parent().parent();
+				tr.showOrHideChildren(".more", {
+					heading: me, 
+					toggle: me
+				});
+			});
+		});
+	</script>
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+		.toggle.showing::after {
+			content: 'collapse'
+		}
+		.toggle.hidden::after {
+			content: 'expand'
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		table td {
+			border: 1px solid silver;
+			padding: 0.2em;	
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+
+	<h1>Demo for showOrHideChildren()</h1>
+	
+	<table>
+		<thead>
+			<tr>
+				<th>…</th>
+				<th>Col1</th>
+				<th>Col2</th>
+				<th>Col3</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="test">
+				<td><button class="toggle"></button></td>
+				<td>Some content in Col1…<div class="more">Even more detailed content (only visible when expanded)</div></td>
+				<td>Some content in Col2…<div class="more">Even more detailed content (only visible when expanded)</div></td>
+				<td>Some content in Col3…<div class="more">Even more detailed content (only visible when expanded)</div></td>
+			</tr>
+			<tr>
+				<td><button class="toggle"></button></td>
+				<td>Hello World…<div class="more">Hello Sun, Hello Moon, Hello Earth!</div></td>
+				<td>Test<div class="more">More test content – visible if row is expanded</div></td>
+				<td>And the answer is…<div class="more">42!</div></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -28,14 +28,14 @@
  
  /**
  * Namespace of jQuery. Usually bound to the alias <code>$</code>.
- *  
+ *	
  * @see http://jquery.com/
  * @namespace jQuery 
  */
  
 /**
  * Namespace for jQuery plug-ins.
- *  
+ *	
  * @see http://jquery.com/
  * @namespace fn
  * @memberOf jQuery
@@ -273,7 +273,7 @@
 	 * <p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
 	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
 	 * will be instantaneous, without animation.
- 	 * <p>Usage pattern:</p>
+	 * <p>Usage pattern:</p>
 	 * <pre><code>$("#mySection").viewportAlignBottom();</code></pre>
 	 * @function viewportAlignBottom
 	 * @memberOf jQuery.fn
@@ -303,7 +303,7 @@
 	 * <p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
 	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
 	 * will be instantaneous, without animation.
- 	 * <p>Usage pattern:</p>
+	 * <p>Usage pattern:</p>
 	 * <pre><code>$("#mySection").viewportAlignTop();</code></pre>
 	 * @function viewportAlignTop
 	 * @memberOf jQuery.fn
@@ -331,7 +331,7 @@
 	 * If the current viewport is above the target element, this will result in scrolling down only
 	 * as far as necessary to get the whole element into view (or to get its top into view, if it's too
 	 * large for the viewport).
- 	 * <p>Usage pattern:</p>
+	 * <p>Usage pattern:</p>
 	 * <pre><code>$("#mySection").scrollDownIntoView();</code></pre>
 	 * @function scrollDownIntoView
 	 * @memberOf jQuery.fn
@@ -361,7 +361,7 @@
 	 * <p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
 	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
 	 * will be instantaneous, without animation.
- 	 * <p>Usage pattern:</p>
+	 * <p>Usage pattern:</p>
 	 * <pre><code>$("#mySection").viewportAlignRight();</code></pre>
 	 * @function viewportAlignRight
 	 * @memberOf jQuery.fn
@@ -387,7 +387,7 @@
 	 * <p>Optional Dependency: <a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo</a>:
 	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
 	 * will be instantaneous, without animation.
- 	 * <p>Usage pattern:</p>
+	 * <p>Usage pattern:</p>
 	 * <pre><code>$("#mySection").viewportAlignLeft();</code></pre>
 	 * @function viewportAlignLeft
 	 * @memberOf jQuery.fn
@@ -415,7 +415,7 @@
 	 * If the current viewport is to the left of the target element, this will result in scrolling right only
 	 * as far as necessary to get the whole element into view (or to get its left into view, if it's too
 	 * large for the viewport).
- 	 * <p>Usage pattern:</p>
+	 * <p>Usage pattern:</p>
 	 * <pre><code>$("#mySection").scrollRightIntoView();</code></pre>
 	 * @function scrollRightIntoView
 	 * @memberOf jQuery.fn
@@ -438,12 +438,20 @@
 		return this;
 	};
 	
-	function expandAndApplySelector(block, selectorOrResult) {
-		return typeof selectorOrResult !== "string" ? selectorOrResult 
-			: !block.length ? block
-			: $(selectorOrResult.replace(/\${([^}]+)}/g, 
+	function expandAndApplySelector(block, selectorOrResult, startingNode) {
+		if (typeof selectorOrResult !== "string")
+			return selectorOrResult;
+		else if (!block.length)
+			return block;
+		else {
+			const expandedSelector = selectorOrResult.replace(/\${([^}]+)}/g, 
 				  (match, group) => block.prop(group)
-			  ));
+			);
+			if (startingNode)
+				return $(expandedSelector, startingNode);
+			else
+				return $(expandedSelector);
+		}
 	}
 	
 	function doShowOrHideBlock(block, showHide, opts) {
@@ -545,13 +553,13 @@
 	 * @see jQuery.fn.hideSection
 	 */
 	$.fn.showOrHideSection = function(options) {
-        this.each(function() {
-	        const opts = getShowOrHideOptions($(this), options);
-            const condition = typeof opts.condition === "undefined" ? !$(this).is(":visible")
-            		: typeof opts.condition === "function" ? opts.condition.call(this, this) : opts.condition;
-            const showHide = condition ? "show" : "hide";
-            doShowOrHideBlock($(this), showHide, opts);
-        });
+		this.each(function() {
+			const opts = getShowOrHideOptions($(this), options);
+			const condition = typeof opts.condition === "undefined" ? !$(this).is(":visible")
+					: typeof opts.condition === "function" ? opts.condition.call(this, this) : opts.condition;
+			const showHide = condition ? "show" : "hide";
+			doShowOrHideBlock($(this), showHide, opts);
+		});
 		return this;
 	};
 	
@@ -569,10 +577,10 @@
 	 * @see jQuery.fn.hideSection
 	 */
 	$.fn.showSection = function(options) {
-        this.each(function() {
-    	    const opts = getShowOrHideOptions($(this), options);
-            doShowOrHideBlock($(this), "show", opts);
-        });
+		this.each(function() {
+			const opts = getShowOrHideOptions($(this), options);
+			doShowOrHideBlock($(this), "show", opts);
+		});
 		return this;
 	};
 	
@@ -590,10 +598,10 @@
 	 * @see jQuery.fn.showSection
 	 */
 	$.fn.hideSection = function(options) {
-        this.each(function() {
-        	const opts = getShowOrHideOptions($(this), options);
-            doShowOrHideBlock($(this), "hide", opts);
-        });
+		this.each(function() {
+			const opts = getShowOrHideOptions($(this), options);
+			doShowOrHideBlock($(this), "hide", opts);
+		});
 		return this;
 	};
 	
@@ -601,33 +609,42 @@
 	//FIXME: hard-wired class names "showing" and "hidden"! Evaluate options instead!
 	//TODO: condition support ? Compare with showOrHide!
 	$.fn.showOrHideChildren = function(childrenSelect, options) {
-        this.each(function() {
-        	const opts = getShowOrHideOptions($(this), options);
-            //switch class of heading element 
-            const h = $(this).getSectionHeading(options);
+		this.each(function() {
+			const opts = getShowOrHideOptions($(this), options);
+			//switch class of heading element 
+			const h = $(this).getSectionHeading(options);
+			
+			const condition = typeof opts.condition === "undefined" ? !h.hasClass("showing")
+					: typeof opts.condition === "function" ? opts.condition.call(this, this) : opts.condition;
+			const showHide = condition ? "show" : "hide";
 
-            var showing = h.hasClass("showing");
-            h.toggleClass("showing", !showing);
-            h.toggleClass("hidden", showing);
+			h.toggleClass("showing", condition);
+			h.toggleClass("hidden", !condition);
 
-            var showHide = showing ? "hide" : "show";
+			var resultset = $(childrenSelect, $(this));
 
-            var resultset = $(childrenSelect, $(this));
-
-            //animate block itself
-            if (opts.horizontalAnimation)
-                resultset.animate({
-                    width: showHide,
-                    opacity: showHide
-                    }, opts.duration, opts.easing);
-            else
-                resultset.animate({
-                    height: showHide,
-                    opacity: showHide
-                    }, opts.duration, opts.easing);
-        });
+			//animate block itself
+			if (opts.horizontalAnimation)
+				resultset.animate({
+					width: showHide,
+					opacity: showHide
+					}, opts.duration, opts.easing);
+			else
+				resultset.animate({
+					height: showHide,
+					opacity: showHide
+					}, opts.duration, opts.easing);
+		});
 		return this;
 	};
+	
+	$.fn.showChildren = function(childrenSelect, options) {
+		this.showOrHideChildren(childrenSelect, $.extend(options, {condition: true}));
+	}
+	
+	$.fn.hideChildren = function(childrenSelect, options) {
+		this.showOrHideChildren(childrenSelect, $.extend(options, {condition: false}));
+	}
 	
 	/**
 	 * jQuery plug-in: Simple getter function for getting the header element to a section
@@ -645,7 +662,7 @@
 	 */
 	$.fn.getSectionHeading = function(options) {
 		const opts = getShowOrHideOptions(this, options);
-		return expandAndApplySelector(this, opts.heading);
+		return expandAndApplySelector(this, opts.heading, opts.restrictSelectorsToChildren ? this : null);
 	}
 	
 	/**
@@ -806,6 +823,7 @@
 		heading: "#${id}_h",
 		store: undefined,
 		toggle: "#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h",
+		restrictSelectorsToChildren: false, //TODO jsDoc
 		condition: undefined,
 		viewport: $(window),
 		onToggle: undefined,
