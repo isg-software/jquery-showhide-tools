@@ -10,20 +10,20 @@
 	<script type="text/javascript">
 		$(function() {
 			$("#nojq").hide();
-			$("tr:nth-child(1)").showChildren(".more", {
+			$("#demo1 tr:nth-child(1)").showChildren(".more", {
 				duration: 0,
 				heading: ".toggle",
 				toggle: ".toggle",
 				restrictSelectorsToChildren: true
 			});
-			$("tr:nth-child(2)").hideChildren(".more", {
+			$("#demo1 tr:nth-child(2)").hideChildren(".more", {
 				duration: 0,
 				heading: ".toggle",
 				toggle: ".toggle",
 				restrictSelectorsToChildren: true
 			});
 
-			$(".toggle").click(function() {
+			$("#demo1 .toggle").click(function() {
 				var me = $(this);
 				var tr = me.parent().parent();
 				tr.showOrHideChildren(".more", {
@@ -31,21 +31,40 @@
 					toggle: me
 				});
 			});
+			
+			$("#demo2 tr").setupShowOrHideChildren(".more", {
+				heading: ".toggle",
+				toggle: ".toggle",
+				restrictSelectorsToChildren: true
+			});
+			$("#demo2 tr:nth-child(1)").showChildren({duration: 0});
+			$("#demo2 tr:nth-child(2)").hideChildren({duration: 0});
+			$("#demo2 .toggle").click(function() {
+				var tr = $(this).parent().parent();
+				tr.showOrHideChildren();
+			});
 		});
 	</script>
 	<style type="text/css">
 		.error {
 			color: red;
 		}
-		.toggle.showing::after {
+		button.toggle {
+			width: 4.5rem;
+		}
+		th.toggle {
+			width: 5rem;
+		}
+		button.toggle.showing::after {
 			content: 'collapse'
 		}
-		.toggle.hidden::after {
+		button.toggle.hidden::after {
 			content: 'expand'
 		}
 		table {
 			width: 100%;
 			border-collapse: collapse;
+			table-layout: fixed;
 		}
 		table td {
 			border: 1px solid silver;
@@ -64,10 +83,65 @@
 
 	<h1>Demo for showOrHideChildren()</h1>
 	
-	<table>
+	<p>In the following demos, the expand/toggle buttons are used to show or hide several child nodes of one selected node.
+		The selected node is the table row of the toggle button which has been pressed.
+		I.e., each click of a button first selects the table row containing that button. On this jQuery resultset
+		containing the table row, the <code>showOrHideChildren()</code> function gets called. This function
+		takes at least one argument: a children selector, in this case: <code>".more"</code>.
+		This means that any child node inside the table row which has the class "more" will be shown or hidden.
+		In this case, each table row contains 4 table cells (<code>td</code>), and each cell contains a first text and some
+		additional text, the latter wrapped in a <code>&lt;div class="more"&gt;</code> element.
+		So it's these <code>div</code>s that get shown or hidden (constrained to the selected table row).</p>
+		
+	<p>When loading, the visibility status of the <code>.more</code> sections is initialized by an
+		immediate call of <code>showChildren()</code> for the first row and <code>hildeChildren()</code>
+		for the second row. Both calls use the option <code>duration: 0</code> in order to prevent
+		an animation during initial rendering. (This is actually only important for the hide command:
+		without this zero-duration, the hidden divs would show up on page load and then be reduced to zero height
+		with a transition.)</p>
+		
+	<h2>Demo 1: All arguments passed directly to the plug-in functions</h2>
+		
+	<p>In this demo, all calls to <code>showOrHideChildren()</code> (when button is clicked) as well as
+		<code>showChildren()</code>	and <code>hideChildren()</code> (initialization on page load, see above)
+		all are completely configured by the function's parameters on each function call. (No central setup is stored.)</p>
+	
+	<table id="demo1">
 		<thead>
 			<tr>
-				<th>…</th>
+				<th class="toggle">…</th>
+				<th>Col1</th>
+				<th>Col2</th>
+				<th>Col3</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="test">
+				<td><button class="toggle"></button></td>
+				<td>Some content in Col1…<div class="more">Even more detailed content (only visible when expanded)</div></td>
+				<td>Some content in Col2…<div class="more">Even more detailed content (only visible when expanded)</div></td>
+				<td>Some content in Col3…<div class="more">Even more detailed content (only visible when expanded)</div></td>
+			</tr>
+			<tr>
+				<td><button class="toggle"></button></td>
+				<td>Hello World…<div class="more">Hello Sun, Hello Moon, Hello Earth!</div></td>
+				<td>Test<div class="more">More test content – visible if row is expanded</div></td>
+				<td>And the answer is…<div class="more">42!</div></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<h2>Demo 2: Initial setup and function calls without parameters or only overriding single option</h2>
+	<p>This demo should behave exactly the same as the first one. The script code, on the other hand, is different:
+		On page load, all common settings for initialization and button presses are saved as setup, and the
+		function calls are either parameterless (<code>showOrHideChildren()</code>) or their parameters
+		contain only options that differ from the setup (<code>duration: 0</code> for the initializations, see above).</p>
+	<p>See source of this HTML file for the code and compare both demos.</p>
+	
+	<table id="demo2">
+		<thead>
+			<tr>
+				<th class="toggle">…</th>
 				<th>Col1</th>
 				<th>Col2</th>
 				<th>Col3</th>

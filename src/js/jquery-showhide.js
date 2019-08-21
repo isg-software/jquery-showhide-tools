@@ -93,6 +93,7 @@
 		};
 	}
 	
+	const SHOW_HIDE_CHILDREN_SELECTOR_DATA_NAME = "jquery-showhide-children-selector";
 	const SHOW_HIDE_OPTIONS_SECTION_DATA_NAME = "jquery-showhide-setup";
 	
 	function getShowOrHideOptions(section, options) {
@@ -438,7 +439,16 @@
 		return this;
 	};
 	
-	function expandAndApplySelector(block, selectorOrResult, startingNode) {
+	function getSearchScope(jqr, options) {
+		const o = options.restrictSelectorsToChildren;
+		if (typeof o === 'boolean')
+			return o ? jqr : null; //If true has been passed, the jqr for which the showHide is to be executed, should be the search scope.
+				//If false, return null for global search.
+		else
+			return o; //If o is not a boolean, it should be the jQuery result object containing the search scope itself.
+	}
+	
+	function expandAndApplySelector(block, selectorOrResult, searchScope) {
 		if (typeof selectorOrResult !== "string")
 			return selectorOrResult;
 		else if (!block.length)
@@ -447,8 +457,8 @@
 			const expandedSelector = selectorOrResult.replace(/\${([^}]+)}/g, 
 				  (match, group) => block.prop(group)
 			);
-			if (startingNode)
-				return $(expandedSelector, startingNode);
+			if (searchScope)
+				return $(expandedSelector, searchScope);
 			else
 				return $(expandedSelector);
 		}
@@ -463,11 +473,12 @@
 		h.toggleClass(opts.classHidden, showHide === 'hide');
 		
 		//store aria attribute
-		const ariaTarget = expandAndApplySelector(block, opts.toggle).first();
+		const searchScope = getSearchScope(block, opts);
+		const ariaTarget = expandAndApplySelector(block, opts.toggle, searchScope).first();
 		ariaTarget.attr("aria-expanded", "" + (showHide !== 'hide'));
 		
 		//store state in hidden field (if exists)
-		const findstore = expandAndApplySelector(block, opts.store);
+		const findstore = expandAndApplySelector(block, opts.store, searchScope);
 		if (findstore && findstore.length) { //found
 			const store = findstore.get(0);
 			if (showHide==='hide')
@@ -531,6 +542,18 @@
 		if (typeof options !== "object")
 			throw "Argument to setupShowOrHideSection must be an object (containing options to be stored as setup)!";
 		this.data(SHOW_HIDE_OPTIONS_SECTION_DATA_NAME, options);
+	}
+	
+	//TODO documentation
+	$.fn.setupShowOrHideChildren = function(childrenSelect, options) {
+		if (typeof childrenSelect !== "string")
+			throw "First Argument to setupShowOrHideChildren must be a string (containing a jQuery selector)!";
+		this.data(SHOW_HIDE_CHILDREN_SELECTOR_DATA_NAME, childrenSelect);
+		if (typeof options !== "undefined") {
+			if (typeof options !== "object")
+				throw "Second argument to setupShowOrHideChildren (optional) must be an object (containing options to be stored as setup)!";
+			this.data(SHOW_HIDE_OPTIONS_SECTION_DATA_NAME, options);
+		}
 	}
 	
 	/**
@@ -605,23 +628,33 @@
 		return this;
 	};
 	
-	//TODO: Document
-	//FIXME: hard-wired class names "showing" and "hidden"! Evaluate options instead!
-	//TODO: condition support ? Compare with showOrHide!
+	//TODO: Document (Note: Option store currently unsupported!)
 	$.fn.showOrHideChildren = function(childrenSelect, options) {
 		this.each(function() {
-			const opts = getShowOrHideOptions($(this), options);
-			//switch class of heading element 
-			const h = $(this).getSectionHeading(options);
-			
+			const me = $(this);
+			const cs = typeof childrenSelect === "string" ? childrenSelect : me.data(SHOW_HIDE_CHILDREN_SELECTOR_DATA_NAME);
+			if (typeof cs !== "string")
+				throw "showOrHideChildren() requires a children selector either as first argument or stored by setupShowOrHideChildren()!";
+			//In case of an existing setup the childrenSelect argument is optional. In this case, the first
+			//argument may contain the options.
+			//If the exception above has not been thrown, then cs is a string. If childrenSelect is an object at the
+			//same time, then cs has been read from setup and the object in parameter childrenSelect should be
+			//the options.
+			const opts = getShowOrHideOptions(me, typeof childrenSelect === "object" ? childrenSelect : options);
+
+			const h = me.getSectionHeading(opts);
 			const condition = typeof opts.condition === "undefined" ? !h.hasClass("showing")
 					: typeof opts.condition === "function" ? opts.condition.call(this, this) : opts.condition;
 			const showHide = condition ? "show" : "hide";
 
-			h.toggleClass("showing", condition);
-			h.toggleClass("hidden", !condition);
+			h.toggleClass(opts.classShowing, condition);
+			h.toggleClass(opts.classHidden, !condition);
+			
+			//store aria attribute
+			const ariaTarget = expandAndApplySelector(me, opts.toggle, getSearchScope(me, opts)).first();
+			ariaTarget.attr("aria-expanded", "" + (showHide !== 'hide'));
 
-			var resultset = $(childrenSelect, $(this));
+			var resultset = $(cs, me);
 
 			//animate block itself
 			if (opts.horizontalAnimation)
@@ -639,11 +672,19 @@
 	};
 	
 	$.fn.showChildren = function(childrenSelect, options) {
-		this.showOrHideChildren(childrenSelect, $.extend(options, {condition: true}));
+		if (typeof childrenSelect === "object" && typeof options === "undefined")
+			//use case if a setup has been stored (containing a childrenSelector) and
+			//the user only passes an options object as first argument.
+			this.showOrHideChildren($.extend(childrenSelect, {condition: true}));
+		else
+			this.showOrHideChildren(childrenSelect, $.extend(options, {condition: true}));
 	}
 	
 	$.fn.hideChildren = function(childrenSelect, options) {
-		this.showOrHideChildren(childrenSelect, $.extend(options, {condition: false}));
+		if (typeof childrenSelect === "object" && typeof options === "undefined")
+			this.showOrHideChildren($.extend(childrenSelect, {condition: false}));
+		else
+			this.showOrHideChildren(childrenSelect, $.extend(options, {condition: false}));
 	}
 	
 	/**
@@ -662,7 +703,7 @@
 	 */
 	$.fn.getSectionHeading = function(options) {
 		const opts = getShowOrHideOptions(this, options);
-		return expandAndApplySelector(this, opts.heading, opts.restrictSelectorsToChildren ? this : null);
+		return expandAndApplySelector(this, opts.heading, getSearchScope(this, opts));
 	}
 	
 	/**
@@ -768,7 +809,19 @@
 	 * will be empty if the section is hidden, and the hidden field will be non-empty (value "X"),
 	 * if the section is showing. Then your server application may evaluate this form data
 	 * and take care of initialising each section's visibility in the response page it produces.
-	 * @property {boolean_or_predicate} [condition] Defaults to undefined. If left undefined, the function
+	 * @property {boolean|jqr} restrictSelectorsToChildren =false. Global property for search scope
+	 * of selectors in options <code>heading</code>, <code>toggle</code> and <code>store</code>.
+	 * If set to false (default), selectors in those three options are executed globally, i.e.
+	 * the whole document / DOM tree is searched by these selectors. If set to true, the search is
+	 * restricted to children of the node the show or hide plug-in function is called for. 
+	 * (A value of true is usually not suitable for <code>showOrHideSecion</code> calls, since this
+	 * would require the toggle or heading to be a child of the section to hide, while normally these
+	 * elements should always remain visible). For <code>showOrHideChildren</code> however, true
+	 * is usually a recommended option, if the plug-in function is called on a node which is not only
+	 * parent/ancestor of the children to hide but also of the toggle control or heading (if existing).
+	 * If this option is not set to a boolean value at all, but to a jQuery resultset, then this
+	 * resultset is used as search base for the selectors.
+	 * @property {boolean|predicate} [condition] Defaults to undefined. If left undefined, the function
 	 * {@link jQuery.fn.showOrHideSection()} (<em>not</em> the unconditional {@link jQuery.fn.showSection}
 	 * or {@link jQuery.fn.showSection}) will simply toggle the section's visibility, i.e. if it's
 	 * visible, the function will hide it, otherwise it will show it. By setting this option,
@@ -823,7 +876,7 @@
 		heading: "#${id}_h",
 		store: undefined,
 		toggle: "#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h",
-		restrictSelectorsToChildren: false, //TODO jsDoc
+		restrictSelectorsToChildren: false,
 		condition: undefined,
 		viewport: $(window),
 		onToggle: undefined,
