@@ -65,6 +65,14 @@
 		"oAP": "/demos/viewport-vertical.html",
 		"oF": 0
 		},
+	"/demos/withFoldingArrows.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/withFoldingArrows.html",
+		"oF": 0
+		},
 	"/dist/apply-showhide-defaults-min.js": {
 		"bF": 0,
 		"ft": 64,
