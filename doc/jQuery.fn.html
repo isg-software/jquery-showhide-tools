@@ -173,7 +173,7 @@ it may also be a descendant of one of the ".more"-links's parents, like for exam
 <pre><code class="html">&lt;div&gt;
     &lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class="more"&gt;…&lt;/div&gt;
+&lt;div class="more"&gt;…&lt;/div&gt;</code></pre>
 </li>
 <li>Nesting of "append-more-sections" is allowed. Example:
 <pre><code class="html">&lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
@@ -362,7 +362,7 @@ all available/overridable options.</td>
     jQuery plug-in: Simple getter function for getting the header element to a section
 as defined by the <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">headingSelector option</a>.
 Mainly used internally by plug-in functions like <a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a>,
-but may also be used internally.
+but may also be used externally.
 </div>
 
 
@@ -471,7 +471,7 @@ will be used.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line632">line 632</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line787">line 787</a>
     </li></ul></dd>
     
 
@@ -529,6 +529,223 @@ will be used.</td>
     
 
     
+    <h4 class="name" id=".hideChildren"><span class="type-signature">(static) </span>hideChildren<span class="signature">(childrenSelect, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in: Like <a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a>, but without evaluation of
+a toggle condition. Instead, all selected children get hidden (if they aren't already hidden).
+(And of cource the heading's class list and toggle's aria-expanded attribute will be set,
+just like showOrHideChildren does when the condition evaluates to "hide".)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>childrenSelect</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Selector for the ancestor nodes to be hidden.
+Required as long as no <a href="jQuery.fn.html#.setupShowOrHideChildren">setup</a> has been stored, 
+see <a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">options for the operation, see <a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a>.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line764">line 764</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="jQuery.fn.html#.showChildren">jQuery.fn.showChildren</a></li>
+        
+            <li><a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".hideSection"><span class="type-signature">(static) </span>hideSection<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
     
 
@@ -537,7 +754,7 @@ will be used.</td>
 
 
 <div class="description">
-    jQuery plug-in function: HIde a section: If it's showing, hide it, if it's already hidden,
+    jQuery plug-in function: Hide a section: If it's showing, hide it, if it's already hidden,
 do nothing.
 </div>
 
@@ -645,7 +862,7 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line579">line 579</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line624">line 624</a>
     </li></ul></dd>
     
 
@@ -838,7 +1055,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line228">line 228</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line229">line 229</a>
     </li></ul></dd>
     
 
@@ -1030,7 +1247,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line166">line 166</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line167">line 167</a>
     </li></ul></dd>
     
 
@@ -1264,7 +1481,7 @@ top might be in viewport, but less that delta pixels below the left viewport edg
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line206">line 206</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line207">line 207</a>
     </li></ul></dd>
     
 
@@ -1490,7 +1707,7 @@ top is not yet quite right out of the viewport, but to the right of viewport rig
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line185">line 185</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line186">line 186</a>
     </li></ul></dd>
     
 
@@ -1675,7 +1892,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line246">line 246</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line247">line 247</a>
     </li></ul></dd>
     
 
@@ -1908,7 +2125,7 @@ top might be in viewport, but less that delta pixels below the viewport top.</td
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line145">line 145</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line146">line 146</a>
     </li></ul></dd>
     
 
@@ -2134,7 +2351,7 @@ top is not yet quite below viewport, but below viewport bottom minus delta.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line124">line 124</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -2318,7 +2535,7 @@ defines the viewport to check against. The default viewport is the whole window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line106">line 106</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line107">line 107</a>
     </li></ul></dd>
     
 
@@ -2596,7 +2813,7 @@ in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSect
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line325">line 325</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line326">line 326</a>
     </li></ul></dd>
     
 
@@ -2867,7 +3084,216 @@ in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSect
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line409">line 409</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line410">line 410</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".setupShowOrHideChildren"><span class="type-signature">(static) </span>setupShowOrHideChildren<span class="signature">(childrenSelect, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Stores a central setup for the functions <a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a>,
+as well as <a href="jQuery.fn.html#.showChildren">jQuery.fn.showChildren</a> and <a href="jQuery.fn.html#.hideChildren">jQuery.fn.hideChildren</a>.
+A setup is recommended if you have multiple calls for those functions in your code and don't
+want to redundantly configure options in each call.
+The setup is stored in the data map for each selected node (of the jQuery resultset for which
+this function is called).
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>childrenSelect</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Selector String for selecting those ancestor nodes of each
+selected node that should be shown or hidden. This is a required argument for a setup.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Options for the showOrHide functions.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line547">line 547</a>
     </li></ul></dd>
     
 
@@ -3036,12 +3462,482 @@ that differ from the defaults.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line505">line 505</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line524">line 524</a>
     </li></ul></dd>
     
 
     
 
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".showChildren"><span class="type-signature">(static) </span>showChildren<span class="signature">(childrenSelect, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in: Like <a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a>, but without evaluation of
+a toggle condition. Instead, all selected children get shown (if they aren't already visible).
+(And of cource the heading's class list and toggle's aria-expanded attribute will be set,
+just like showOrHideChildren does when the condition evaluates to "show".)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>childrenSelect</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Selector for the ancestor nodes to be shown.
+Required as long as no <a href="jQuery.fn.html#.setupShowOrHideChildren">setup</a> has been stored, 
+see <a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">options for the operation, see <a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a>.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line739">line 739</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a></li>
+        
+            <li><a href="jQuery.fn.html#.hideChildren">jQuery.fn.hideChildren</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".showOrHideChildren"><span class="type-signature">(static) </span>showOrHideChildren<span class="signature">(childrenSelect, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: For each element of the jQuery resultset for which this function
+is called, search all decendents (children of the node as well as their children etc.) for
+matches of a child-selector (first argument) and either hide or show all those matching children.
+If no condition option is passed in the options argument, the following default condition
+will decide whether the children will be shown or hidden: If the selected heading element
+(see <a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a> and <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSection.DEFAULTS</a>
+for details) has the class "showing" (more precisely the class defined in options.classShowing,
+which defaults to "showing", see <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSection.DEFAULTS</a>), then the
+children will be hidden (and the class "showing" will be removed from the heading and 
+the class "hidden" (resp. options.classHidden) will be added).
+<p>For the default toggle condition to work, a <em>heading element</em> is obligatory.
+See <code>heading</code> option in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">Default Options</a>!
+If the default value (selecting an element with the ID of the selected parent plus "_h" suffix)
+is not applicable in your code, don't forget to specify a suitable heading option in the arguments!</p>
+<p>Just like jQuery.fn.showOrHideSections() this function changes the class list
+of the heading element (see previous paragraph) which enables you to specify some CSS
+for the state visualization, and it also supports specifying an <code>aria-expanded</code>
+attribute of a <em>toggle</em> element (see options) for better accessibility.</p>
+<p>Supports <em>almost</em> every option that <a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a> supports,
+see <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSection.DEFAULTS</a> for a list with their default values.
+Please not, though, that the "store" option is currently unsupported for this plug-in.
+<h3>Three call signatures are supported:</h3>
+<ul>
+	<li><code>$(parentSelector).showOrHideChildren(childrenSelector, options)</code>: This is
+ the default signature and the only allowed one if no setup has been stored via
+ <a href="jQuery.fn.html#.setupShowOrHideChildren">jQuery.fn.setupShowOrHideChildren</a>. The options argument is optional, 
+ the childrenSelector is required without a setup!</li>
+ <li><code>$(parentSelector).showOrHideChildren(options)</code>: This signature
+ is only valid if a setup has been stored which at least defines a childrenSelector.
+ Any options passed here will override options present in the setup, options not stated
+ in this arguments will be taken from the setup (or from the <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">DEFAULTS</a>
+ if not present in setup).</li>
+ <li><code>$(parentSelector).showOrHideChildren()</code>: The parameterless call
+ is also only allowed if a setup has been stored. That setup will then be used without
+ overrides.</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>childrenSelect</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Selector String for selecting those ancestor nodes of each
+selected node that should be shown or hidden. Usually a required argument, <em>except</em> 
+if a <a href="jQuery.fn.html#.setupShowOrHideChildren">setup has been stored</a> which already defines
+such a <code>childrenSelect</code> selector. Then this argument on the actual <code>showOrHideChildren()</code>
+call is optional.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Options for this function. This is merged with the setup.
+If no options are given at all, the setup is used (see <a href="jQuery.fn.html#.setupShowOrHideChildren">jQuery.fn.setupShowOrHideChildren</a>).
+If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">DEFAULTS</a> are used.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line645">line 645</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="jQuery.fn.html#.showChildren">jQuery.fn.showChildren</a></li>
+        
+            <li><a href="jQuery.fn.html#.hideChildren">jQuery.fn.hideChildren</a></li>
+        </ul>
+    </dd>
     
 
     
@@ -3217,7 +4113,7 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line528">line 528</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line573">line 573</a>
     </li></ul></dd>
     
 
@@ -3401,7 +4297,7 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line558">line 558</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line603">line 603</a>
     </li></ul></dd>
     
 
@@ -3682,7 +4578,7 @@ in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSect
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line265">line 265</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line266">line 266</a>
     </li></ul></dd>
     
 
@@ -3950,7 +4846,7 @@ in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSect
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line383">line 383</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line384">line 384</a>
     </li></ul></dd>
     
 
@@ -4218,7 +5114,7 @@ in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSect
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line357">line 357</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line358">line 358</a>
     </li></ul></dd>
     
 
@@ -4490,7 +5386,7 @@ in <a href="jQuery.fn.showOrHideSection.html#.DEFAULTS">jQuery.fn.showOrHideSect
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line295">line 295</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line296">line 296</a>
     </li></ul></dd>
     
 
@@ -4565,7 +5461,7 @@ allows for chaining several jQuery plug-in calls on the same result set.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Aug 20 2019 18:26:51 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Aug 23 2019 12:16:32 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

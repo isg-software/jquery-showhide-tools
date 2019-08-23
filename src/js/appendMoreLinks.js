@@ -43,7 +43,7 @@
 	 * <pre><code class="html">&lt;div&gt;
 	 *     &lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
 	 * &lt;/div&gt;
-	 * &lt;div class="more"&gt;…&lt;/div&gt;
+	 * &lt;div class="more"&gt;…&lt;/div&gt;</code></pre>
 	 * </li>
 	 * <li>Nesting of "append-more-sections" is allowed. Example:
 	 * <pre><code class="html">&lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
