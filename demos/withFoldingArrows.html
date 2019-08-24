@@ -31,7 +31,15 @@
 					heading: li,
 					toggle: "a",
 					restrictSelectorsToChildren: li,
-					scroll: true
+					scroll: true,
+					onToggle: function(section, heading) {
+						//For Internet Explorer and older Edge Browser versions that don't support
+						//CSS transitions for inline SVG:
+						heading.transformFoldingArrowIcon();
+						//If you don't care for icon transformations on those older browsers, you
+						//may leave the onToggle option.
+						//See folding-arrow-icon's documentation for details.
+					}
 				});
 			}).hideSection({duration: 0}); //initially collapse all sub-lists
 			//Add click handlers to links
@@ -90,7 +98,7 @@
 	<ul class="folding-arrows">
 		<li><a href="#!">This demo uses two jQuery plug-ins:</a>
 			<ul class="folding-arrows">
-				<li><a href="#!">folding-arrow-icon:</a>
+				<li><a href="#!">folding-arrow-icon</a>
 					<ul class="folding-arrows dashes">
 						<li>This plug-in is used to fit this unordered list with dynamically created SVG icons,
 							either static dashes like for this list item, or arrows like for the items above.
@@ -99,7 +107,7 @@
 							the arrow will change its direction with a smooth transition.</li>
 					</ul>
 				</li>
-				<li><a href="#!">showhide-tools:</a>
+				<li><a href="#!">showhide-tools</a>
 					<ul class="folding-arrows dashes">
 						<li>This is, of course, the main plug-in whose demo pages you're currently looking at.
 							This plug-in is concerned with giving life to the links in this list by toggling
@@ -149,7 +157,15 @@ $("ul.folding-arrows:not(.dashes) > li > ul").each(function() {
         heading: li,
         toggle: "a",
         restrictSelectorsToChildren: li,
-        scroll: true
+        scroll: true,
+        onToggle: function(section, heading) {
+            //For Internet Explorer and older Edge Browser versions that don't support
+            //CSS transitions for inline SVG:
+            heading.transformFoldingArrowIcon();
+            //If you don't care for icon transformations on those older browsers, you
+            //may leave the onToggle option.
+            //See folding-arrow-icon's documentation for details.
+        }
     });
 }).hideSection(); //initially collapse all sub-lists
 //Add click handlers to links
