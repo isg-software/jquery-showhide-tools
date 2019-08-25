@@ -1,0 +1,105 @@
+.accordeon {
+  margin: 1em 0;
+}
+@media screen {
+  .accordeon h2 {
+    font-size: 1.5em;
+  }
+  .accordeon h3 {
+    font-size: 1.3em;
+  }
+}
+.accordeon section {
+  margin-top: 1em;
+  padding: 0 0.5rem;
+  border: 1px solid #446;
+  border-radius: 0.5em;
+}
+.accordeon section:first-of-type {
+  margin-top: 0;
+}
+@media print {
+  .accordeon section {
+    border: none;
+  }
+}
+.accordeon section > :first-child {
+  margin: 0;
+  padding: 0.2em 0;
+}
+.accordeon section > :first-child button {
+  padding: 0 1.5em 0 0;
+  margin: 0;
+  border: none;
+  color: #446;
+  background: none;
+  position: relative;
+  width: 100%;
+  text-align: left;
+  font: 1em sans-serif;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.accordeon section > :first-child button:hover svg.folding-arrow-icon circle,
+.accordeon section > :first-child button:focus svg.folding-arrow-icon circle {
+  stroke: none;
+  fill: #669;
+}
+.keydown-multiselect.accordeon section > :first-child button:hover svg.folding-arrow-icon circle,
+.keydown-multiselect.accordeon section > :first-child button:focus svg.folding-arrow-icon circle,
+.touch-hold-multiselect.accordeon section > :first-child button:hover svg.folding-arrow-icon circle,
+.touch-hold-multiselect.accordeon section > :first-child button:focus svg.folding-arrow-icon circle {
+  fill: #696;
+}
+.accordeon section > :first-child button:hover svg.folding-arrow-icon line,
+.accordeon section > :first-child button:focus svg.folding-arrow-icon line {
+  stroke: white;
+}
+.accordeon section > :first-child button:active {
+  color: #669;
+}
+.accordeon section > div[id] {
+  margin-top: 0.5em;
+}
+.accordeon section > div[id] > :first-child {
+  margin-top: 0;
+}
+@media print {
+  .accordeon section > div[id] {
+    display: block !important;
+  }
+}
+.accordeon section.showing svg.folding-arrow-icon.updown path {
+  transform: scale(1, -1);
+}
+.accordeon section.showing svg.folding-arrow-icon.plus > g {
+  transform: rotate(45deg);
+}
+.accordeon section.showing svg.folding-arrow-icon.plus-minus line.v {
+  transform: scale(1, 0);
+}
+.accordeon svg.folding-arrow-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1em;
+  height: 1.2em;
+}
+.accordeon svg.folding-arrow-icon circle {
+  fill: none;
+  stroke: none;
+}
+.accordeon svg.folding-arrow-icon line {
+  stroke: #446;
+  stroke-width: 3px;
+}
+.keydown-multiselect.accordeon svg.folding-arrow-icon line,
+.touch-hold-multiselect.accordeon svg.folding-arrow-icon line {
+  stroke: #170;
+}
+@media print {
+  .accordeon svg.folding-arrow-icon {
+    display: none;
+  }
+}
+/*# sourceMappingURL=accordeon.css.map */

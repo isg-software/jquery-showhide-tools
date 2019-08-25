@@ -1,0 +1,120 @@
+@baseColor: #446;
+@myGreen: #170;
+@focusColor: #669;
+@focusGreen: #696;
+
+.accordeon {
+	margin: 1em 0;
+	//Custom Font sizes for h2 and h3 headings in accordeon (only screen mode, in print view, which
+	//does not support dynamic accordeon, leave defaults)
+	@media screen {
+		h2 {
+			font-size: 1.5em;
+		}
+		h3 {
+			font-size: 1.3em;
+		}
+	}
+	section {
+		margin-top: 1em;
+		&:first-of-type {
+			margin-top: 0
+		}
+		padding: 0 0.5rem;
+		border: 1px solid @baseColor;
+		border-radius: 0.5em;
+		@media print {
+			border: none;
+		}
+		> :first-child { //typischerweise h2 oder h3
+			margin: 0;
+			padding: 0.2em 0; //Die 0.2em müssen Padding statt Margin sein, weil der Margin unterhalb der h2 sonst
+			//nach dem Einblenden des nachfolgenden DIVs mit dessen Top-Padding (bzw. dem des obersten Elements darin)
+			//zusammenfällt, was nach dem sanften Einblenden (Animation) einen "Ruck" den Inhalts nach oben verursacht.
+			//Benachbarte Paddings dagegen werden nicht miteinander "verrechnet". So bleibt die Animation "sauber".
+			button {
+				padding: 0 1.5em 0 0;
+				margin:0;
+				border: none;
+				color: @baseColor;
+				background: none;
+				position: relative;
+				width: 100%;
+				text-align: left;
+				font: 1em sans-serif;
+
+				&:hover, &:focus {
+					svg.folding-arrow-icon {
+						circle {
+							stroke: none;
+							fill: @focusColor;
+							.keydown-multiselect&, .touch-hold-multiselect& {
+								fill: @focusGreen;
+							}
+						}
+						line {
+							stroke: white;
+						}
+					}
+				}
+				&:active {
+					color: @focusColor;
+				}
+				
+				//Beim Gedrückthalten für Multiselect keine Textselektion und kein Popup auslösen.
+				-webkit-user-select: none;
+				-webkit-touch-callout: none;
+			}
+		}
+		> div[id] {
+			margin-top: 0.5em;
+			> :first-child {
+				margin-top: 0;
+				//Diese Regel soll sicherstellen, dass beim Ein-/Ausklappen nicht während der Animation
+				//ein Margin-Top sichtbar ist, der dann nach Abschluss der Animation mit dem Bottom-Margin
+				//der h2 zusammenfiele, wodurch alles mit einem Ruck nach oben rutschte.
+			}
+			@media print {
+				display: block !important; //Ausblendung per Style-Attribut in Druckansicht außer Kraft setzen
+			}
+		}
+		&.showing {
+			//Aber Stile für verschiedene Presets angepasst, damit die einfach austauchbar sind, ohne dieses CSS ändern zu müssen.
+			svg.folding-arrow-icon.updown path {
+				transform: scale(1, -1);
+			}
+
+			svg.folding-arrow-icon.plus > g {
+				transform: rotate(45deg);
+			}
+	
+			svg.folding-arrow-icon.plus-minus  line.v {
+				transform: scale(1, 0);
+			}
+		}
+	}
+	
+	svg.folding-arrow-icon {
+		position: absolute;
+		top: 0;
+		right: 0;
+	    width: 1em;
+    	height: 1.2em;
+
+		circle {
+			fill: none;
+			stroke: none;
+		}
+		line {
+			stroke: @baseColor;
+			stroke-width: 3px; //Weil doch deutlich runterskaliert wird
+			.keydown-multiselect&, .touch-hold-multiselect& {
+				stroke: @myGreen;
+			}
+		}
+		@media print {
+			display: none;
+		}
+	}
+	
+}

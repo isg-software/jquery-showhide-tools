@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Accordeon Demo</title>
+	<meta name="generator" content="BBEdit 12.6" />
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<!--script type="text/javascript" src="../src/js/jquery-showhide.js"></script-->
+	<script type="text/javascript" src="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#nojq").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
+			if (typeof $.fn.prependFoldingArrowIcon === "function") {
+				$("#noFoldingArrow").hide();
+			}
+		});
+	</script>
+	<script type="text/javascript" src="../dist/accordeon-min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon.css">
+	<link rel="stylesheet" type="text/css" href="../dist/accordeon.css">
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noScrollTo" class="error">
+		<h1>jQuery plug-in "scrollTo" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery.scrollto/jquery.scrollTo.min.js</code>, but
+		it was not found there. jQuery.scrollTo is an <em>optional dependency</em>: 
+		The show/HideSection() plug-ins will still work, but auto-scrolling to a certain position in the viewport
+		will not be animated (smooth scrolling) without the scrollTo plug-in, but instead the
+		viewport will instantly "jump" to the target position.
+		</p>
+	</div>
+	<div id="noFoldingArrow" class="error">
+		<h1>jQuery plug-in "jquery-folding-arrow-icon" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js</code>, but
+		it was not found there. Folding-arrow-icon is an <em>optional dependency</em>: 
+		It's not generally necessary to use the showOrHideSection plug-in, but
+		the accordeon script relies on both plug-ins and won't work without folding-arrow-icon.
+		</p>
+	</div>
+
+	<h1>Accordeon Demo</h1>
+	
+	<div class="accordeon" data-store-selector="#${id}_store">
+		<section id="sec1_h">
+			<h2>Source files</h2>
+			<div id="sec1">
+				<p>This is not simply a demo page. This page uses the script file <code>accordeon-min.js</code>
+				and the stylesheet <code>accordeon.css</code> that are distributed alongside the
+				jquery plug-in (in the <code>dist</code> directory).</p>
+				<p>You may use these files unaltered in your own projects, if the default configurations of
+				those files fit your needs. Otherwise you may of course simply make copies of these files
+				and alter your copies to your needs. In that case, you might want to copy the originals
+				from the <code>src</code> directory, especially the minifies js file is not meant
+				to be edited :-)</p>
+			</div>
+		</section>
+		
+		<section id="sec2_h">
+			<h2>HTML Structure, HTML sections vs. "showOrHideSection()"</h2>
+			<div id="sec2">
+				<p>If you have a look at the source HTML file, you'll notice some simple, plain HTML document structure:
+					You've got a div of class 'accordeon' which contains sections. Each section consists of a section
+					heading (h2) and a div containing the main content which may be visible or invisible, depending on
+					the section's visiblity. Only if the javascript (<code>accordeon(-min).js</code>) is loaded
+					and executed successfully, this modifies the parsed DOM structure and wraps the headings (h2)
+					in buttons which then may toggle the section visibility, equipped with a folding-arrow-icon,
+					in this case not really an arrow, but a plus- or cross-icon with rotation-transition.
+				</p>
+				<p><em>Please not the slight conflict in terminology of what is meant with “section” and “heading”:</em>
+					The <code>&lt;section&gt;</code> tags in the HTML refer to the whole semantic HTML
+					sections consisting of heading and content. But the headings are always visible, only
+					the <em>section content</em> (first <code>div</code> with <code>id</code> attribute inside the section)
+					is the part that can be shown or hidden via the <code>showOrHideSection()</code> function.
+					So the word “section” in <code>showOrHideSection</code> does, in this structure not actually
+					refer to a whole accordeon section (<code>&lt;section&gt;</code>), but to the section content.
+					That's reflected by the hard-wired IDs in the source code: The section content <code>div</code>s
+					get IDs like <code>"sec1"</code>.<br> The section heading elements (<code>&lt;h2&gt;</code>) also
+					don't actually refer to what the <code>showOrHideSection()</code> function refers to with its
+					<code>heading</code> option: That heading option is used to reference the DOM node which should
+					reflect the state, but in this case, I've decided I want to add the <code>showing</code>
+					or <code>hidden</code> class respectively not to the h2 but to the whole section. That's why
+					in the HTML code, the IDs with the standard <code>_h</code> suffix are assigned to the <code>section</code>
+					elements instead of the <code>h2</code> elements. The <code>accordeon.css</code> contains rules
+					that rely on this structure.
+				</p>
+			</div>
+		</section>
+		
+		<section id="sec3_h">
+			<h2>Accessibility and printability</h2>
+			<div id="sec3">
+				<p>This realization retains printablility: The stylesheet ensures two main features:</p>
+				<ul>
+					<li>The accordeon styles like border, the icon reflecting the showing/hidden state etc. are 
+						screen-only-styles and not visible in a print-out. The print will only contains the 
+						section headings and section content.</li>
+					<li>Also the CSS uses a display rule with <code>!important</code> flag in order to
+						enforce visibility of all section's content when printing.</li>
+				</ul>
+				<p>These features are meant to increase accessibility:</p>
+				<ul>
+					<li>The toggle controls are buttons. (The buttons get injected by javascript on page load
+						in order to keep the source HTML clean.) Buttons are easily focusable and usable
+						by keyboard users.</li>
+					<li>The <code>showOrHideSection()</code>'s <code>toggle</code> option is used to
+						reference the buttons in order to equip them with an <code>aria-expanded</code>
+						attribute. This way, the state is not only visible for seeing users, but also
+						users of screen readers get announced the visibility state (expanded or collapsed)
+						of each section when they focus the button containing the heading.</li>
+					
+			</div>
+		</section>
+		
+		<section id="sec4_h">
+			<h2>Support for opening more than one section at the time (multi-select mode)</h2>
+			<div id="sec4">
+				<p>By default, the accordeon only ever shows one or no section. If one section is expanded
+				 	and you toggle another section's heading, the new section will unfold, but the currently
+				 	expanded section will collapse at the same time.</p>
+				<p>If this is unwanted, the page author can globally disable this auto-fold feature by adding
+					the class <code>multi</code> to the accordeon div: <code>&lt;div class="accordeon multi"&gt;</code>.</p>
+				<p>But if this auto-folding is active (default), the user can still unfold more than one
+					section at the same time:</p>
+				<ul>
+					<li>On a normal computer with keyboard (and usually mouse), a user may simply 
+						press and hold the control or meta key. (On a Mac he has to use the command key,
+						on a windows machine the control key is the preferred key.) While this key is
+						pressed, a multi-selection mode is active, which (in case of the included stylesheet)
+						is shown by a changing color of the plus icon: it turns green. In this mode (with
+						control or meta key pressed) any toggling a section heading (regardless of clicked
+						by mouse or by keyboard, focusing a button using the tab key and pressing it by
+						pressing the space bar) will option this section without closing any other one.</li>
+					<li>For multi-touch devices such as smart phones and tablets, the multi-select mode
+						can be used by tapping a section heading and holding it (i.e. not removing the finger).
+						Then more sections can be opened using a second finger. The multi-select mode
+						ends as soon as the first finger gets liftet from the screen.</li>
+				</ul>
+			</div>
+		</section>
+		
+		<section id="sec5_h">
+			<h2>Stores for form transmission</h2>
+			<div id="sec5">
+				<p>Just like in earlier demos, this demo includes the feature to reflect the state
+					of each section in a form input element. Normally, these would be hidden inputs.
+					Such inputs can be used to transmit the state (which section(s) is/are expanded)
+					to a server whenever a form (containing the accordeon) is transmitted to a
+					web application server, in order to enable the web app to return a page
+					containing the very same accordeon in the same state.</p>
+				<p>The use of a store is optional in the included <code>accordeon-min.js</code> script.
+					To enable it, the <code>&lt;div class="accordeon"&gt;</code> tag is equipped
+					with a data-attribute defining the store selector (see jsdoc of plug-in), 
+					in this demo thats:<br> <code>&lt;div class="accordeon" data-store-selector="#${id}_store"&gt;</code>.</p>
+				<p>Just for demonstration and testing purpose, this page uses visible (read-only)
+					text inputs for these stores. You'll find them at the bottom of the page.
+			</div>
+		</section>
+	</div>
+	
+	<h2>Stores</h2>
+	<p>See secion 5 about these inputs.</p>
+	Section 1: <input type="text" id="sec1_store" readonly><br>
+	Section 2: <input type="text" id="sec2_store" readonly><br>
+	Section 3: <input type="text" id="sec3_store" readonly><br>
+	Section 4: <input type="text" id="sec4_store" readonly><br>
+	Section 5: <input type="text" id="sec5_store" readonly><br>
+	
+	
+	TODO: Translate comments in JavaScript/Less.
+	TODO: Check script and styles if really every rule/code is needed for this demo.
+</body>
+</html>
