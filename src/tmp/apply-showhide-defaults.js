@@ -47,7 +47,7 @@ $(function() {
 	//		   <html:hidden property="showAdvanced" styleId="advanced_state"/>
 
 	if (typeof $.fn.prependFoldingArrowIcon === "function") {
-		$("ul.showOrHideGroups li")
+		$("ul.showOrHideGroups > li")
 			.prependFoldingArrowIcon()
 			.children("svg.folding-arrow-icon")
 			.click(function() {
