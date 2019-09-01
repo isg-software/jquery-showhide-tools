@@ -17,6 +17,14 @@
 		"oAP": "/.gitignore",
 		"oF": 0
 		},
+	"/demos/accordeon-multi.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/accordeon-multi.html",
+		"oF": 0
+		},
 	"/demos/accordeon.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -109,17 +117,6 @@
 		"oA": 0,
 		"oAP": "/dist/accordeon.css.map",
 		"oF": 0
-		},
-	"/dist/apply-showhide-defaults-min.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/dist/apply-showhide-defaults-min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
 		},
 	"/dist/jquery-showhide-min.js": {
 		"bF": 0,
@@ -235,17 +232,6 @@
 		"sC": 3,
 		"tS": 1
 		},
-	"/src/js/apply-showhide-defaults.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/dist/apply-showhide-defaults-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
-		},
 	"/src/js/jquery-showhide.js": {
 		"bF": 0,
 		"ft": 64,
@@ -301,6 +287,35 @@
 		"rwU": 0,
 		"sI": 0,
 		"sU": 0
+		},
+	"/src/tmp/apply-showhide-defaults.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/dist/apply-showhide-defaults-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/src/tmp/showhide.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "/src/tmp/showhide-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"/src/tmp/TODO.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/src/tmp/TODO.txt",
+		"oF": 0
 		}
 	},
 "hooks": [

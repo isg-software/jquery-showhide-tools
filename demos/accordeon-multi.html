@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Accordeon Demo</title>
+	<meta name="generator" content="BBEdit 12.6" />
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<!--script type="text/javascript" src="../src/js/jquery-showhide.js"></script-->
+	<script type="text/javascript" src="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#nojq").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
+			if (typeof $.fn.prependFoldingArrowIcon === "function") {
+				$("#noFoldingArrow").hide();
+			}
+		});
+	</script>
+	<script type="text/javascript" src="../dist/accordeon-min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon.css">
+	<link rel="stylesheet" type="text/css" href="../dist/accordeon.css">
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noScrollTo" class="error">
+		<h1>jQuery plug-in "scrollTo" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery.scrollto/jquery.scrollTo.min.js</code>, but
+		it was not found there. jQuery.scrollTo is an <em>optional dependency</em>: 
+		The show/HideSection() plug-ins will still work, but auto-scrolling to a certain position in the viewport
+		will not be animated (smooth scrolling) without the scrollTo plug-in, but instead the
+		viewport will instantly "jump" to the target position.
+		</p>
+	</div>
+	<div id="noFoldingArrow" class="error">
+		<h1>jQuery plug-in "jquery-folding-arrow-icon" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js</code>, but
+		it was not found there. Folding-arrow-icon is an <em>optional dependency</em>: 
+		It's not generally necessary to use the showOrHideSection plug-in, but
+		the accordeon script relies on both plug-ins and won't work without folding-arrow-icon.
+		</p>
+	</div>
+
+	<h1>Multi-Select Accordeon Demo</h1>
+	
+	<div class="accordeon multi" data-store-selector="#${id}_store">
+		<section id="sec1_h">
+			<h2>Permanent Multi-Select Mode</h2>
+			<div id="sec1">
+				<p>This demo page is a variation of the <a href="accordeon.html">Original Accordeon Demo</a>.
+				It uses the same source file (<code>accordeon-min.js</code> and <code>accordeon.css</code>) and
+				(apart from different text content like this paragraph) only differs from the first example
+				in setting <em>permanent Multi-Select mode</em> by adding the class <code>multi</code>
+				to the <code>class</code> attribute of the accordeon <code>div</code>:</p>
+				<pre><code>&lt;div class="accordeon multi" data-store-selector="#${id}_store"&gt;</code></pre>
+				<p>Try to open multiple sections of this page and you'll see, that other sections
+				don't get auto-closed any more.</p>
+			</div>
+		</section>
+		
+		<section id="sec2_h">
+			<h2>Section 2</h2>
+			<div id="sec2">
+				<p>Some text in Section 2
+				</p>
+			</div>
+		</section>
+		
+		<section id="sec3_h">
+			<h2>Section 3</h2>
+			<div id="sec3">
+				<p>Content of the third section.</p>
+			</div>
+		</section>
+		
+		<section id="sec4_h">
+			<h2>Section 4</h2>
+			<div id="sec4">
+				<p>And here's just another section, the fourth one.</p>
+			</div>
+		</section>
+	</div>
+	
+	<h2>Stores</h2>
+	Section 1: <input type="text" id="sec1_store" readonly><br>
+	Section 2: <input type="text" id="sec2_store" readonly><br>
+	Section 3: <input type="text" id="sec3_store" readonly><br>
+	Section 4: <input type="text" id="sec4_store" readonly>
+	
+</body>
+</html>

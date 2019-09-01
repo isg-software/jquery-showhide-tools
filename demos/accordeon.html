@@ -78,9 +78,10 @@
 			<div id="sec2">
 				<p>If you have a look at the source HTML file, you'll notice some simple, plain HTML document structure:
 					You've got a div of class 'accordeon' which contains sections. Each section consists of a section
-					heading (h2) and a div containing the main content which may be visible or invisible, depending on
+					heading (in this case a <code>h2</code>, but the script's not limited to this heading level) and a 
+					<code>div</code> containing the main content which may be visible or invisible, depending on
 					the section's visiblity. Only if the javascript (<code>accordeon(-min).js</code>) is loaded
-					and executed successfully, this modifies the parsed DOM structure and wraps the headings (h2)
+					and executed successfully, this modifies the parsed DOM structure and wraps the headings (<code>h2</code>)
 					in buttons which then may toggle the section visibility, equipped with a folding-arrow-icon,
 					in this case not really an arrow, but a plus- or cross-icon with rotation-transition.
 				</p>
@@ -125,7 +126,7 @@
 						attribute. This way, the state is not only visible for seeing users, but also
 						users of screen readers get announced the visibility state (expanded or collapsed)
 						of each section when they focus the button containing the heading.</li>
-					
+				</ul>
 			</div>
 		</section>
 		
@@ -136,7 +137,10 @@
 				 	and you toggle another section's heading, the new section will unfold, but the currently
 				 	expanded section will collapse at the same time.</p>
 				<p>If this is unwanted, the page author can globally disable this auto-fold feature by adding
-					the class <code>multi</code> to the accordeon div: <code>&lt;div class="accordeon multi"&gt;</code>.</p>
+					the class <code>multi</code> to the accordeon div: <code>&lt;div class="accordeon multi"&gt;</code>.
+					This is demonstrated in a <a href="accordeon-multi.html">separate demo page
+					for permanent multi-select mode</a>.
+					</p>
 				<p>But if this auto-folding is active (default), the user can still unfold more than one
 					section at the same time:</p>
 				<ul>
@@ -145,9 +149,9 @@
 						on a windows machine the control key is the preferred key.) While this key is
 						pressed, a multi-selection mode is active, which (in case of the included stylesheet)
 						is shown by a changing color of the plus icon: it turns green. In this mode (with
-						control or meta key pressed) any toggling a section heading (regardless of clicked
+						control or meta key pressed) any toggling a section heading (regardless of whether it's clicked
 						by mouse or by keyboard, focusing a button using the tab key and pressing it by
-						pressing the space bar) will option this section without closing any other one.</li>
+						pressing the space bar) will open this section without closing any other one.</li>
 					<li>For multi-touch devices such as smart phones and tablets, the multi-select mode
 						can be used by tapping a section heading and holding it (i.e. not removing the finger).
 						Then more sections can be opened using a second finger. The multi-select mode
@@ -183,8 +187,5 @@
 	Section 4: <input type="text" id="sec4_store" readonly><br>
 	Section 5: <input type="text" id="sec5_store" readonly><br>
 	
-	
-	TODO: Translate comments in JavaScript/Less.
-	TODO: Check script and styles if really every rule/code is needed for this demo.
 </body>
 </html>

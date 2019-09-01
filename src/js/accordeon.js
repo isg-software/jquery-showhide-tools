@@ -2,19 +2,29 @@
 $(function(){
 	"use strict";
 	
-	var TOUCH_HOLD_THRESHOLD = 500; //Millisekunden zum Gedrückthalten, bevor Touch-Hold-Multiselect aktiviert wird.
-	var TOUCH_HOLD_MOVE_TOLERANCE = 20 //Pixel, um die eine vertikale Bewegung bei Touch-Hold toleriert wird. 
-	//Bei größeren Drags wird die Touch-Hold-Erkennung abgebrochen, das wird vielmehr als Scrollen interpretiert.
+	var TOUCH_HOLD_THRESHOLD = 500; //Milliseconds a user has to hold a finger on the screen in order to enable multi-select mode
+	//The user has to hold a finger on a heading for the time above in order to enable multi-select. But if he taps the
+	//button and starts moving the finger, this is a scroll gesture, and multi-select mode should not be enabled while
+	//scrolling. Instead, a "hold" gesture for enabling multi-select should only be detected if the finger stays roughly
+	//at the same spot of the display. Some slight movement will always occur, since finger recognition on a touch screen
+	//is not pixel-accurate. The following tolerance is the amount of pixels that should be allowed and ignored,
+	//only movements greater than that tolerance should be interpreted as potential scroll gesture and abort the
+	//wait for the touch_hold_threshold:
+	var TOUCH_HOLD_MOVE_TOLERANCE = 20 
 	
+	var SHOW_TRANSITION_DURATION = 200
+
+	//Define Preset for the folding-arrow-icon			
 	var presetWithCircle = $.fn.prependFoldingArrowIcon.copyOfPreset(/*"arrow-up-down"*/ /*"plus-minus"*/ "plus")
 		.prependToGraph("circle", {"cx": "0", "cy": "0", "r": "17"})
 		.prop("viewboxRadius", 17)
 		.prop("viewboxMargin", 0)
 		.prop("closePath", false);
+		
 	$(".accordeon").each(function() {
 		var accordeon = $(this);
 		var showhideOpts = {
-			duration: 200,
+			duration: SHOW_TRANSITION_DURATION,
 			scroll: true,
 			scrollTolerance: 20,
 			onToggle: function(block, heading) {
@@ -35,19 +45,24 @@ $(function(){
 				content.showOrHideSection();
 				if (section.is(".showing") && !accordeon.is(".multi") && !accordeon.is(".touch-hold-multiselect") 
 					&& !ev.ctrlKey && !ev.metaKey && !accordeon.is(".keydown-multiselect")) {
-					//Andere schließen.
-					//Nur beim Öffnen einer neuen Sektion, nicht beim Schließen einer Sektion nach Multiselect!
-					//Außerdem zwecks Multiselect unterbinden bei Ctrl- oder Command-Taste oder im Touch-Hold-Multiselect-Modus
-					//Explizit wird auch die Klasse .keydown-multiselect nochmal abgefragt, da nicht in allen Browsern das
-					//Auslesen von .metaKey oder .ctrlKey auf einem per Keyboard (Enter, Leertaste) ausgelöstem Klick-Event
-					//funktioniert!
+					//No multi-select mode (neither permanent by class multi nor temporally enabled
+					//by touch-hold-gesture or held-down control or meta key): Close all other open sections.
+					//(Only when _opening_ a new section, not when closing a section.)
+					//In some browsers, reading .ev.ctrlKey or ev.metaKey does not seem to work in a click
+					//event handler, so also check the .keydown-multiselect class set by the keydown handlers!
 					$("section.showing", accordeon)
 						.filter(function() {
 							return ! $(this).is(h2.parent());
 						})
 						.children("div:nth-child(2)")
-						.hideSection({duration: 150}) //Schneller als "show", da letzteres ggf. früher startet und keinesfalls später fertig werden soll,
-						//da nach "show" ggf. ein Alignment (Scroll) stattfindet, was nicht während einer Hide-Animation passieren soll.
+						.hideSection({duration: SHOW_TRANSITION_DURATION - 50}) 
+						//Implementation note: Since
+						// a) the showSection animation may start a little earlier than this hideSection animation and
+						// b) an alignment (by scrolling into viewport) of the shown section may be triggered after
+						//    the showSection animation is finished and
+						// c) for that, the hideSecion animations must be finished at most at the same time as
+						//	  the showSection animation, better earlier, certainly not later (or it might affect the alignment),
+						// the duration for hideSection has to be smaller than that for showSection!
 				}
 			}
 			
@@ -59,9 +74,8 @@ $(function(){
 					accordeon.data("touch-timer", window.setTimeout(function() {
 						ev.preventDefault();
 						accordeon.addClass("touch-hold-multiselect");
-						//Erst die Klasse setzen, bevor ggf. click aufgerufen wird. So kann auch nach Absetzen und Scrollen
-						//erneut durch Halten einer Überschrift der Multiselect-Mode gestartet werden, und der click
-						//erweitert die Selektion statt alles zurückzusetzen!
+						//This class is explicitly added _before_ the click event gets triggered.
+						//See click handler.
 						if (!section.is(".showing")) {
 							target.removeData("touchedY")
 								  .click();
@@ -83,7 +97,8 @@ $(function(){
 			}
 			
 			function touchEnd(ev) {
-				ev.preventDefault(); //Verhindert insb. nachträgliches Triggern von Click durch den Browser, obwohl schon alles erledigt!
+				ev.preventDefault(); 
+				//Especially prevents accidentally triggering a following click event by the browser!
 				var target = $(this);
 				if (ev.touches.length == 1 || (typeof target.data("touchedY") !== "undefined")) {
 					target.click();
@@ -121,12 +136,6 @@ $(function(){
 		$("section.showing > div[id]:nth-child(2)", accordeon).showSection({
 			scroll: false
 		}); 
-		//Da die showing Section zu Beginn ohnehin noch sichtbar ist und durch untenstehenden Code
-		//nicht versteckt wird, ist ein showSection "eigentlich" nicht nötig.
-		//Diese Anweisung dient nur dazu, im Falle eines konfigurierten Stores für den Zustand
-		//(Hidden Field zum Submit, welche Sektion sichtbar ist)
-		//auch das Store für die gerade sichtbare Section entsprechend auszufüllen, damit diese
-		//Information beim nächsten Submit nicht verloren geht.
 	});
 
 	

@@ -26,12 +26,18 @@
 		@media print {
 			border: none;
 		}
-		> :first-child { //typischerweise h2 oder h3
+		> :first-child { //the first child of a section has to be the section heading, typically a h2 or h3
 			margin: 0;
-			padding: 0.2em 0; //Die 0.2em müssen Padding statt Margin sein, weil der Margin unterhalb der h2 sonst
-			//nach dem Einblenden des nachfolgenden DIVs mit dessen Top-Padding (bzw. dem des obersten Elements darin)
-			//zusammenfällt, was nach dem sanften Einblenden (Animation) einen "Ruck" den Inhalts nach oben verursacht.
-			//Benachbarte Paddings dagegen werden nicht miteinander "verrechnet". So bleibt die Animation "sauber".
+			padding: 0.2em 0; 
+			//It's important to use a (vertical) padding instead of a margin. Reason:
+			//The bottom margin of the h2 and the top margin of its next sibling (the hideable div container)
+			//will be merged into one gap and not add up, as long as the div is visible, but during
+			//the animation for hiding or showing the div, they will add up instead. So with a bottom
+			//margin, the gap between the heading and the content would instantly increase as soon as
+			//the hide animation starts or would instantly decrease after the show animation finishes.
+			//This would result in a sudden jolt which destroys the smooth transition.
+			//Paddings of two siblings however will, other than margins, never be joined but will
+			//always add up.
 			button {
 				padding: 0 1.5em 0 0;
 				margin:0;
@@ -61,25 +67,34 @@
 					color: @focusColor;
 				}
 				
-				//Beim Gedrückthalten für Multiselect keine Textselektion und kein Popup auslösen.
+				//For iOS: Prevent text selection and pop-up menu (e.g. for cut and pase) normally
+				//triggered by press-and-hold for the buttons in order for them not to interfere
+				//with the multi-touch multi-select mode.
 				-webkit-user-select: none;
 				-webkit-touch-callout: none;
+				-khtml-user-select: none; 
+				-moz-user-select: none; 
+				-ms-user-select: none; 
+				user-select: none;
 			}
 		}
 		> div[id] {
 			margin-top: 0.5em;
 			> :first-child {
 				margin-top: 0;
-				//Diese Regel soll sicherstellen, dass beim Ein-/Ausklappen nicht während der Animation
-				//ein Margin-Top sichtbar ist, der dann nach Abschluss der Animation mit dem Bottom-Margin
-				//der h2 zusammenfiele, wodurch alles mit einem Ruck nach oben rutschte.
+				//This also is to prevent a jolt after the show transition or before the hide transition,
+				//see comment above concerning the heading's padding.
 			}
 			@media print {
-				display: block !important; //Ausblendung per Style-Attribut in Druckansicht außer Kraft setzen
+				//If the user prints the page, all sections should always be printed, including
+				//those sections currently hidden on screen by display:none. 
+				//So: Overrule the display property of any content div in print style:
+				display: block !important;
 			}
 		}
 		&.showing {
-			//Aber Stile für verschiedene Presets angepasst, damit die einfach austauchbar sind, ohne dieses CSS ändern zu müssen.
+			//Some alternative styles for different folding-arrow-icon presets in order not to have
+			//to alter this stylesheet if the preset should be changed in the JavaScript file.
 			svg.folding-arrow-icon.updown path {
 				transform: scale(1, -1);
 			}
@@ -107,7 +122,7 @@
 		}
 		line {
 			stroke: @baseColor;
-			stroke-width: 3px; //Weil doch deutlich runterskaliert wird
+			stroke-width: 3px; //The actual icon size will adapt to the heading size. Usually this will be scaled down, so don't choose too thin strokes.
 			.keydown-multiselect&, .touch-hold-multiselect& {
 				stroke: @myGreen;
 			}
