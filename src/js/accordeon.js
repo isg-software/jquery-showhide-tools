@@ -70,6 +70,7 @@ $(function(){
 				var target = $(this);
 				var touch = ev.changedTouches[0];
 				target.data("touchedY", touch.clientY);
+				target.data("touch-hold", true);
 				if (ev.touches.length == 1) {
 					accordeon.data("touch-timer", window.setTimeout(function() {
 						ev.preventDefault();
@@ -116,6 +117,16 @@ $(function(){
 					accordeon.removeClass("touch-hold-multiselect");
 				}
 				target.removeData("touchedY");
+				target.removeData("touch-hold");
+			}
+			
+			function contextMenu(ev) {
+				//Prevent opening context menu on touch screens by tap-and-hold, because
+				//tap-and-hold is used for multi-selection (in combination with a second finger)
+				//and no context menu should prevent the user from multi-selecting.
+				//Do NOT prevent context menu by right-click (mouse).
+				if ($(this).data("touch-hold"))
+					ev.preventDefault();
 			}
 			
 			h2.html('<button type="button" class="raw-style">' + text + '</button>');
@@ -128,7 +139,8 @@ $(function(){
 			.on("touchstart", touchStart)
 			.on("touchmove", touchMove)
 			.on("touchend", touchEnd)
-			.on("touchend touchcancel", touchEndOrCancel);
+			.on("touchend touchcancel", touchEndOrCancel)
+			.contextmenu(contextMenu);
 		});
 		$("section").setupFoldingArrowIconTransformation({
 			preset: presetWithCircle
