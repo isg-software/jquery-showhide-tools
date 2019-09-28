@@ -481,10 +481,10 @@
 		const findstore = expandAndApplySelector(block, opts.store, searchScope);
 		if (findstore && findstore.length) { //found
 			const store = findstore.get(0);
-			if (showHide==='hide')
-				store.value="";
+			if (showHide === 'hide')
+				store.value = opts.storeValueHidden;
 			else
-				store.value="X";
+				store.value = opts.storeValueShowing;
 		}
 		
 		function complete() {
@@ -974,6 +974,8 @@
 		scrollTolerance: undefined,
 		heading: "#${id}_h",
 		store: undefined,
+		storeValueHidden: "",
+		storeValueShowing: "X",
 		toggle: "#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h",
 		restrictSelectorsToChildren: false,
 		condition: undefined,

@@ -65,14 +65,6 @@
 		"oAP": "/demos/showOrHideChildren.html",
 		"oF": 0
 		},
-	"/demos/tutorials.json": {
-		"ft": 524288,
-		"oA": 1,
-		"oAP": "/demos/tutorials-min.json",
-		"oF": 0,
-		"oO": 0,
-		"oS": 1
-		},
 	"/demos/viewport-horizontal.html": {
 		"cB": 0,
 		"ft": 8192,
