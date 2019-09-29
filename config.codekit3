@@ -41,6 +41,14 @@
 		"oAP": "/demos/appendmore.html",
 		"oF": 0
 		},
+	"/demos/enable-default-links.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/enable-default-links.html",
+		"oF": 0
+		},
 	"/demos/index.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -117,6 +125,17 @@
 		"oA": 0,
 		"oAP": "/dist/accordeon.css.map",
 		"oF": 0
+		},
+	"/dist/enable-default-links-min.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/dist/enable-default-links-min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
 		},
 	"/dist/jquery-showhide-min.js": {
 		"bF": 0,
@@ -232,6 +251,17 @@
 		"sC": 3,
 		"tS": 1
 		},
+	"/src/js/enable-default-links.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/dist/enable-default-links-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
 	"/src/js/jquery-showhide.js": {
 		"bF": 0,
 		"ft": 64,
@@ -287,17 +317,6 @@
 		"rwU": 0,
 		"sI": 0,
 		"sU": 0
-		},
-	"/src/tmp/apply-showhide-defaults.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/dist/apply-showhide-defaults-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
 		},
 	"/src/tmp/showhide.css": {
 		"aP": 1,

@@ -3,7 +3,7 @@ $(function() {
 	//make each link of class showOrHideLink animate a transition to show or hide the nearest following element of class hideable.
 	//Existing anchor hrefs will be overruled (set to #!).
 	//Usage: 
-	// a) Define a hyperlink like: <a href="#!" class="showOrHideLink">...</a> 
+	// a) Define a hyperlink like: <a class="showOrHideLink">...</a> 
 	//	   (any href other than "#!" will be replaced by "#!" dynamically and will only persist if JavaScript is disabled)
 	//		Exception: If the link has a target attribute (i.e. is meant for loading content in an different frame),
 	//		The href-attribut will be left untouched, such that the link both opens the target document and shows
@@ -47,6 +47,7 @@ $(function() {
 			});
 		$("ul.showOrHideGroups").addClass("folding-arrows");
 	}
+
 
 	/**
 	 * Preset for <a class="showOrHideLink">:
@@ -109,10 +110,5 @@ $(function() {
 	 */
 	$(".more").hide();
 	$(".appendMore").appendMoreLinks(); 
-	
-	/**
-	 * Initialization for hidden sliding panels:
-	 * Hide all sections of classes "slidingpanel" and "inithidden"!
-	 */	
-	$(".slidingpanel.inithidden").hide();
+
 });

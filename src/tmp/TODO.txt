@@ -1,7 +1,16 @@
-– apply-showhide-defaults:
-	– Das ist nur ein optinales (Demo-)Script ähnlich wie accordeon.js
-	– In showhide.css gibt's ein paar (wenige) Default-CSS-Styles dazu, die unter korrespondierendem Namen (showhide-defaults.css ?) gespeichert werden sollten.
 – sliding panels:
 	– Auch hierzu finden sich Styles in showhide.css
 		– vermutlich habe ich die schon in less/slidingpanels.less kopiert? Nochmal vergleichen!
 	– Dann ist auch dies ein drittes Script-CSS-Paar, das beispielhaft eingesetzt werden kann wie das Accordeon.
+
+
+– Folgendes habe ich aus apply-showhide-defaults entfernt, da sich das auf die sliding-panels bezieht, und ich beides lieber trennen möchte:
+	
+	/**
+	 * Initialization for hidden sliding panels:
+	 * Hide all sections of classes "slidingpanel" and "inithidden"!
+	 */	
+	$(".slidingpanel.inithidden").hide();
+
+
+	- Oder soll das doch noch da mit rein?
