@@ -2,7 +2,7 @@
 // @codekit-append "appendMoreLinks"
 /**
  * @license 
- * Copyright (c) 2018, Immo Schulz-Gerlach, www.isg-software.de 
+ * Copyright (c) 2019, Immo Schulz-Gerlach, www.isg-software.de 
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are 
