@@ -325,24 +325,6 @@
 		"rwU": 0,
 		"sI": 0,
 		"sU": 0
-		},
-	"/src/tmp/showhide.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "/src/tmp/showhide-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"/src/tmp/TODO.txt": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/src/tmp/TODO.txt",
-		"oF": 0
 		}
 	},
 "hooks": [
