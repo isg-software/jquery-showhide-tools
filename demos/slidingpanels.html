@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Basic Show-Hide-Demos</title>
+	
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<link type="text/css" rel="Stylesheet" href="../dist/slidingpanels.css">
+	<script type="text/javascript">
+		$(function() {
+			$("#nojq").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
+			
+			$("#panels1").setupSlideToPanel({
+				viewport: $("#panels1") //Enables Auto-Scroll inside #panels1, which is horizontally scrollable (overflow-x: scroll).
+			});
+			
+			$("#closePanels1").click(function() {
+				$("#panel1").slideToPanel();
+			});
+			
+			$("#s1").change(function() {
+				var v = $(this).val();
+				//Hide all 3 selects
+				$("#panel2 > .content > select").hide() 
+				//Then find the one corresponding to v and show it:
+					.filter(function() {
+						return $(this).data("for") === v;
+					})
+					.show()
+					.each(function() {
+						$("#l2").attr("for", this.id);
+					});
+				$("#panel2").slideToPanel();
+			});
+			$("#panel2 > .content > select").change(function() {
+				$("#panel3").slideToPanel();
+			});
+			$("#s3").change(function() {
+				var s1val = $("#s1").val();
+				$("#out").text(s1val + " " + $("#s2" + s1val).val() + $("#s3").val());
+				$("#panel4").slideToPanel();
+			});			
+		});
+	</script>
+	
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noScrollTo" class="error">
+		<h1>jQuery plug-in "scrollTo" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery.scrollto/jquery.scrollTo.min.js</code>, but
+		it was not found there. jQuery.scrollTo is an <em>optional dependency</em>: 
+		The slideToPanel() plug-in will still work, but auto-scrolling won't.
+		</p>
+	</div>
+	
+	TODO: JSDoc!
+
+	<h1>Demos for Sliding Panels</h1>
+	
+	<h2>Demo 1: Constant number of panels with hard-wired IDs</h2>
+	
+	<div id="panels1" class="slidingpanels">
+		<div id="panel1" class="slidingpanel">
+			<div class="content">
+				<label for="s1">Select 1</label><br>
+				<select id="s1" size="20">
+					<option>Hello</option>
+					<option>Hallo</option>
+					<option value="allo">Âllo</option>
+				</select>
+			</div>
+			<div id="panel2" class="slidingpanel inithidden">
+				<div class="content">
+					<label id="l2" for="s2">Select 2</label><br>
+					<select id="s2Hello" size="20" data-for="Hello">
+						<option>World</option>>
+						<option>Peter</option>
+						<option>there</option>
+					</select>
+					<select id="s2Hallo" size="20" data-for="Hallo">
+						<option>Welt</option>
+						<option>Hans-Peter</option>
+						<option>da drüben</option>
+					</select>
+					<select id="s2allo" size="20" data-for="allo">
+						<option>Monde</option>
+						<option>Pierre</option>
+						<option>la bas</option>
+					</select>
+				</div>
+				<div id="panel3" class="slidingpanel inithidden">
+					<div class="content">
+						<label for="s3">Select 3</label><br>
+						<select id="s3" size="20">
+							<option>.</option>
+							<option>!</option>
+							<option>?</option>
+							<option>…</option>
+						</select>
+					</div>
+					<div id="panel4" class="slidingpanel inithidden">
+						<div class="content">
+							<h3>Your Selection:</h3>
+							<p id="out">Lorem Impsum Dolor Sit Amen</p>
+							<div><button class="button" id="closePanels1">close all sub-panels</button></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<p>TODO: Explanations</p>
+	
+	<h2>Demo 2: Dynamic number of panels</h2>
+	
+	<p>TODO: Implement example using the $().childPanel() and .panelContent() plug-in functions.</p>
+	
+</body>
+</html>

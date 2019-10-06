@@ -1,8 +1,17 @@
 "use strict";
 (function($){
+
+	const SLIDINGPANELS_OPTIONS_DATA_NAME = "jquery-showhide-slidingpanels-setup";
+	const SLIDINGPANELS_OPTION_CONTAINER_CLASSNAME = "jquery-showhide-slidinganels-options";
 	
-	function getSlPanelOptions(options) {
-		return $.extend({}, $.fn.slideToPanel.DEFAULTS, options);
+	function getSlPanelOptions(jqrPanel, options) {
+		//find options container
+		let secOpts = jqrPanel.closest("." + SLIDINGPANELS_OPTION_CONTAINER_CLASSNAME)
+				.data(SLIDINGPANELS_OPTIONS_DATA_NAME);
+		if (secOpts)
+			return $.extend({}, $.fn.slideToPanel.DEFAULTS, secOpts, options);
+		else 
+			return $.extend({}, $.fn.slideToPanel.DEFAULTS, options);
 	}
 	
 	function getPanelWidth(block, opts) {
@@ -78,10 +87,17 @@
 						  opts);
 	}
 	
+	$.fn.setupSlideToPanel = function(options) {
+		if (typeof options !== "object")
+			throw "Argument to setupShowOrHideSection must be an object (containing options to be stored as setup)!";
+		this.data(SLIDINGPANELS_OPTIONS_DATA_NAME, options)
+			.addClass(SLIDINGPANELS_OPTION_CONTAINER_CLASSNAME);
+	}
+	
 	//Panel #id ggf. einblenden, falls noch nicht sichtbar, bzw. alle seine Sub-Panels ausblenden, falls diese sichtbar sein sollten,
 	//so dass am Ende genau #id und seine Parent-Panels sichtbar sind.
 	$.fn.slideToPanel = function(options) {
-		const opts = getSlPanelOptions(options);
+		const opts = getSlPanelOptions($(this), options);
 		slideOutChildren(this, opts);
 		slideInParents(this, opts);
 		slideInPanel(this, opts);
@@ -96,7 +112,7 @@
 		}, $.fn.showOrHideSection.DEFAULTS);
 		
 	$.fn.childPanel = function(options) {
-		const opts = getSlPanelOptions(options);
+		const opts = getSlPanelOptions($(this), options);
 		let sub = this.children('.slidingpanel');
         if (!sub.length) { //Neues Slidingpanel einfügen, falls noch keins existiert.
             this.append('<div class="' + opts.panelClass + '"><div class="' + opts.contentClass + '"></div></div>');
@@ -106,7 +122,7 @@
 	};
 	
 	$.fn.panelContent = function(options) {
-		const opts = getSlPanelOptions(options);
+		const opts = getSlPanelOptions($(this), options);
 		return this.children("." + opts.contentClass);
 	};
 	
