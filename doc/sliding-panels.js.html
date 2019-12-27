@@ -1,4 +1,32 @@
-"use strict";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sliding-panels.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: sliding-panels.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
 (function($){
 
 	const SLIDINGPANELS_OPTIONS_DATA_NAME = "jquery-showhide-slidingpanels-setup";
@@ -110,7 +138,7 @@
 	 * jQuery plug-in function: Saves options for {@link jQuery.fn.slideToPanel()} as well
 	 * as similar functions like {@link jQuery.fn.slideOutPanel} permanently in a data cache
 	 * associated with all of the selected elements.
-	 * This function may be called for any element <em>containing</em> sliding panels, and
+	 * This function may be called for any element &lt;em>containing&lt;/em> sliding panels, and
 	 * the setup options provided to this function and stored in the data of the selected
 	 * container(s) will apply to all sliding panels found within this container (res. these containers).
 	 *
@@ -160,7 +188,7 @@
 	/**
 	 * jQuery plug-in function: Slide the selected panel into view if not yet visible.
 	 * Differs from {@link jQuery.fn.slideToPanel()} only in the case that its child panel
-	 * is already visible: Then this function will <em>not</em> hide the child panel (or any
+	 * is already visible: Then this function will &lt;em>not&lt;/em> hide the child panel (or any
 	 * successors).
 	 * Simply ensures that the selected panel and all its predecessors are made visible.
 	 * I.e.: If the selected panel is still invisible, show it (after showing all still invisible
@@ -188,13 +216,13 @@
 	 * containing a sliding panel, this function returns a jQuery object containing the panel's
 	 * sub panel. If the panel ($(this)) does not yet contain a sub panel (i.e. it's the
 	 * last panel in the chain), a new sub panel will be appended and returned.
-	 * <p>
-	 * Depends on the options <code>panelClass</code> and <code>contentClass</code>, 
+	 * &lt;p>
+	 * Depends on the options &lt;code>panelClass&lt;/code> and &lt;code>contentClass&lt;/code>, 
 	 * see {@link jQuery.fn.slideToPanel.DEFAULTS}.
-	 * Selects the children of $(this) of class <code>panelClass</code>, which should usually
-	 * be exactly one or none. If it's none, a div element of class <code>panelClass</code> will be
+	 * Selects the children of $(this) of class &lt;code>panelClass&lt;/code>, which should usually
+	 * be exactly one or none. If it's none, a div element of class &lt;code>panelClass&lt;/code> will be
 	 * created and appended (and returned), which in turn contains a div child element of class
-	 * <code>contentClass</code>.
+	 * &lt;code>contentClass&lt;/code>.
 	 * @function childPanel
 	 * @memberOf jQuery.fn
 	 * @param {object} [options] An object defining options for the slideToPanel functions.
@@ -206,7 +234,7 @@
 		const opts = getSlPanelOptions($(this), options);
 		let sub = this.children('.' + opts.panelClass);
         if (!sub.length) { //Neues Slidingpanel einfügen, falls noch keins existiert.
-            this.append('<div class="' + opts.panelClass + '"><div class="' + opts.contentClass + '"></div></div>');
+            this.append('&lt;div class="' + opts.panelClass + '">&lt;div class="' + opts.contentClass + '">&lt;/div>&lt;/div>');
 			sub = this.children('.' + opts.panelClass).hide();
         }
         return sub;
@@ -217,14 +245,14 @@
 	 * (see {@link jQuery.fn.slideToPanel()}): When called on a one-element jQuery resultset
 	 * containing a sliding panel, this function returns a jQuery object containing the panel's
 	 * content. More precisely: This function returns the jQuery resultset from a search
-	 * for all children of $(this) of class <code>options.contentClass</code>,
+	 * for all children of $(this) of class &lt;code>options.contentClass&lt;/code>,
 	 * (see {@link jQuery.fn.slideToPanel.DEFAULTS}).
 	 * @function panelContent
 	 * @memberOf jQuery.fn
 	 * @param {object} [options] An object defining options for the slideToPanel functions.
 	 * This function only depends on the option contentClass.
 	 * @return {jqr} a jQuery resultset containing the child element of the panel 
-	 * which has the class <code>options.contentClass</code>.
+	 * which has the class &lt;code>options.contentClass&lt;/code>.
 	 */
 	$.fn.panelContent = function(options) {
 		const opts = getSlPanelOptions($(this), options);
@@ -238,7 +266,7 @@
 	/**
 	 * This object defines the default settings for {@link jQuery.fn.slideToPanel()} and
 	 * similar plug-in functions. 
-	 * The table also lists all possible properties for the <code>options</code> argument
+	 * The table also lists all possible properties for the &lt;code>options&lt;/code> argument
 	 * of said functions.
 	 * @member DEFAULTS
 	 * @memberOf jQuery.fn.slideToPanel
@@ -274,3 +302,26 @@
 
 	
 }(jQuery));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li><li><a href="jQuery.fn.appendMoreLinks.html">appendMoreLinks</a></li><li><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></li><li><a href="jQuery.fn.slideToPanel.html">slideToPanel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Dec 27 2019 01:42:25 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

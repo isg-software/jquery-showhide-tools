@@ -542,6 +542,7 @@
 		if (typeof options !== "object")
 			throw "Argument to setupShowOrHideSection must be an object (containing options to be stored as setup)!";
 		this.data(SHOW_HIDE_OPTIONS_SECTION_DATA_NAME, options);
+		return this;
 	}
 	
 	/**
@@ -568,6 +569,7 @@
 				throw "Second argument to setupShowOrHideChildren (optional) must be an object (containing options to be stored as setup)!";
 			this.data(SHOW_HIDE_OPTIONS_SECTION_DATA_NAME, options);
 		}
+		return this;
 	}
 	
 	/**

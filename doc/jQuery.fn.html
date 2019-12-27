@@ -115,6 +115,9 @@
         
             <dt><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></dt>
             <dd></dd>
+        
+            <dt><a href="jQuery.fn.slideToPanel.html">slideToPanel</a></dt>
+            <dd></dd>
         </dl>
     
 
@@ -357,6 +360,190 @@ all available/overridable options.</td>
     
 
     
+    <h4 class="name" id=".childPanel"><span class="type-signature">(static) </span>childPanel<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Helper function when working with sliding panels
+(see <a href="jQuery.fn.html#.slideToPanel()">jQuery.fn.slideToPanel()</a>): When called on a one-element jQuery resultset
+containing a sliding panel, this function returns a jQuery object containing the panel's
+sub panel. If the panel ($(this)) does not yet contain a sub panel (i.e. it's the
+last panel in the chain), a new sub panel will be appended and returned.
+<p>
+Depends on the options <code>panelClass</code> and <code>contentClass</code>, 
+see <a href="jQuery.fn.slideToPanel.html#.DEFAULTS">jQuery.fn.slideToPanel.DEFAULTS</a>.
+Selects the children of $(this) of class <code>panelClass</code>, which should usually
+be exactly one or none. If it's none, a div element of class <code>panelClass</code> will be
+created and appended (and returned), which in turn contains a div child element of class
+<code>contentClass</code>.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An object defining options for the slideToPanel functions.
+This function depends on the options panelClass and contentClass.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sliding-panels.js.html">sliding-panels.js</a>, <a href="sliding-panels.js.html#line185">line 185</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a jQuery resultset containing the (previously existing or newly created)
+child panel of $(this). Not empty.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".getSectionHeading"><span class="type-signature">(static) </span>getSectionHeading<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
     
 
@@ -477,7 +664,7 @@ will be used.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line787">line 787</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line789">line 789</a>
     </li></ul></dd>
     
 
@@ -684,7 +871,7 @@ see <a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line764">line 764</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line766">line 766</a>
     </li></ul></dd>
     
 
@@ -868,7 +1055,7 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line624">line 624</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line626">line 626</a>
     </li></ul></dd>
     
 
@@ -2607,6 +2794,184 @@ within the viewport
     
 
     
+    <h4 class="name" id=".panelContent"><span class="type-signature">(static) </span>panelContent<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Helper function when working with sliding panels
+(see <a href="jQuery.fn.html#.slideToPanel()">jQuery.fn.slideToPanel()</a>): When called on a one-element jQuery resultset
+containing a sliding panel, this function returns a jQuery object containing the panel's
+content. More precisely: This function returns the jQuery resultset from a search
+for all children of $(this) of class <code>options.contentClass</code>,
+(see <a href="jQuery.fn.slideToPanel.html#.DEFAULTS">jQuery.fn.slideToPanel.DEFAULTS</a>).
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An object defining options for the slideToPanel functions.
+This function only depends on the option contentClass.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sliding-panels.js.html">sliding-panels.js</a>, <a href="sliding-panels.js.html#line215">line 215</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a jQuery resultset containing the child element of the panel 
+which has the class <code>options.contentClass</code>.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".scrollDownIntoView"><span class="type-signature">(static) </span>scrollDownIntoView<span class="signature">(viewport<span class="signature-attributes">opt</span>, tolerance<span class="signature-attributes">opt</span>, duration<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
     
 
@@ -3299,7 +3664,7 @@ selected node that should be shown or hidden. This is a required argument for a 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line547">line 547</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line548">line 548</a>
     </li></ul></dd>
     
 
@@ -3527,6 +3892,187 @@ allows for chaining several jQuery plug-in calls on the same result set.
     
 
     
+    <h4 class="name" id=".setupSlideToPanel"><span class="type-signature">(static) </span>setupSlideToPanel<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Saves options for <a href="jQuery.fn.html#.slideToPanel()">jQuery.fn.slideToPanel()</a> as well
+as similar functions like jQuery.fn.slideOutPanel permanently in a data cache
+associated with all of the selected elements.
+This function may be called for any element <em>containing</em> sliding panels, and
+the setup options provided to this function and stored in the data of the selected
+container(s) will apply to all sliding panels found within this container (res. these containers).
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An object defining options for the slideToPanel(), slideOutPanel()
+or childPanel() functions. See <a href="jQuery.fn.slideToPanel.html#.DEFAULTS">DEFAULTS options</a>
+for a list of available options and their default values. For any option you omit in your options
+argument, the default option will be used. So this argument only needs to specify options
+that differ from the defaults.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sliding-panels.js.html">sliding-panels.js</a>, <a href="sliding-panels.js.html#line109">line 109</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".showChildren"><span class="type-signature">(static) </span>showChildren<span class="signature">(childrenSelect, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
     
 
@@ -3676,7 +4222,7 @@ see <a href="jQuery.fn.html#.showOrHideChildren">jQuery.fn.showOrHideChildren</a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line739">line 739</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line741">line 741</a>
     </li></ul></dd>
     
 
@@ -3929,7 +4475,7 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line645">line 645</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line647">line 647</a>
     </li></ul></dd>
     
 
@@ -4119,7 +4665,7 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line573">line 573</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line575">line 575</a>
     </li></ul></dd>
     
 
@@ -4303,7 +4849,7 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line603">line 603</a>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line605">line 605</a>
     </li></ul></dd>
     
 
@@ -4318,6 +4864,369 @@ If no setup has been made, the <a href="jQuery.fn.showOrHideSection.html#.DEFAUL
             <li><a href="jQuery.fn.html#.hideSection">jQuery.fn.hideSection</a></li>
         </ul>
     </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".slideInPanel"><span class="type-signature">(static) </span>slideInPanel<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Slide the selected panel into view if not yet visible.
+Differs from <a href="jQuery.fn.html#.slideToPanel()">jQuery.fn.slideToPanel()</a> only in the case that its child panel
+is already visible: Then this function will <em>not</em> hide the child panel (or any
+successors).
+Simply ensures that the selected panel and all its predecessors are made visible.
+I.e.: If the selected panel is still invisible, show it (after showing all still invisible
+predecessord). If the selected panel is already visible nothing changes.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An object defining options. 
+See <a href="jQuery.fn.slideToPanel.html#.DEFAULTS">DEFAULTS options</a>
+for a list of available options and their default values. For any option you omit in your options
+argument, the default option will be used. So this argument only needs to specify options
+that differ from the defaults.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sliding-panels.js.html">sliding-panels.js</a>, <a href="sliding-panels.js.html#line160">line 160</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the same jQuery resultset this function was called upon, 
+allows for chaining several jQuery plug-in calls on the same result set.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">jqr</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".slideToPanel()"><span class="type-signature">(static) </span>slideToPanel()<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {jqr}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    jQuery plug-in function: Slide the selected panel into view (to be the last visible panel).
+Ensure that the selected panel and all its predecessors are made
+visible while all child panels stay or get hidden.
+I.e.: If the selected panel is still invisible, show it (after showing all still invisible
+predecessord). If the selected panel is already visible and one or more of its successors are
+visible too, then hide all those successors.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An object defining options. 
+See <a href="jQuery.fn.slideToPanel.html#.DEFAULTS">DEFAULTS options</a>
+for a list of available options and their default values. For any option you omit in your options
+argument, the default option will be used. So this argument only needs to specify options
+that differ from the defaults.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sliding-panels.js.html">sliding-panels.js</a>, <a href="sliding-panels.js.html#line135">line 135</a>
+    </li></ul></dd>
+    
+
+    
+
     
 
     
@@ -5461,13 +6370,13 @@ allows for chaining several jQuery plug-in calls on the same result set.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li><li><a href="jQuery.fn.appendMoreLinks.html">appendMoreLinks</a></li><li><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li><li><a href="jQuery.fn.appendMoreLinks.html">appendMoreLinks</a></li><li><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></li><li><a href="jQuery.fn.slideToPanel.html">slideToPanel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Aug 24 2019 11:10:35 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Dec 27 2019 01:42:25 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

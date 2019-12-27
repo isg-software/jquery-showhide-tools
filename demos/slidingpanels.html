@@ -7,6 +7,8 @@
 	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+<!--	<script type="text/javascript" src="../src/js/jquery-showhide.js"></script>
+	<script type="text/javascript" src="../src/js/sliding-panels.js"></script>-->
 	<link type="text/css" rel="Stylesheet" href="../dist/slidingpanels.css">
 	<script type="text/javascript">
 		$(function() {
@@ -15,34 +17,59 @@
 				$("#noScrollTo").hide();
 			}
 			
+			function updateOutputPanel() {
+				var p = $("#out");
+				var s1val = $("#s1").val();
+				p.text(s1val + " " + $("#s2" + s1val).val() + $("#s3").val());
+			}
+			
 			$("#panels1").setupSlideToPanel({
-				viewport: $("#panels1") //Enables Auto-Scroll inside #panels1, which is horizontally scrollable (overflow-x: scroll).
+				viewport: $("#panels1"), //Enables Auto-Scroll inside #panels1, which is horizontally scrollable (overflow-x: scroll).
+				onSlideOut: function() {
+					//reset the selection in the panel that is being hidden
+					$(this).panelContent().find("select").prop("selectedIndex", -1);
+					console.log("slide out #" + this.id);
+				},
+				onSlideIn: function() {
+					console.log("slide in #" + this.id);
+				}
 			});
 			
 			$("#closePanels1").click(function() {
-				$("#panel1").slideToPanel();
+				//slide back to panel 1 and reset the selection inside this panel's select box.
+				$("#panel1").slideToPanel()
+					.panelContent().find("select").prop("selectedIndex", -1);
 			});
 			
 			$("#s1").change(function() {
 				var v = $(this).val();
 				//Hide all 3 selects
-				$("#panel2 > .content > select").hide() 
+				$("#panel2").panelContent().find("select").hide()
 				//Then find the one corresponding to v and show it:
 					.filter(function() {
 						return $(this).data("for") === v;
 					})
+					.prop("selectedIndex", -1) //reset selection
 					.show()
 					.each(function() {
 						$("#l2").attr("for", this.id);
 					});
 				$("#panel2").slideToPanel();
 			});
-			$("#panel2 > .content > select").change(function() {
-				$("#panel3").slideToPanel();
+
+			$("#panel2").panelContent().find("select").change(function() {
+				//if #panel3 is not yet visible, slide it in. 
+				//On the other hand, if #panel3 _and_ #panel 4 are already visible, don't
+				//slide out #panel4 but simply update its content according to the changed value
+				//of #panel2's select, because the select options of #panel3 are constant and 
+				//don't depend on the #panel2 selection.
+				//Therefore: Use slideInPanel() instead of slideOutPanel():
+				updateOutputPanel(); //In case the panel 4 is already visible, update it.
+				$("#panel3").slideInPanel();
 			});
+			
 			$("#s3").change(function() {
-				var s1val = $("#s1").val();
-				$("#out").text(s1val + " " + $("#s2" + s1val).val() + $("#s3").val());
+				updateOutputPanel();
 				$("#panel4").slideToPanel();
 			});			
 		});
@@ -69,8 +96,6 @@
 		The slideToPanel() plug-in will still work, but auto-scrolling won't.
 		</p>
 	</div>
-	
-	TODO: JSDoc!
 
 	<h1>Demos for Sliding Panels</h1>
 	
