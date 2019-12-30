@@ -28,26 +28,20 @@
 			
 			var rootFolder = {
 				"name": "root",
-				"id": "root",
 				"content": [
 					{	"name": "First Folder",
-						"id": "0",
 						"content": [
-							{ "name": "A subfolder in First Folder", "id": "0-0"},
-							{ "name": "Another subfolder in First Folder", "id": "0-1"}
+							{ "name": "A subfolder in First Folder"},
+							{ "name": "Another subfolder in First Folder"}
 						]
 					}, {
-						"name": "Second Folder", 
-						"id": "1"
+						"name": "Second Folder"
 					}, {
-						"name": "YAN (yet another folder)", 
-						"id": "2",
+						"name": "YAN (yet another folder)",
 						"content": [
 							{ "name": "A subfolder in YAN",
-								"id": "2-0",
 								"content": [
 									{"name": "A sub-subfolder…",
-										"id": "2-0-0",
 										"content": [
 											{"name": "sub sub sub"}
 										]
@@ -61,7 +55,9 @@
 			
 			function showFolder(panel, folder) {
 				var c = panel.panelContent();
-				c.html('<select id="' + folder.id + '" name="' + folder.id + '" size="20" multiple></select>');
+				c.html('<select id="' + folder.id + '" name="' + folder.id + '" size="20" multiple></select>'
+					+ '<div class="ctrl"><button type="button" class="add">+</button><button type="button" class="del">&minus;</button></div>'
+				);
 				var s = $("select", c);
 				s.data("folder", folder);
 				if (folder.content) {
@@ -69,16 +65,59 @@
 						s.append('<option value="' + folder.content[i].id + '">' + folder.content[i].name + '</option>');
 					}
 				}
-				addHandler(s, panel);
+				addSelectHandler(s, panel);
+				addMinusHandler($(".del", c), s, panel, folder);
+				addPlusHandler($(".add", c), s, panel, folder);
 				panel.slideToPanel();
 			}
 			
-			function addHandler(select, panel) {
+			function addSelectHandler(select, panel) {
 				select.change(function() {
 					var index = $(this).prop("selectedIndex");
 					var subfolder = $(this).data("folder").content[index];
 					showFolder(panel.childPanel(), subfolder);
 				});
+			}
+			
+			function addMinusHandler(btn, select, panel, folder) {
+				btn.click(function() {
+					var i = select.prop("selectedIndex");
+					if (i >= 0) {
+						folder.content.splice(i, 1);
+					}
+					showFolder(panel, folder);
+				});
+			}
+			
+			function addPlusHandler(btn, select, panel, folder) {
+				btn.click(function() {
+					var cp = panel.childPanel();
+					var c = cp.panelContent();
+					c.html('<label for="newFldr">Folder Name:</label><br><input type="text" id="newFldr" size="20"><br>'
+						+ '<button>Add Folder</button>');
+					var i = $("input", c);
+					var b = $("button", c);
+					b.click(function() {
+						addFolder(panel, folder, i);
+					});
+					i.keydown(function(ev) {
+						if (ev.keyCode === 13) {
+							addFolder(panel, folder, i);
+						}
+					});
+					cp.slideToPanel();
+					i.focus();
+				});
+			}
+			
+			function addFolder(panel, folder, input) {
+				var n = input.val();
+				if (!folder.content)
+					folder.content = [];
+				folder.content.push({
+					"name": n
+				});
+				showFolder(panel, folder);
 			}
 			
 			var root = $("#root");
@@ -90,6 +129,15 @@
 	<style type="text/css">
 		.error {
 			color: red;
+		}
+		.ctrl {
+			text-align: right;
+		}
+		button.add {
+			color: #080;
+		}
+		button.del {
+			color: #800;
 		}
 	</style>
 </head>
@@ -123,6 +171,7 @@
 	<p>The example emulates a kind of folder structure like the one of a file system: Each panel
 		represents a folder and you may add subfolders whose content will then be shown in a subpanel.
 		For simplicity's sake, this example is limited to folders, i.e. it does not support adding "files" to the folders.
+		Use the '+' button for adding a folder and the '&minus;' button for removing the selected folder (including its subfolders).
 	</p>
 
 	<p>See the JavaScript code in this page's source to see how the handling of the panels works.</p>
