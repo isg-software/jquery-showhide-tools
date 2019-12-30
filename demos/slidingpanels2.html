@@ -69,19 +69,16 @@
 						s.append('<option value="' + folder.content[i].id + '">' + folder.content[i].name + '</option>');
 					}
 				}
+				addHandler(s, panel);
 				panel.slideToPanel();
-				addHandler(panel);
 			}
 			
-			function addHandler(panel) {
-				var select = $("> select", panel.panelContent());
-				if (!select.data("handlerPresent")) {
-					select.change(function() {
-						var index = $(this).prop("selectedIndex");
-						var subfolder = $(this).data("folder").content[index];
-						showFolder(panel.childPanel(), subfolder);
-					}).data("handlerPreset", true);
-				}
+			function addHandler(select, panel) {
+				select.change(function() {
+					var index = $(this).prop("selectedIndex");
+					var subfolder = $(this).data("folder").content[index];
+					showFolder(panel.childPanel(), subfolder);
+				});
 			}
 			
 			var root = $("#root");
