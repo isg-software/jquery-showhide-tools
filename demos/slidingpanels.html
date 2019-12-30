@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>Basic Show-Hide-Demos</title>
+	<title>Sliding Panels Demo 1</title>
 	
 	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
@@ -23,8 +23,8 @@
 				p.text(s1val + " " + $("#s2" + s1val).val() + $("#s3").val());
 			}
 			
-			$("#panels1").setupSlideToPanel({
-				viewport: $("#panels1"), //Enables Auto-Scroll inside #panels1, which is horizontally scrollable (overflow-x: scroll).
+			$("#panels").setupSlideToPanel({
+				viewport: $("#panels"), //Enables Auto-Scroll inside #panels, which is horizontally scrollable (overflow-x: scroll).
 				onSlideOut: function() {
 					//reset the selection in the panel that is being hidden
 					$(this).panelContent().find("select").prop("selectedIndex", -1);
@@ -35,7 +35,7 @@
 				}
 			});
 			
-			$("#closePanels1").click(function() {
+			$("#closepanels").click(function() {
 				//slide back to panel 1 and reset the selection inside this panel's select box.
 				$("#panel1").slideToPanel()
 					.panelContent().find("select").prop("selectedIndex", -1);
@@ -101,7 +101,24 @@
 	
 	<h2>Demo 1: Constant number of panels with hard-wired IDs</h2>
 	
-	<div id="panels1" class="slidingpanels">
+	<p>This demo's HTML constantly defines four panels:</p>
+	<ul>
+		<li>The first panel (root panel) is always visible. 
+			It contains one select box which lets you select a 'hello' in one of three languages.
+			And it contains one child panel:</li>
+		<li>The second panel (child of the first) gets shown once an option in the first panel's select is chosen.
+			It contains three selects (one for each language), but only one of those is visible,
+			depending on the selection in panel 1.</li>
+		<li>The third panel (child of the second one) get shown once a selection is made in the second one.
+			It contains one select box (independent of the language chose in panel 1).</li>
+		<li>Once a selection was made in each select box, the fourth panel gets shown. It is a leaf panel,
+			i.e. it does not have a child panel.</li>
+	</ul>
+	<p>See the JavaScript code in this page's source to see how the handling of the panels works.</p>
+	<p>If you open your browser's console, you may also see the call-back functions at work: Event handlers
+		have been defined to log the sliding panels' onSlideIn and onSlideOut events to the console.</p>
+	
+	<div id="panels" class="slidingpanels">
 		<div id="panel1" class="slidingpanel">
 			<div class="content">
 				<label for="s1">Select 1</label><br>
@@ -144,18 +161,13 @@
 						<div class="content">
 							<h3>Your Selection:</h3>
 							<p id="out">Lorem Impsum Dolor Sit Amen</p>
-							<div><button class="button" id="closePanels1">close all sub-panels</button></div>
+							<div><button class="button" id="closepanels">close all sub-panels</button></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<p>TODO: Explanations</p>
-	
-	<h2>Demo 2: Dynamic number of panels</h2>
-	
-	<p>TODO: Implement example using the $().childPanel() and .panelContent() plug-in functions.</p>
 	
 </body>
 </html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Sliding Panels Demo 2</title>
+	
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+<!--	<script type="text/javascript" src="../src/js/jquery-showhide.js"></script>
+	<script type="text/javascript" src="../src/js/sliding-panels.js"></script>-->
+	<link type="text/css" rel="Stylesheet" href="../dist/slidingpanels.css">
+	<script type="text/javascript">
+		$(function() {
+			$("#nojq").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
+			
+			
+			$("#folders").setupSlideToPanel({
+				viewport: $("#folders"), //Enables Auto-Scroll inside #folders, which is horizontally scrollable (overflow-x: scroll).
+				onSlideOut: function() {
+					//reset the selection in the panel that is being hidden
+					$(this).panelContent().find("select").prop("selectedIndex", -1);
+				}
+			});
+			
+			var rootFolder = {
+				"name": "root",
+				"id": "root",
+				"content": [
+					{	"name": "First Folder",
+						"id": "0",
+						"content": [
+							{ "name": "A subfolder in First Folder", "id": "0-0"},
+							{ "name": "Another subfolder in First Folder", "id": "0-1"}
+						]
+					}, {
+						"name": "Second Folder", 
+						"id": "1"
+					}, {
+						"name": "YAN (yet another folder)", 
+						"id": "2",
+						"content": [
+							{ "name": "A subfolder in YAN",
+								"id": "2-0",
+								"content": [
+									{"name": "A sub-subfolder…",
+										"id": "2-0-0",
+										"content": [
+											{"name": "sub sub sub"}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			};
+			
+			function showFolder(panel, folder) {
+				var c = panel.panelContent();
+				c.html('<select id="' + folder.id + '" name="' + folder.id + '" size="20" multiple></select>');
+				var s = $("select", c);
+				s.data("folder", folder);
+				if (folder.content) {
+					for (var i = 0, l = folder.content.length; i < l; i++) {
+						s.append('<option value="' + folder.content[i].id + '">' + folder.content[i].name + '</option>');
+					}
+				}
+				panel.slideToPanel();
+				addHandler(panel);
+			}
+			
+			function addHandler(panel) {
+				var select = $("> select", panel.panelContent());
+				if (!select.data("handlerPresent")) {
+					select.change(function() {
+						var index = $(this).prop("selectedIndex");
+						var subfolder = $(this).data("folder").content[index];
+						showFolder(panel.childPanel(), subfolder);
+					}).data("handlerPreset", true);
+				}
+			}
+			
+			var root = $("#root");
+			showFolder(root, rootFolder);
+			
+		});
+	</script>
+	
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noScrollTo" class="error">
+		<h1>jQuery plug-in "scrollTo" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery.scrollto/jquery.scrollTo.min.js</code>, but
+		it was not found there. jQuery.scrollTo is an <em>optional dependency</em>: 
+		The slideToPanel() plug-in will still work, but auto-scrolling won't.
+		</p>
+	</div>
+
+	<h1>Demos for Sliding Panels</h1>
+	
+	<h2>Demo 2: Dynamic number of panels</h2>
+	
+	<p>This page demonstrates the handling of a dynamic number of panels: For each panel the script
+		can decide to open a sub panel: This sub panel may already exist (invisible), then it simply
+		gets (updated / filled with content and) shown. Or it may not yet exist, in which case it gets
+		dynamically generated and inserted before being filled and shown.
+		(This is done by the <code>childPanel()</code> function.)
+	</p>
+	
+	<p>The example emulates a kind of folder structure like the one of a file system: Each panel
+		represents a folder and you may add subfolders whose content will then be shown in a subpanel.
+		For simplicity's sake, this example is limited to folders, i.e. it does not support adding "files" to the folders.
+	</p>
+
+	<p>See the JavaScript code in this page's source to see how the handling of the panels works.</p>
+	
+	<div id="folders" class="slidingpanels">
+		<div id="root" class="slidingpanel">
+			<div class="content">
+			</div>
+		</div>
+	</div>
+		
+</body>
+</html>

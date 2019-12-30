@@ -81,6 +81,14 @@
 		"oAP": "/demos/slidingpanels.html",
 		"oF": 0
 		},
+	"/demos/slidingpanels2.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/slidingpanels2.html",
+		"oF": 0
+		},
 	"/demos/viewport-horizontal.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -255,17 +263,6 @@
 		"mi": 1,
 		"oA": 1,
 		"oAP": "/dist/appendMoreLinks-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
-		},
-	"/src/js/BBEditRunTemp-sliding-panels.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/dist/BBEditRunTemp-sliding-panels-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 1
