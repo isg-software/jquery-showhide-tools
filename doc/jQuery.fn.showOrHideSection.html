@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: showOrHideSection</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: showOrHideSection</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="jQuery.html">jQuery</a><a href="jQuery.fn.html">.fn</a>.</span>showOrHideSection</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line808">line 808</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".DEFAULTS"><span class="type-signature">(static) </span>DEFAULTS<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    This object defines the default settings for <a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a> and
+similar plug-in functions. 
+The table also lists all possible properties for the <code>options</code> argument
+of said functions.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>classShowing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">="showing" Name of a CSS class which should be added to 
+the heading element (see property heading) when showing the corresponding section and removed
+when hiding the section.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>classHidden</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">="hidden" Name of a CSS class which should be added to 
+the heading element (see property heading) when hiding the corresponding section and removed
+when showing the section.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>easing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A string indicating which easing function to use for the 
+show or hide transition. 
+See <a href="https://api.jquery.com/animate/">jQuery.animate()</a>. 
+If undefined (default), jQuery.animate()'s default easing function will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>horizontalAnimation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">=false: Default tries vertical easing when
+showing or hiding a section, set to true in order to change to horizontal easing.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">=200 Default duration for animations (scrolling, 
+or easing when expanding or collapsing elements).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scroll</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">=false. When false (default), any call to 
+<a href="jQuery.fn.html#.showSection">showSection()</a> or 
+<a href="jQuery.fn.html#.showOrHideSection()">showOrHideSection()</a> (for showing)
+will simply show the target section regardless of whether it is in the viewport or not,
+i.e. not ensuring that the user will see the newly showing section.
+Set this to true to ensure that the newly shown section will be scrolled into viewport:
+If the section is <a href="jQuery.fn.html#.isTopBelowViewport">below viewport</a>, the page will
+<a href="jQuery.fn.html#.scrollDownIntoView">scroll down until the section is in view</a>,
+if <a href="jQuery.fn.html#.isTopAboveViewport">the section's top is above viewport</a> (the 
+section might be partially showing or not at all, but the start of the section is 
+not in view), the page will <a href="jQuery.fn.html#.viewportAlignTop">scroll up</a> to show
+the beginning of the newly shown section.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scrollTriggerTolerance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">=50 Tolerance for the decisions if/when to
+trigger a scroll. Only evaluated, of course, if option <code>scroll</code> is true.
+See tolerance parameter of <a href="jQuery.fn.html#.isTopBelowViewport">jQuery.fn.isTopBelowViewport</a> resp.
+<a href="jQuery.fn.html#.isTopAboveViewport">jQuery.fn.isTopAboveViewport</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scrollTolerance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Tolerance for the scroll operation (see option <code>scroll</code>}).
+If left undefined (default), the default tolerance of the called scroll function
+(<a href="jQuery.fn.html#.scrollDownIntoView">jQuery.fn.scrollDownIntoView</a> resp. <a href="jQuery.fn.html#.viewportAlignTop">jQuery.fn.viewportAlignTop</a>) will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>heading</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">= "#${id}_h" String pattern for a jQuery selector string used
+to find the section heading element (or alternatively a jquery resultset containing the heading element).
+This heading element is an HTML element usually above the hideable section itself
+and is supposed to be always visible (even if the section is hidden) and to visually
+reflect the state (i.e. by an icon), indicating, whether it refers to the following visible
+section or to a hidden section. It also usually is or contains a toggle control (like a link or button) 
+to trigger an event which will expand a hidden section or hide the visible section.
+For example: If you have a link or button and have bound a function to it's click event 
+in order to call <code>$("#mySection").showOrHide()</code>, i.e. a link or button which 
+is used to toggle the visibility of a section with the example ID "mySection", 
+then this link or button is called the toggle control. You may define this toggle 
+control itself to be the heading, but you might also define a larger container, say
+a DIV, to be the header, and this (among others) contains the toggle control (button/link).
+The heading (regardless if it's the control or a surrounding container) should be
+designe to optically reflect the current toggle's state (section visible or invisible?).
+This should be defined via CSS. In order to do so, the heading can have a showing or a
+hidden class, so you may write CSS rules based on these classes to visualize the state,
+e.g. by changing an icon.<br>
+The default value of this <code>heading</code> property is "#${id}_h". In this string,
+any occurrance of "${xyz}" will first be replaced by calling $(this).prop("xyz"). In this
+case, when showing or hiding the section with ID "mySection", the selector will resolve
+to "#mySection_h". Then this selector will be used a jQuery search parameter to perform something
+like <code>$("#mySection_h").addClass("showing").removeClass("hidden")</code>.
+If you leave this setting on its default value, all you have to do is to make sure, that
+the ID if each heading element equals the actual section's ID with appended suffix "_h".
+If you don't like this default convention, specify a different pattern string.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>toggle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">="#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h"
+String pattern for a jQuery selector string or alternatively a jQuery resultset, 
+see option <code>heading</code>. 
+This default value is meant for the case that the <code>heading</code> selects 
+a heading element which either <em>contains</em> a toggle control (being either a button 
+or a link, i.e. anchor with href attribute), or which <em>is itself</em>
+such a button or a link. If the heading itself is not a button or link, the selector
+selects the first button or link inside the heading.
+This so-found button or link is expected to be the toggle control which a user can click
+in order to show or hide the section.
+If you modify the default heading selector you'll probably also hav to change
+this option accordingly. 
+<br>What actually happens with the result is (currently): For the element found by this selector (if any),
+the attribute <code>"aria-expanded"</code> will be set to <code>true</code> if the section
+is visible or <code>false</code> if the section is hidden.
+This is done for better accessibility: A screen reader will then not only read the
+toggle's text (link or button label), but will also announce the state (expanded or collapsed)
+of the section, and clicking that control will change this state.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>store</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A pattern string similar to option <code>heading</code>
+specifying a pattern for a jQuery selector string for finding a form element in which to
+store the current visibility state. The syntax is the same as for <code>heading</code>.
+(Alternatively a jQuery resultset containing the form element to be used.)
+The default is undefined, which means that no such form control is used. If you are
+designing an HTML form with expandable and collapsable sections and you want the current
+state (whether a specific section is visible or hidden) to persist even when submitting
+the form, you may introduce hidden fields to your form, one per hideable section, 
+and associate them with the sections by specifying this option. For example, if you
+set the ID of each of those hidden fields to the ID of the corresponding section
+with a suffix of "_state" appended, then set this option to: <code>#${id}_state</code>.
+Then for each section the state will be submitted the following way: The hidden field
+will be empty if the section is hidden, and the hidden field will be non-empty (value "X"),
+if the section is showing. Then your server application may evaluate this form data
+and take care of initialising each section's visibility in the response page it produces.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>restrictSelectorsToChildren</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+|
+
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">=false. Global property for search scope
+of selectors in options <code>heading</code>, <code>toggle</code> and <code>store</code>.
+If set to false (default), selectors in those three options are executed globally, i.e.
+the whole document / DOM tree is searched by these selectors. If set to true, the search is
+restricted to children of the node the show or hide plug-in function is called for. 
+(A value of true is usually not suitable for <code>showOrHideSecion</code> calls, since this
+would require the toggle or heading to be a child of the section to hide, while normally these
+elements should always remain visible). For <code>showOrHideChildren</code> however, true
+is usually a recommended option, if the plug-in function is called on a node which is not only
+parent/ancestor of the children to hide but also of the toggle control or heading (if existing).
+If this option is not set to a boolean value at all, but to a jQuery resultset, then this
+resultset is used as search base for the selectors.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>condition</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+|
+
+<span class="param-type">predicate</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Defaults to undefined. If left undefined, the function
+<a href="jQuery.fn.html#.showOrHideSection()">jQuery.fn.showOrHideSection()</a> (<em>not</em> the unconditional <a href="jQuery.fn.html#.showSection">jQuery.fn.showSection</a>
+or <a href="jQuery.fn.html#.showSection">jQuery.fn.showSection</a>) will simply toggle the section's visibility, i.e. if it's
+visible, the function will hide it, otherwise it will show it. By setting this option,
+you can specify a different condition which either statically or dynamically decides whether 
+to try and hide or show the section: 
+If you set condition to a simple boolean expression (evaluated to a boolean before the actual)
+showOrHideSection() function is executed (this is usually not done in a 
+<a href="jQuery.fn.html#.setupShowOrHideSection">setup</a>, but directly in the options argument to the 
+<a href="jQuery.fn.html#.showOrHideSection()">showOrHideSection</a> function)), the section will be
+shown (or keep visible if it already was) if the value is truthy, otherwise it will be (or keep)
+hidden.
+You may also set the option to be a zero- or one-argument-predicate, i.e. a (callback) function
+with zero or one parameter which returns a boolean value. 
+This function will then be executed each time <code>showOrHideSection()</code> is 
+executed and it can then decide whether to return true (show section) or false (hide section).
+(Such a function would usually be set once in <a href="jQuery.fn.html#.setupShowOrHideSection">jQuery.fn.setupShowOrHideSection</a>.)
+This call-back function gets passed a reference to the section itself that should be
+shown or hidden (depending on the return value). This reference gets passed in the first
+explicit argument as well as implicit argument (i.e. <code>this</code> also points to
+the section). So you may refer to the section either via this (usually in a parameterless 
+function) or to the parameter name of your choice, whatever you prefer.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jqr</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">=$(window) A jQuery resultset. which should contain one item
+representing the viewport in which the section should be aligned. Will be used only if
+the <code>scroll</code> option (see above) is true. This then defines the viewport
+inside which the newly shown section should be aligned by scrolling (see scroll functions).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onToggle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional callback function which will be called
+whenever the visibility of the section changes, i.e. the section gets collapsed (hidden)
+or expanded (shown) again. Two arguments will be passed, so your call-back function may
+accept up to two parameters: The first parameter gets assigned a jQuery resultset containing exactly the
+reference to the section itself that has just been shown or hidden. 
+The second parameter gets assigned a jQuery resultset containing the
+heading reference (result found by the <code>heading</code>, of course this set
+can be empty if the heading selector did not match any nodes).
+And the implicit argument <code>this</code> contains a plain reference to the
+section (like the first parameter, but not wrapped in a jQuery set).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onShow</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Callback function just like onToggle, only this function
+will only be called when the section gets shown, not if it gets hidden.
+Actually, it will always be called if a showSection() command (or showOrHideSection() 
+with truthy condition) gets executed even if the section already was visible.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onHide</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Callback function just like onToggle, only this function
+will only be called when the section gets hidden, not if it gets shown.
+Actually, it will always be called if a hideSection() command (or showOrHideSection() 
+with falsy condition) gets executed even if the section already was invisible.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery-showhide.js.html">jquery-showhide.js</a>, <a href="jquery-showhide.js.html#line812">line 812</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li><li><a href="jQuery.fn.appendMoreLinks.html">appendMoreLinks</a></li><li><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></li><li><a href="jQuery.fn.slideToPanel.html">slideToPanel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Jan 04 2020 18:08:59 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

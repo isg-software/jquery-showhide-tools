@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Demo page for example script 'enable-default-links'</title>
+	<meta name="generator" content="BBEdit 12.6" />
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<script type="text/javascript" src="../dist/enable-default-links-min.js"></script>
+	<script type="text/javascript" src="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon.css">
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+		.hideable {
+			border: 1px solid silver;
+		}
+
+		h3.showing::after { 
+			content: ' Status: showing';
+			color: #070;
+		}
+		h3.hidden::after { 
+			content: ' Status: hidden';
+			color: #700;
+		}
+		
+	</style>
+	<script type="text/javascript">
+		$(function() {
+			$("#nojq").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
+			if (typeof $.fn.prependFoldingArrowIcon === "function") {
+				$("#noFoldingArrow").hide();
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noFoldingArrow" class="error">
+		<h1>jQuery plug-in "jquery-folding-arrow-icon" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js</code>, but
+		it was not found there. Folding-arrow-icon is an <em>optional dependency</em>: 
+		It's not necessary to use the showOrHideSection plug-in, but both plug-ins can <em>optionally</em>
+		be combined. However, this demo page is to demonstrate this combination, i.e. this page won't work
+		as intended without this additional plug-in!
+		</p>
+	</div>
+
+
+
+
+	<h1>Demo page for example script 'enable-default-links'</h1>
+	<p>This plug-in contains a script file named <code>enable-default-links(-min).js</code> which
+		you can use directly or simply see as an example or inspiration for your own scripts.</p>
+	<p>This script file aims to be a generic JavaScript file which you can simply include in some web pages
+		where your code then simply has to follow some simple conventions in order to support 
+		showing or hiding some sections. So this is mainly for people who don't want to 
+		write custom JavaScript code for every page, but who want to have some generic script,
+		re-usable across many web pages, at least for some simple purposes.</p>
+		
+	<p>What this demo script does is…</p>
+	<ul>
+		<li>It looks for elements of class <code>hideable</code> and hides them. If these have IDs
+			and the script finds corresponding heading elements (elements with the same ID suffixed with "_h",
+			see default value of the <code>heading</code> option), these will get assigned the "hidden" class.
+			And if it finds default toggle elements (e.g. fist link insinde the aforementioned heading class,
+			see default toggle selector), these will also be initialized by adding the attribute
+			<code>aria-expanded="false"</code>.</li>
+		<li>It looks for links of class <code>showOrHideLink</code> and binds a JavaScript event handler
+			to them that will show or hide the next <code>hideable</code> following after the link.</li>
+		<li>If the folding-arrow-icons plug-in is loaded, it also looks for unordered lists 
+			of class "showOrHideGroups"	(<code>ul.showOrHideGroups</code>) and prepends folding-arrows to 
+			their list items. Also, it defines an onToggle event which will apply the
+			<code>transformFoldingArrowIcon</code> plug-in function to these icons if their corresponding
+			sections (identified by ID naming convention, see below) get shown or hidden.</li>
+		<li>Last but not least, it also initializes appendMore-Links as already demoed in the 
+			<a href="appendmore.html">appendmore demo page</a></li>
+	</ul>
+	
+	<h2>1) Very simple demo</h2>
+	<p>Firstly, we insert a <a class="showOrHideLink">link of class <code>showOrHideLink</code></a> somewhere.
+		This will be followed by a div of class <code>hideable</code>.</p>
+	<p>This div.hideable will be hidden on page load, and clicking the link above will show or hide it:</p>
+	<div class="hideable"><p>This is the first element of class <code>hideable</code> following the above
+		«link of class <code>showOrHideLink</code>», which will thus be hidden or shown by clicking
+		the link. Nothing more. Nothing less.</p>
+		<p>This example does not make use of the heading, toggle and store options: There is no 
+		indicator (heading) showing whether the section is visible or not, not store (input for
+		transmitting the visibility state) and the link is not fitted with an aria-exapanded attribute.
+		</p>
+		<p>Just a very simple example, really.</p>
+	</div>
+
+	<h2>2) Equip elements with IDs according to naming conventions</h2>
+	<p>Let's now add a heading element containing a showOrHideLink, followed by a hideable section:</p>
+	<h3 id="sec2_h">Demo Section heading: <a class="showOrHideLink">Toggle here!</a></h3>
+	<div id="sec2" class="hideable">
+		<p>So this is yet another div of class <code>hideable</code> and thus automatically shown or hidden
+		by the preceding <code>showOrHideLink</code>. But in this case, this section also has an ID:
+		<code>"sec2"</code>. And the heading above has the ID "sec2_h". And due to the default naming
+		scheme (see default value for option <code>heading</code>), this heading will now automatically
+		get assigned a CSS class <code>showing</code> or <code>hidden</code> depending on the visibility state,
+		and the inline CSS code of this example page uses that to visualize the state.</p>
+		<p>Also the first link inside the heading will (as defined by the default value of the <code>toggle</code>
+		option) be recognized as the toggle and thus be equipped with an <code>aria-expanded</code> attribute.</p>
+	</div>
+
+	<h3>3) UL of class <code>showOrHideGroups</code></h3>
+	<p>This simple <code>enable-default-links</code> also supports combination of such links and sections
+		with unordered lists and the <code>jquery-folding-arrow-icon</code> plug-in (although the
+		examples in <a href="withFoldingArrows.html">demo page withFoldingArrows.html</a> are probably more elegant,
+		since they require less HTML markup (and don't rely on IDs following specific naming conventions as in this case):</p>
+	<ul class="showOrHideGroups">
+		<li id="sec3_h"><a class="showOrHideLink">Click me for explanations</a>
+			<div class="hideable" id="sec3">
+				<ul>
+					<li>If you insert an <code>&lt;ul class="showOrHideGroups"&gt;</code>, this script will auto-configure
+						it for the folding-arrows-plug-in (if loaded), i.e. prepend folding arrow icons
+						to each list item.</li>
+					<li>Equip each list item with an ID with "_h" suffix</li>
+					<li>Inside the list item, add a link <code>&lt;a class="showOrHideLink"&gt;</code></li>
+					<li>After that, add the foldable content of class <code>hideable</code>, equipped with the
+						same ID as the list item, only without the "_h" suffix.</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+		
+</body>
+</html>

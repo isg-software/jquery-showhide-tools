@@ -27,9 +27,10 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>// @codekit-append "sliding-panels"
+// @codekit-append "appendMoreLinks"
 /**
  * @license 
- * Copyright (c) 2018, Immo Schulz-Gerlach, www.isg-software.de 
+ * Copyright (c) 2019, Immo Schulz-Gerlach, www.isg-software.de 
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are 
@@ -55,14 +56,14 @@
  
  /**
  * Namespace of jQuery. Usually bound to the alias &lt;code>$&lt;/code>.
- *  
+ *	
  * @see http://jquery.com/
  * @namespace jQuery 
  */
  
 /**
  * Namespace for jQuery plug-ins.
- *  
+ *	
  * @see http://jquery.com/
  * @namespace fn
  * @memberOf jQuery
@@ -120,6 +121,7 @@
 		};
 	}
 	
+	const SHOW_HIDE_CHILDREN_SELECTOR_DATA_NAME = "jquery-showhide-children-selector";
 	const SHOW_HIDE_OPTIONS_SECTION_DATA_NAME = "jquery-showhide-setup";
 	
 	function getShowOrHideOptions(section, options) {
@@ -137,7 +139,7 @@
 	 * &lt;pre>&lt;code>if ($(selector).isTopInViewport())&lt;/code>&lt;/pre>
 	 * @function isTopInViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @return {boolean} true if the top of the first element of the implicit argument is
 	 * within the viewport
@@ -156,7 +158,7 @@
 	 * &lt;pre>&lt;code>if ($(selector).isTopBelowViewport())&lt;/code>&lt;/pre>
 	 * @function isTopBelowViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is substracted from the calculated viewport bottom, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
@@ -175,9 +177,9 @@
 	 * at least its top is cut off.
 	 * &lt;p>Usage pattern:&lt;/p>
 	 * &lt;pre>&lt;code>if ($(selector).isTopAboveViewport())&lt;/code>&lt;/pre>
-	 * @function isTopBelowViewport
+	 * @function isTopAboveViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is added from the calculated viewport top, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
@@ -198,7 +200,7 @@
 	 * &lt;pre>&lt;code>if ($(selector).isLeftInViewport())&lt;/code>&lt;/pre>
 	 * @function isLeftInViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @return {boolean} true if the left of the first element of the implicit argument is
 	 * within the viewport
@@ -217,7 +219,7 @@
 	 * &lt;pre>&lt;code>if ($(selector).isLeftRightOutOfViewport())&lt;/code>&lt;/pre>
 	 * @function isLeftRightOutOfViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is substracted from the calculated viewport right, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
@@ -239,7 +241,7 @@
 	 * &lt;pre>&lt;code>if ($(selector).isLeftLeftOutOfViewport())&lt;/code>&lt;/pre>
 	 * @function isLeftLeftOutOfViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @param {int} [delta=0] The delta is added from the calculated viewport left, i.e.
 	 * if you enter a positive value, the function will return true "earlier", i.e. even if the
@@ -259,7 +261,7 @@
 	 * &lt;pre>&lt;code>if ($(selector).isBottomInViewport())&lt;/code>&lt;/pre>
 	 * @function isBottomInViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @return {boolean} true if the bottom of the first element of the implicit argument is
 	 * within the viewport
@@ -275,32 +277,103 @@
 	 * is visible within the viewport. 
 	 * Like {@link jQuery.fn.isBottomInViewport}, but meant for horizontally scrolling viewports.
 	 * &lt;p>Usage pattern:&lt;/p>
-	 * &lt;pre>&lt;code>if ($(selector).isLeftInViewport())&lt;/code>&lt;/pre>
-	 * @function isLeftInViewport
+	 * &lt;pre>&lt;code>if ($(selector).isRightInViewport())&lt;/code>&lt;/pre>
+	 * @function isRightInViewport
 	 * @memberOf jQuery.fn
-	 * @param {object} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
 	 * defines the viewport to check against. The default viewport is the whole window.
 	 * @return {boolean} true if the right of the first element of the implicit argument is
 	 * within the viewport
-	 * @see jQuery.fn.isTopInViewport
+	 * @see jQuery.fn.isLeftInViewport
 	 */
 	$.fn.isRightInViewport = function(viewport = $(window)) {
 		const i = getViewportInfo(this, viewport);
 		return i.nodeRight >= i.winLeft &amp;&amp; i.nodeRight &lt;= i.winRight;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries vertical scroll in order to align the bottom of the first
+	 * element in the set of matched elements (jQuery result set) with the bottom of the viewport.
+	 * The alignment isn't always quite accurate, also an exact alignment with the bottom of the viewport
+	 * often isn't desirable, a little margin between the viewport and the element may look better.
+	 * That's why a tolerance is specified, defaulting to 30 px. This means, the plug-in will try
+	 * to align the bottom of the matched element approximately 30px above the bottom of the viewport,
+	 * the effective margin may be smaller.
+	 * &lt;p>Optional Dependency: &lt;a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo&lt;/a>:
+	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+	 * will be instantaneous, without animation.
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>$("#mySection").viewportAlignBottom();&lt;/code>&lt;/pre>
+	 * @function viewportAlignBottom
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=30] approx. margin between bottom of the element and bottom of the viewport, see above
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.viewportAlignBottom = function(viewport = $(window), tolerance = 30, duration = $.fn.showOrHideSection.DEFAULTS.duration, viewportInfo) {
 		const i = viewportInfo ? viewportInfo : getViewportInfo(this, viewport);
 		scrollTo(viewport, i.nodeBottom - i.winHeight + tolerance, duration); 
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries vertical scroll in order to align the top of the first
+	 * element in the set of matched elements (jQuery result set) with the top of the viewport.
+	 * The alignment isn't always quite accurate, also an exact alignment with the top of the viewport
+	 * often isn't desirable, a little margin between the upper window edge and the element may look better.
+	 * That's why a tolerance is specified, defaulting to 20 px. This means, the plug-in will try
+	 * to align the top of the matched element approximately 20px above the top of the viewport,
+	 * the effective margin may be smaller.
+	 * &lt;p>Optional Dependency: &lt;a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo&lt;/a>:
+	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+	 * will be instantaneous, without animation.
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>$("#mySection").viewportAlignTop();&lt;/code>&lt;/pre>
+	 * @function viewportAlignTop
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=20] approx. margin between top of the element and top of the viewport, see above
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.viewportAlignTop = function(viewport = $(window), tolerance = 20, duration = $.fn.showOrHideSection.DEFAULTS.duration, viewportInfo) {
 		const i = viewportInfo ? viewportInfo : getViewportInfo(this, viewport);
 		scrollTo(viewport, i.nodeTop - tolerance, duration);
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries to scroll the selected section into view. The section
+	 * is the first element of the matched elements (jQuery result set).
+	 * If this sections height (minus twice the tolerance) is larger than the viewport's height,
+	 * it will be aligned by its top (see {@link jQuery.fn.viewportAlignTop viewportAlignTop}),
+	 * otherwise it will be aligned by its bottom (see {@link jQuery.fn.viewportAlignBottom viewportAlignBottom}).
+	 * If the current viewport is above the target element, this will result in scrolling down only
+	 * as far as necessary to get the whole element into view (or to get its top into view, if it's too
+	 * large for the viewport).
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>$("#mySection").scrollDownIntoView();&lt;/code>&lt;/pre>
+	 * @function scrollDownIntoView
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=30] tolerance / approx. margin to be left free between the viewport
+	 * edges and the target element
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.scrollDownIntoView = function(viewport = $(window), tolerance = 30, duration = $.fn.showOrHideSection.DEFAULTS.duration) {
 		const i = getViewportInfo(this, viewport);
 		if (i.nodeHeight + 2 * tolerance > i.winHeight) 
@@ -310,18 +383,81 @@
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries horizontal scroll in order to align the right of the first
+	 * element in the set of matched elements (jQuery result set) with the right of the viewport.
+	 * (Horizontal version of {@link jQuery.fn.viewportAlignBottom}.)
+	 * &lt;p>Optional Dependency: &lt;a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo&lt;/a>:
+	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+	 * will be instantaneous, without animation.
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>$("#mySection").viewportAlignRight();&lt;/code>&lt;/pre>
+	 * @function viewportAlignRight
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=30] approx. margin between right of the element and right of the viewport, see above
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.viewportAlignRight = function(viewport = $(window), tolerance = 30, duration = $.fn.showOrHideSection.DEFAULTS.duration, viewportInfo) {
 		const i = viewportInfo ? viewportInfo : getViewportInfo(this, viewport);
 		scrollTo(viewport, i.nodeRight - i.winWidth + tolerance, duration, true);
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries horizontal scroll in order to align the left of the first
+	 * element in the set of matched elements (jQuery result set) with the left end of the viewport.
+	 * (Horizontal version of {@link jQuery.fn.viewportAlignTop}.)
+	 * &lt;p>Optional Dependency: &lt;a href="https://github.com/flesler/jquery.scrollTo">jquery.scrollTo&lt;/a>:
+	 * If this plug-in is available, it will be used to scroll animatedly, otherwise the alignment
+	 * will be instantaneous, without animation.
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>$("#mySection").viewportAlignLeft();&lt;/code>&lt;/pre>
+	 * @function viewportAlignLeft
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=20] approx. margin between left of the element and left of the viewport, see above
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.viewportAlignLeft = function(viewport = $(window), tolerance = 20, duration = $.fn.showOrHideSection.DEFAULTS.duration, viewportInfo) {
 		const i = viewportInfo ? viewportInfo : getViewportInfo(this, viewport);
 		scrollTo(viewport, i.nodeLeft - tolerance, duration, true);
 		return this;
 	};
 	
+	/**
+	 * jQuery plug-in function: Tries to horizontally scroll the selected section into view. The section
+	 * is the first element of the matched elements (jQuery result set).
+	 * If this sections width (minus twice the tolerance) is larger than the viewport's width,
+	 * it will be aligned by its left (see {@link jQuery.fn.viewportAlignLeft viewportAlignLeft}),
+	 * otherwise it will be aligned by its bottom (see {@link jQuery.fn.viewportAlignRight viewportAlignRight}).
+	 * If the current viewport is to the left of the target element, this will result in scrolling right only
+	 * as far as necessary to get the whole element into view (or to get its left into view, if it's too
+	 * large for the viewport).
+	 * &lt;p>Usage pattern:&lt;/p>
+	 * &lt;pre>&lt;code>$("#mySection").scrollRightIntoView();&lt;/code>&lt;/pre>
+	 * @function scrollRightIntoView
+	 * @memberOf jQuery.fn
+	 * @param {jqr} [viewport=$(window)] jQuery resultset, the first element in this set 
+	 * defines the viewport to align against. The default viewport is the whole window.
+	 * @param {int} [tolerance=30] tolerance / approx. margin to be left free between the viewport
+	 * edges and the target element
+	 * @param {int} [duration=200] duration of the scrolling animation. The default value of 200ms is defined
+	 * in {@link jQuery.fn.showOrHideSection.DEFAULTS}, which may be overridden.
+	 * (if the scrollTo plug-in is loaded).
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.scrollRightIntoView = function(viewport = $(window), tolerance = 30, duration = $.fn.showOrHideSection.DEFAULTS.duration) {
 		const i = getViewportInfo(this, viewport);
 		if (i.nodeWidth + 2 * tolerance > i.winWidth) 
@@ -331,42 +467,60 @@
 		return this;
 	};
 	
-	function expandAndApplySelector(block, selectorOrResult) {
-		return typeof selectorOrResult !== "string" ? selectorOrResult 
-			: !block.length ? block
-			: $(selectorOrResult.replace(/\${([^}]+)}/g, 
+	function getSearchScope(jqr, options) {
+		const o = options.restrictSelectorsToChildren;
+		if (typeof o === 'boolean')
+			return o ? jqr : null; //If true has been passed, the jqr for which the showHide is to be executed, should be the search scope.
+				//If false, return null for global search.
+		else
+			return o; //If o is not a boolean, it should be the jQuery result object containing the search scope itself.
+	}
+	
+	function expandAndApplySelector(block, selectorOrResult, searchScope) {
+		if (typeof selectorOrResult !== "string")
+			return selectorOrResult;
+		else if (!block.length)
+			return block;
+		else {
+			const expandedSelector = selectorOrResult.replace(/\${([^}]+)}/g, 
 				  (match, group) => block.prop(group)
-			  ));
+			);
+			if (searchScope)
+				return $(expandedSelector, searchScope);
+			else
+				return $(expandedSelector);
+		}
 	}
 	
 	function doShowOrHideBlock(block, showHide, opts) {
 	
-		//switch class of toggle element (if exists)
-		const toggle = expandAndApplySelector(block, opts.toggle);
+		//switch class of heading element (if exists)
+		const h = block.getSectionHeading(opts);
 		//for any found heading (one or none) change class:
-		toggle.toggleClass(opts.classShowing, showHide !== 'hide');
-		toggle.toggleClass(opts.classHidden, showHide === 'hide');
+		h.toggleClass(opts.classShowing, showHide !== 'hide');
+		h.toggleClass(opts.classHidden, showHide === 'hide');
 		
 		//store aria attribute
-		const ariaTarget = expandAndApplySelector(block, opts.ariaExpandedSelector).first();
+		const searchScope = getSearchScope(block, opts);
+		const ariaTarget = expandAndApplySelector(block, opts.toggle, searchScope).first();
 		ariaTarget.attr("aria-expanded", "" + (showHide !== 'hide'));
 		
 		//store state in hidden field (if exists)
-		const findstore = expandAndApplySelector(block, opts.store);
+		const findstore = expandAndApplySelector(block, opts.store, searchScope);
 		if (findstore &amp;&amp; findstore.length) { //found
 			const store = findstore.get(0);
-			if (showHide==='hide')
-				store.value="";
+			if (showHide === 'hide')
+				store.value = opts.storeValueHidden;
 			else
-				store.value="X";
+				store.value = opts.storeValueShowing;
 		}
 		
 		function complete() {
 			//scroll?
 			if (opts.scroll &amp;&amp; showHide === "show") {
-				if (block.isTopBelowViewport(opts.viewport, 50)) {
+				if (block.isTopBelowViewport(opts.viewport, opts.scrollTriggerTolerance)) {
 					block.scrollDownIntoView(opts.viewport, opts.scrollTolerance, opts.duration);
-				} else if (block.isTopAboveViewport(opts.viewport, 50)) {
+				} else if (block.isTopAboveViewport(opts.viewport, opts.scrollTriggerTolerance)) {
 					block.viewportAlignTop(opts.viewport, opts.scrollTolerance, opts.duration);
 				}
 			}
@@ -385,84 +539,460 @@
 				}, opts.duration, opts.easing, complete);
 
 		if (showHide === 'show' &amp;&amp; typeof opts.onShow === "function") {
-			opts.onShow.call(block.get(0), block, toggle);
+			opts.onShow.call(block.get(0), block, h);
 		}
 		if (showHide === 'hide' &amp;&amp; typeof opts.onHide === "function") {
-			opts.onHide.call(block.get(0), block, toggle);
+			opts.onHide.call(block.get(0), block, h);
 		}
 		if (typeof opts.onToggle === "function") {
-			opts.onToggle.call(block.get(0), block, toggle);
+			opts.onToggle.call(block.get(0), block, h);
 		}
 	}
 	
+	/**
+	 * jQuery plug-in function: Saves options for {@link jQuery.fn.showOrHideSection()} as well
+	 * as similar functions like {@link jQuery.fn.showSection} permanently in a data cache
+	 * associated with all of the selected elements.
+	 * So whenever you later call something like &lt;code>$(selector).showOrHideSection()&lt;/code>
+	 * for the same selector or one selecting a subset of that used for this setup, the options
+	 * passed to this setup function will be used during that showOrHide operation.
+	 * @function setupShowOrHideSection
+	 * @memberOf jQuery.fn
+	 * @param {object} options An object defining options for the showOrHideSection(), showSection()
+	 * oder hideSection() functions. See {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS options}
+	 * for a list of available options and their default values. For any option you omit in your options
+	 * argument, the default option will be used. So this argument only needs to specify options
+	 * that differ from the defaults.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
 	$.fn.setupShowOrHideSection = function(options) {
 		if (typeof options !== "object")
 			throw "Argument to setupShowOrHideSection must be an object (containing options to be stored as setup)!";
 		this.data(SHOW_HIDE_OPTIONS_SECTION_DATA_NAME, options);
+		return this;
 	}
 	
+	/**
+	 * jQuery plug-in function: Stores a central setup for the functions {@link jQuery.fn.showOrHideChildren},
+	 * as well as {@link jQuery.fn.showChildren} and {@link jQuery.fn.hideChildren}.
+	 * A setup is recommended if you have multiple calls for those functions in your code and don't
+	 * want to redundantly configure options in each call.
+	 * The setup is stored in the data map for each selected node (of the jQuery resultset for which
+	 * this function is called).
+	 * @function setupShowOrHideChildren
+	 * @memberOf jQuery.fn
+	 * @param {string} childrenSelect Selector String for selecting those ancestor nodes of each
+	 * selected node that should be shown or hidden. This is a required argument for a setup.
+	 * @param {object} [options] Options for the showOrHide functions.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 */
+	$.fn.setupShowOrHideChildren = function(childrenSelect, options) {
+		if (typeof childrenSelect !== "string")
+			throw "First Argument to setupShowOrHideChildren must be a string (containing a jQuery selector)!";
+		this.data(SHOW_HIDE_CHILDREN_SELECTOR_DATA_NAME, childrenSelect);
+		if (typeof options !== "undefined") {
+			if (typeof options !== "object")
+				throw "Second argument to setupShowOrHideChildren (optional) must be an object (containing options to be stored as setup)!";
+			this.data(SHOW_HIDE_OPTIONS_SECTION_DATA_NAME, options);
+		}
+		return this;
+	}
+	
+	/**
+	 * jQuery plug-in function: Toggle a section: If the &lt;em>condition&lt;/em> is true, show the section,
+	 * otherwise hide it. The condition can be specified by a predicate in the options argument,
+	 * the default condition (if none is specified by the caller) is that the selected element
+	 * is not visible (&lt;code>!$(this).is(":visible")&lt;/code>).
+	 * &lt;p>This function does not only show or hide the selected element(s), it also supports,
+	 * changing the class of a heading, so this may reflect the state (hidden or showing). 
+	 * Also a form element used for transmitting the current visibility state in a post request 
+	 * can be implicitly updated.
+	 * @function showOrHideSection()
+	 * @memberOf jQuery.fn
+	 * @param {object} [options] Options for this function. This is merged with the setup.
+	 * If no options are given at all, the setup is used (see {@link jQuery.fn.setupShowOrHideSection}).
+	 * If no setup has been made, the {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS} are used.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 * @see jQuery.fn.showSection
+	 * @see jQuery.fn.hideSection
+	 */
 	$.fn.showOrHideSection = function(options) {
-        this.each(function() {
-	        const opts = getShowOrHideOptions($(this), options);
-            const condition = typeof opts.condition !== "undefined" ? opts.condition : !$(this).is(":visible");
-            const showHide = condition ? "show" : "hide";
-            doShowOrHideBlock($(this), showHide, opts);
-        });
+		this.each(function() {
+			const opts = getShowOrHideOptions($(this), options);
+			const condition = typeof opts.condition === "undefined" ? !$(this).is(":visible")
+					: typeof opts.condition === "function" ? opts.condition.call(this, this) : opts.condition;
+			const showHide = condition ? "show" : "hide";
+			doShowOrHideBlock($(this), showHide, opts);
+		});
 		return this;
 	};
-		
+	
+	/**
+	 * jQuery plug-in function: Show a section: If it's hidden, show it, if it's already visible,
+	 * do nothing.
+	 * @function showSection
+	 * @memberOf jQuery.fn
+	 * @param {object} [options] Options for this function. This is merged with the setup.
+	 * If no options are given at all, the setup is used (see {@link jQuery.fn.setupShowOrHideSection}).
+	 * If no setup has been made, the {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS} are used.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 * @see jQuery.fn.showOrHideSection()
+	 * @see jQuery.fn.hideSection
+	 */
 	$.fn.showSection = function(options) {
-        this.each(function() {
-    	    const opts = getShowOrHideOptions($(this), options);
-            doShowOrHideBlock($(this), "show", opts);
-        });
+		this.each(function() {
+			const opts = getShowOrHideOptions($(this), options);
+			doShowOrHideBlock($(this), "show", opts);
+		});
 		return this;
 	};
-		
+	
+	/**
+	 * jQuery plug-in function: Hide a section: If it's showing, hide it, if it's already hidden,
+	 * do nothing.
+	 * @function hideSection
+	 * @memberOf jQuery.fn
+	 * @param {object} [options] Options for this function. This is merged with the setup.
+	 * If no options are given at all, the setup is used (see {@link jQuery.fn.setupShowOrHideSection}).
+	 * If no setup has been made, the {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS} are used.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 * @see jQuery.fn.showOrHideSection()
+	 * @see jQuery.fn.showSection
+	 */
 	$.fn.hideSection = function(options) {
-        this.each(function() {
-        	const opts = getShowOrHideOptions($(this), options);
-            doShowOrHideBlock($(this), "hide", opts);
-        });
+		this.each(function() {
+			const opts = getShowOrHideOptions($(this), options);
+			doShowOrHideBlock($(this), "hide", opts);
+		});
 		return this;
 	};
 	
-	
+	/**
+	 * jQuery plug-in function: For each element of the jQuery resultset for which this function
+	 * is called, search all decendents (children of the node as well as their children etc.) for
+	 * matches of a child-selector (first argument) and either hide or show all those matching children.
+	 * If no condition option is passed in the options argument, the following default condition
+	 * will decide whether the children will be shown or hidden: If the selected heading element
+	 * (see {@link jQuery.fn.showOrHideSection()} and {@link jQuery.fn.showOrHideSection.DEFAULTS}
+	 * for details) has the class "showing" (more precisely the class defined in options.classShowing,
+	 * which defaults to "showing", see {@link jQuery.fn.showOrHideSection.DEFAULTS}), then the
+	 * children will be hidden (and the class "showing" will be removed from the heading and 
+	 * the class "hidden" (resp. options.classHidden) will be added).
+	 * &lt;p>For the default toggle condition to work, a &lt;em>heading element&lt;/em> is obligatory.
+	 * See &lt;code>heading&lt;/code> option in {@link jQuery.fn.showOrHideSection.DEFAULTS Default Options}!
+	 * If the default value (selecting an element with the ID of the selected parent plus "_h" suffix)
+	 * is not applicable in your code, don't forget to specify a suitable heading option in the arguments!&lt;/p>
+	 * &lt;p>Just like {@link jQuery.fn.showOrHideSections()} this function changes the class list
+	 * of the heading element (see previous paragraph) which enables you to specify some CSS
+	 * for the state visualization, and it also supports specifying an &lt;code>aria-expanded&lt;/code>
+	 * attribute of a &lt;em>toggle&lt;/em> element (see options) for better accessibility.&lt;/p>
+	 * &lt;p>Supports &lt;em>almost&lt;/em> every option that {@link jQuery.fn.showOrHideSection()} supports,
+	 * see {@link jQuery.fn.showOrHideSection.DEFAULTS} for a list with their default values.
+	 * Please not, though, that the "store" option is currently unsupported for this plug-in.
+	 * &lt;h3>Three call signatures are supported:&lt;/h3>
+	 * &lt;ul>
+	 *	&lt;li>&lt;code>$(parentSelector).showOrHideChildren(childrenSelector, options)&lt;/code>: This is
+	 *  the default signature and the only allowed one if no setup has been stored via
+	 *  {@link jQuery.fn.setupShowOrHideChildren}. The options argument is optional, 
+	 *  the childrenSelector is required without a setup!&lt;/li>
+	 *  &lt;li>&lt;code>$(parentSelector).showOrHideChildren(options)&lt;/code>: This signature
+	 *  is only valid if a setup has been stored which at least defines a childrenSelector.
+	 *  Any options passed here will override options present in the setup, options not stated
+	 *  in this arguments will be taken from the setup (or from the {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS}
+	 *  if not present in setup).&lt;/li>
+	 *  &lt;li>&lt;code>$(parentSelector).showOrHideChildren()&lt;/code>: The parameterless call
+	 *  is also only allowed if a setup has been stored. That setup will then be used without
+	 *  overrides.&lt;/li>
+	 * &lt;/ul>
+	 * @function showOrHideChildren
+	 * @memberOf jQuery.fn
+	 * @param {string} childrenSelect Selector String for selecting those ancestor nodes of each
+	 * selected node that should be shown or hidden. Usually a required argument, &lt;em>except&lt;/em> 
+	 * if a {@link jQuery.fn.setupShowOrHideChildren setup has been stored} which already defines
+	 * such a &lt;code>childrenSelect&lt;/code> selector. Then this argument on the actual &lt;code>showOrHideChildren()&lt;/code>
+	 * call is optional.
+	 * @param {object} [options] Options for this function. This is merged with the setup.
+	 * If no options are given at all, the setup is used (see {@link jQuery.fn.setupShowOrHideChildren}).
+	 * If no setup has been made, the {@link jQuery.fn.showOrHideSection.DEFAULTS DEFAULTS} are used.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 * @see jQuery.fn.showChildren
+	 * @see jQuery.fn.hideChildren
+	 */
 	$.fn.showOrHideChildren = function(childrenSelect, options) {
-        this.each(function() {
-        	const opts = getShowOrHideOptions($(this), options);
-            //switch class of toggle element 
-            const toggle = $(this).getSectionToggle(options);
+		this.each(function() {
+			const me = $(this);
+			const cs = typeof childrenSelect === "string" ? childrenSelect : me.data(SHOW_HIDE_CHILDREN_SELECTOR_DATA_NAME);
+			if (typeof cs !== "string")
+				throw "showOrHideChildren() requires a children selector either as first argument or stored by setupShowOrHideChildren()!";
+			//In case of an existing setup the childrenSelect argument is optional. In this case, the first
+			//argument may contain the options.
+			//If the exception above has not been thrown, then cs is a string. If childrenSelect is an object at the
+			//same time, then cs has been read from setup and the object in parameter childrenSelect should be
+			//the options.
+			const opts = getShowOrHideOptions(me, typeof childrenSelect === "object" ? childrenSelect : options);
 
-            var showing = toggle.hasClass("showing");
-            //switch class of block heading (if exists)
-            toggle.toggleClass("showing", !showing);
-            toggle.toggleClass("hidden", showing);
+			const h = me.getSectionHeading(opts);
+			const condition = typeof opts.condition === "undefined" ? !h.hasClass(opts.classShowing)
+					: typeof opts.condition === "function" ? opts.condition.call(this, this) : opts.condition;
+			const showHide = condition ? "show" : "hide";
 
-            var showHide = showing ? "hide" : "show";
+			h.toggleClass(opts.classShowing, condition);
+			h.toggleClass(opts.classHidden, !condition);
+			
+			//store aria attribute
+			const ariaTarget = expandAndApplySelector(me, opts.toggle, getSearchScope(me, opts)).first();
+			ariaTarget.attr("aria-expanded", "" + (showHide !== 'hide'));
 
-            var resultset = $(childrenSelect, $(this));
+			var resultset = $(cs, me);
 
-            //animate block itself
-            if (opts.horizontalAnimation)
-                resultset.animate({
-                    width: showHide,
-                    opacity: showHide
-                    }, opts.duration, opts.easing);
-            else
-                resultset.animate({
-                    height: showHide,
-                    opacity: showHide
-                    }, opts.duration, opts.easing);
-        });
+			//animate block itself
+			if (opts.horizontalAnimation)
+				resultset.animate({
+					width: showHide,
+					opacity: showHide
+					}, opts.duration, opts.easing);
+			else
+				resultset.animate({
+					height: showHide,
+					opacity: showHide
+					}, opts.duration, opts.easing);
+		});
 		return this;
 	};
 	
-	$.fn.getSectionToggle = function(options) {
-		const opts = getShowOrHideOptions(this, options);
-		return expandAndApplySelector(this, opts.toggle);
+	/**
+	 * jQuery plug-in: Like {@link jQuery.fn.showOrHideChildren}, but without evaluation of
+	 * a toggle condition. Instead, all selected children get shown (if they aren't already visible).
+	 * (And of cource the heading's class list and toggle's aria-expanded attribute will be set,
+	 * just like showOrHideChildren does when the condition evaluates to "show".)
+	 * @function showChildren
+	 * @memberOf jQuery.fn
+	 * @param {string} childrenSelect Selector for the ancestor nodes to be shown.
+	 * Required as long as no {@link jQuery.fn.setupShowOrHideChildren setup} has been stored, 
+	 * see {@link jQuery.fn.showOrHideChildren}.
+	 * @param {object} [options] options for the operation, see {@link jQuery.fn.showOrHideChildren}.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 * @see jQuery.fn.showOrHideChildren
+	 * @see jQuery.fn.hideChildren
+	 */
+	$.fn.showChildren = function(childrenSelect, options) {
+		if (typeof childrenSelect === "object" &amp;&amp; typeof options === "undefined")
+			//use case if a setup has been stored (containing a childrenSelector) and
+			//the user only passes an options object as first argument.
+			this.showOrHideChildren($.extend(childrenSelect, {condition: true}));
+		else
+			this.showOrHideChildren(childrenSelect, $.extend(options, {condition: true}));
 	}
 	
+	/**
+	 * jQuery plug-in: Like {@link jQuery.fn.showOrHideChildren}, but without evaluation of
+	 * a toggle condition. Instead, all selected children get hidden (if they aren't already hidden).
+	 * (And of cource the heading's class list and toggle's aria-expanded attribute will be set,
+	 * just like showOrHideChildren does when the condition evaluates to "hide".)
+	 * @function hideChildren
+	 * @memberOf jQuery.fn
+	 * @param {string} childrenSelect Selector for the ancestor nodes to be hidden.
+	 * Required as long as no {@link jQuery.fn.setupShowOrHideChildren setup} has been stored, 
+	 * see {@link jQuery.fn.showOrHideChildren}.
+	 * @param {object} [options] options for the operation, see {@link jQuery.fn.showOrHideChildren}.
+	 * @return {jqr} the same jQuery resultset this function was called upon, 
+	 * allows for chaining several jQuery plug-in calls on the same result set.
+	 * @see jQuery.fn.showChildren
+	 * @see jQuery.fn.showOrHideChildren
+	 */
+	$.fn.hideChildren = function(childrenSelect, options) {
+		if (typeof childrenSelect === "object" &amp;&amp; typeof options === "undefined")
+			this.showOrHideChildren($.extend(childrenSelect, {condition: false}));
+		else
+			this.showOrHideChildren(childrenSelect, $.extend(options, {condition: false}));
+	}
+	
+	/**
+	 * jQuery plug-in: Simple getter function for getting the header element to a section
+	 * as defined by the {@link jQuery.fn.showOrHideSection.DEFAULTS headingSelector option}.
+	 * Mainly used internally by plug-in functions like {@link jQuery.fn.showOrHideSection()},
+	 * but may also be used externally.
+	 * @function getSectionHeading
+	 * @memberOf jQuery.fn
+	 * @param {object} [options] Options just like for {@link jQuery.fn.showOrHideSection()}.
+	 * Is searched for existance of the &lt;code>headingSelector&lt;/code> option. If that's no present
+	 * (or no argument was given at all), the current {@link jQuery.fn.setupShowOrHideSection setup})
+	 * is used, and if no setup is present, the {@link jQuery.fn.showOrHideSection.DEFAULTS default value} 
+	 * will be used.
+	 * @return {jqr} jQuery resultset (possibly empty) with the heading element, if found.
+	 */
+	$.fn.getSectionHeading = function(options) {
+		const opts = getShowOrHideOptions(this, options);
+		return expandAndApplySelector(this, opts.heading, getSearchScope(this, opts));
+	}
+	
+	/**
+	 * @namespace showOrHideSection
+	 * @memberOf jQuery.fn
+	 */
+	/**
+	 * This object defines the default settings for {@link jQuery.fn.showOrHideSection()} and
+	 * similar plug-in functions. 
+	 * The table also lists all possible properties for the &lt;code>options&lt;/code> argument
+	 * of said functions.
+	 * @member DEFAULTS
+	 * @memberOf jQuery.fn.showOrHideSection
+	 * @property {string} classShowing ="showing" Name of a CSS class which should be added to 
+	 * the heading element (see property heading) when showing the corresponding section and removed
+	 * when hiding the section.
+	 * @property {string} classHidden ="hidden" Name of a CSS class which should be added to 
+	 * the heading element (see property heading) when hiding the corresponding section and removed
+	 * when showing the section.
+	 * @property {string} [easing] A string indicating which easing function to use for the 
+	 * show or hide transition. 
+	 * See &lt;a href="https://api.jquery.com/animate/">jQuery.animate()&lt;/a>. 
+	 * If undefined (default), jQuery.animate()'s default easing function will be used.
+	 * @property {boolean} horizontalAnimation =false: Default tries vertical easing when
+	 * showing or hiding a section, set to true in order to change to horizontal easing.
+	 * @property {int} duration =200 Default duration for animations (scrolling, 
+	 * or easing when expanding or collapsing elements).
+	 * @property {boolean} scroll =false. When false (default), any call to 
+	 * {@link jQuery.fn.showSection showSection()} or 
+	 * {@link jQuery.fn.showOrHideSection() showOrHideSection()} (for showing)
+	 * will simply show the target section regardless of whether it is in the viewport or not,
+	 * i.e. not ensuring that the user will see the newly showing section.
+	 * Set this to true to ensure that the newly shown section will be scrolled into viewport:
+	 * If the section is {@link jQuery.fn.isTopBelowViewport below viewport}, the page will
+	 * {@link jQuery.fn.scrollDownIntoView scroll down until the section is in view},
+	 * if {@link jQuery.fn.isTopAboveViewport the section's top is above viewport} (the 
+	 * section might be partially showing or not at all, but the start of the section is 
+	 * not in view), the page will {@link jQuery.fn.viewportAlignTop scroll up} to show
+	 * the beginning of the newly shown section.
+	 * @property {int} [scrollTriggerTolerance] =50 Tolerance for the decisions if/when to
+	 * trigger a scroll. Only evaluated, of course, if option &lt;code>scroll&lt;/code> is true.
+	 * See tolerance parameter of {@link jQuery.fn.isTopBelowViewport} resp.
+	 * {@link jQuery.fn.isTopAboveViewport}.
+	 * @property {int} [scrollTolerance] Tolerance for the scroll operation (see option &lt;code>scroll&lt;/code>}).
+	 * If left undefined (default), the default tolerance of the called scroll function
+	 * ({@link jQuery.fn.scrollDownIntoView} resp. {@link jQuery.fn.viewportAlignTop}) will be used.
+	 * @property {string|jqr} heading = "#${id}_h" String pattern for a jQuery selector string used
+	 * to find the section heading element (or alternatively a jquery resultset containing the heading element).
+	 * This heading element is an HTML element usually above the hideable section itself
+	 * and is supposed to be always visible (even if the section is hidden) and to visually
+	 * reflect the state (i.e. by an icon), indicating, whether it refers to the following visible
+	 * section or to a hidden section. It also usually is or contains a toggle control (like a link or button) 
+	 * to trigger an event which will expand a hidden section or hide the visible section.
+	 * For example: If you have a link or button and have bound a function to it's click event 
+	 * in order to call &lt;code>$("#mySection").showOrHide()&lt;/code>, i.e. a link or button which 
+	 * is used to toggle the visibility of a section with the example ID "mySection", 
+	 * then this link or button is called the toggle control. You may define this toggle 
+	 * control itself to be the heading, but you might also define a larger container, say
+	 * a DIV, to be the header, and this (among others) contains the toggle control (button/link).
+	 * The heading (regardless if it's the control or a surrounding container) should be
+	 * designe to optically reflect the current toggle's state (section visible or invisible?).
+	 * This should be defined via CSS. In order to do so, the heading can have a showing or a
+	 * hidden class, so you may write CSS rules based on these classes to visualize the state,
+	 * e.g. by changing an icon.&lt;br>
+	 * The default value of this &lt;code>heading&lt;/code> property is "#${id}_h". In this string,
+	 * any occurrance of "${xyz}" will first be replaced by calling $(this).prop("xyz"). In this
+	 * case, when showing or hiding the section with ID "mySection", the selector will resolve
+	 * to "#mySection_h". Then this selector will be used a jQuery search parameter to perform something
+	 * like &lt;code>$("#mySection_h").addClass("showing").removeClass("hidden")&lt;/code>.
+	 * If you leave this setting on its default value, all you have to do is to make sure, that
+	 * the ID if each heading element equals the actual section's ID with appended suffix "_h".
+	 * If you don't like this default convention, specify a different pattern string.
+	 * @property {string|jqr} toggle ="#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h"
+	 * String pattern for a jQuery selector string or alternatively a jQuery resultset, 
+	 * see option &lt;code>heading&lt;/code>. 
+	 * This default value is meant for the case that the &lt;code>heading&lt;/code> selects 
+	 * a heading element which either &lt;em>contains&lt;/em> a toggle control (being either a button 
+	 * or a link, i.e. anchor with href attribute), or which &lt;em>is itself&lt;/em>
+	 * such a button or a link. If the heading itself is not a button or link, the selector
+	 * selects the first button or link inside the heading.
+	 * This so-found button or link is expected to be the toggle control which a user can click
+	 * in order to show or hide the section.
+	 * If you modify the default heading selector you'll probably also hav to change
+	 * this option accordingly. 
+	 * &lt;br>What actually happens with the result is (currently): For the element found by this selector (if any),
+	 * the attribute &lt;code>"aria-expanded"&lt;/code> will be set to &lt;code>true&lt;/code> if the section
+	 * is visible or &lt;code>false&lt;/code> if the section is hidden.
+	 * This is done for better accessibility: A screen reader will then not only read the
+	 * toggle's text (link or button label), but will also announce the state (expanded or collapsed)
+	 * of the section, and clicking that control will change this state.
+	 * @property {string|jqr} [store] A pattern string similar to option &lt;code>heading&lt;/code>
+	 * specifying a pattern for a jQuery selector string for finding a form element in which to
+	 * store the current visibility state. The syntax is the same as for &lt;code>heading&lt;/code>.
+	 * (Alternatively a jQuery resultset containing the form element to be used.)
+	 * The default is undefined, which means that no such form control is used. If you are
+	 * designing an HTML form with expandable and collapsable sections and you want the current
+	 * state (whether a specific section is visible or hidden) to persist even when submitting
+	 * the form, you may introduce hidden fields to your form, one per hideable section, 
+	 * and associate them with the sections by specifying this option. For example, if you
+	 * set the ID of each of those hidden fields to the ID of the corresponding section
+	 * with a suffix of "_state" appended, then set this option to: &lt;code>#${id}_state&lt;/code>.
+	 * Then for each section the state will be submitted the following way: The hidden field
+	 * will be empty if the section is hidden, and the hidden field will be non-empty (value "X"),
+	 * if the section is showing. Then your server application may evaluate this form data
+	 * and take care of initialising each section's visibility in the response page it produces.
+	 * @property {boolean|jqr} restrictSelectorsToChildren =false. Global property for search scope
+	 * of selectors in options &lt;code>heading&lt;/code>, &lt;code>toggle&lt;/code> and &lt;code>store&lt;/code>.
+	 * If set to false (default), selectors in those three options are executed globally, i.e.
+	 * the whole document / DOM tree is searched by these selectors. If set to true, the search is
+	 * restricted to children of the node the show or hide plug-in function is called for. 
+	 * (A value of true is usually not suitable for &lt;code>showOrHideSecion&lt;/code> calls, since this
+	 * would require the toggle or heading to be a child of the section to hide, while normally these
+	 * elements should always remain visible). For &lt;code>showOrHideChildren&lt;/code> however, true
+	 * is usually a recommended option, if the plug-in function is called on a node which is not only
+	 * parent/ancestor of the children to hide but also of the toggle control or heading (if existing).
+	 * If this option is not set to a boolean value at all, but to a jQuery resultset, then this
+	 * resultset is used as search base for the selectors.
+	 * @property {boolean|predicate} [condition] Defaults to undefined. If left undefined, the function
+	 * {@link jQuery.fn.showOrHideSection()} (&lt;em>not&lt;/em> the unconditional {@link jQuery.fn.showSection}
+	 * or {@link jQuery.fn.showSection}) will simply toggle the section's visibility, i.e. if it's
+	 * visible, the function will hide it, otherwise it will show it. By setting this option,
+	 * you can specify a different condition which either statically or dynamically decides whether 
+	 * to try and hide or show the section: 
+	 * If you set condition to a simple boolean expression (evaluated to a boolean before the actual)
+	 * showOrHideSection() function is executed (this is usually not done in a 
+	 * {@link jQuery.fn.setupShowOrHideSection setup}, but directly in the options argument to the 
+	 * {@link jQuery.fn.showOrHideSection() showOrHideSection} function)), the section will be
+	 * shown (or keep visible if it already was) if the value is truthy, otherwise it will be (or keep)
+	 * hidden.
+	 * You may also set the option to be a zero- or one-argument-predicate, i.e. a (callback) function
+	 * with zero or one parameter which returns a boolean value. 
+	 * This function will then be executed each time &lt;code>showOrHideSection()&lt;/code> is 
+	 * executed and it can then decide whether to return true (show section) or false (hide section).
+	 * (Such a function would usually be set once in {@link jQuery.fn.setupShowOrHideSection}.)
+	 * This call-back function gets passed a reference to the section itself that should be
+	 * shown or hidden (depending on the return value). This reference gets passed in the first
+	 * explicit argument as well as implicit argument (i.e. &lt;code>this&lt;/code> also points to
+	 * the section). So you may refer to the section either via this (usually in a parameterless 
+	 * function) or to the parameter name of your choice, whatever you prefer.
+	 * @property {jqr} viewport =$(window) A jQuery resultset. which should contain one item
+	 * representing the viewport in which the section should be aligned. Will be used only if
+	 * the &lt;code>scroll&lt;/code> option (see above) is true. This then defines the viewport
+	 * inside which the newly shown section should be aligned by scrolling (see scroll functions).
+	 * @property {function} [onToggle] Optional callback function which will be called
+	 * whenever the visibility of the section changes, i.e. the section gets collapsed (hidden)
+	 * or expanded (shown) again. Two arguments will be passed, so your call-back function may
+	 * accept up to two parameters: The first parameter gets assigned a jQuery resultset containing exactly the
+	 * reference to the section itself that has just been shown or hidden. 
+	 * The second parameter gets assigned a jQuery resultset containing the
+	 * heading reference (result found by the &lt;code>heading&lt;/code>, of course this set
+	 * can be empty if the heading selector did not match any nodes).
+	 * And the implicit argument &lt;code>this&lt;/code> contains a plain reference to the
+	 * section (like the first parameter, but not wrapped in a jQuery set). 
+	 * @property {function} [onShow] Callback function just like onToggle, only this function
+	 * will only be called when the section gets shown, not if it gets hidden.
+	 * Actually, it will always be called if a showSection() command (or showOrHideSection() 
+	 * with truthy condition) gets executed even if the section already was visible.
+	 * @property {function} [onHide] Callback function just like onToggle, only this function
+	 * will only be called when the section gets hidden, not if it gets shown.
+	 * Actually, it will always be called if a hideSection() command (or showOrHideSection() 
+	 * with falsy condition) gets executed even if the section already was invisible.
+	 */
 	$.fn.showOrHideSection.DEFAULTS = {
 		classShowing: "showing",
 		classHidden: "hidden",
@@ -470,60 +1000,19 @@
 		horizontalAnimation: false,
 		duration: 200,
 		scroll: false,
+		scrollTriggerTolerance: 50,
 		scrollTolerance: undefined,
-		toggle: "#${id}_h",
-//		store: "#${id}_state"
+		heading: "#${id}_h",
 		store: undefined,
-		ariaExpandedSelector: "#${id}_h a[href]:first, #${id}_h button:first",
+		storeValueHidden: "",
+		storeValueShowing: "X",
+		toggle: "#${id}_h a[href]:first, #${id}_h button:first, a[href]#${id}_h, button#${id}_h",
+		restrictSelectorsToChildren: false,
 		condition: undefined,
 		viewport: $(window),
 		onToggle: undefined,
 		onShow: undefined,
 		onHide: undefined
-	};
-	
-	
-	
-	/* Ib) More-Links und More-Blocks 
-	 * 
-	 * Usage: Ein Block (z.B. Absatz) wird mit der Klasse .appendMore ausgestattet. 
-	 * (Der Mehr...-Link wird an den Inhalt des .appendMore-Blocks angefügt. Absätze können selbst von der Klasse appendMore sein, soll aber z.B. auf eine
-	 * Liste (ul) ein Mehr...-Link folgen, darf nicht die Liste selbst von der Klasse appendMore sein, sondern ist in einen Div-Block der Klasse appendMore einzufassen,
-	 * damit der Link sp‰ter *hinter* dem UL-Element eingef¸gt wird.)
-	 * Entweder folgt innerhalb dieses Blocks ein Kindelement der Klasse .more, oder als direkter Nachbar (Nachfolger) des .appendMore.Blocks
-	 * oder eines seiner Vorfahren. 
-	 * Geschachtelte Blöcke: Es ist erlaubt, dass ein appendMore-Block selbst innere appendMore-/More-Blöcke enthält. In dem Fall darf sein "eigener" more-Block
-	 * nicht ebenfalls ein Kindelement sein, sondern muss ein Nachfolger sein wie oben beschrieben.
-	 * Ist JavaScript aktiviert, wird an den Inhalt jedes appendMore-Blocks automatisch ein "Mehr..."-Link angefügt und die more-Blocks ausgeblendet.
-	 * Der Link blendet diese dann wieder ein. Nur für echte Block-Elemente der Klasse .more (Div, Absatz etc.) wird eine slideDown-Animation
-	 * angewendet. Ist der .more-Teil z.B. ein Span innerhalb eines Absatzes der Klasse .appendMore, so wird zwar das Einblenden des more-Blocks
-	 * funktionieren, jedoch ohne Animation (da die auf Inline-Elemente nicht anwendbar ist).
-	 * 
-	 **/
-	$.fn.appendMoreLinks = function(options) {
-		const opts = $.extend({}, $.fn.appendMoreLinks.DEFAULTS, options);
-		this.append(" &lt;a href='#!' class='" + opts.moreLinkClass + "'>" + opts.moreLinkLabel + "&lt;/a>");
-		//Soeben eingefügte Links nun mit Leben ausstatten:
-		$("a." + opts.moreLinkClass).click(function() {
-			$(this).hide();
-			//Suche den .more-Block zum Link.
-			var finder = $(this).parent(); //Ausgangspunkt ist der Vorfahr des .more-Links (Block der Klasse .appendMore)
-			var found = finder.next(opts.moreContentSelector);
-			while (!found.length &amp;&amp; finder.length) { //Pr¸fe ansonsten noch die Nachfolger der Vorfahren
-				finder = finder.parent();
-				found = finder.next(opts.moreContentSelector);
-			}
-			found.slideDown("fast");
-
-			return false; //Springen zum Anchor '#' vermeiden
-		});
-		return this;
-	};
-	
-	$.fn.appendMoreLinks.DEFAULTS = {
-		moreLinkClass: "moreLink",
-		moreLinkLabel: "more&amp;nbsp;&amp;hellip;",
-		moreContentSelector: ".more"
 	};
 	
 }(jQuery));
@@ -537,13 +1026,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.fn.html">fn</a></li><li><a href="jQuery.fn.appendMoreLinks.html">appendMoreLinks</a></li><li><a href="jQuery.fn.showOrHideSection.html">showOrHideSection</a></li><li><a href="jQuery.fn.slideToPanel.html">slideToPanel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Aug 02 2019 23:03:45 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Jan 04 2020 18:08:59 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
