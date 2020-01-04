@@ -43,14 +43,20 @@
 	 * <pre><code class="html">&lt;div&gt;
 	 *     &lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
 	 * &lt;/div&gt;
-	 * &lt;div class="more"&gt;…&lt;/div&gt;
+	 * &lt;div class="more"&gt;…&lt;/div&gt;</code></pre>
 	 * </li>
 	 * <li>Nesting of "append-more-sections" is allowed. Example:
 	 * <pre><code class="html">&lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
 	 * &lt;div class="more"&gt;
-	 *     &lt;p& class="appendMore"gt;Some more…&lt;/p&gt;
-	 *     &lt;p& class="more"gt;Even more…&lt;/p&gt;
+	 *     &lt;p&gt; class="appendMore"gt;Some more…&lt;/p&gt;
+	 *     &lt;p&gt; class="more"gt;Even more…&lt;/p&gt;
 	 * &lt;/div&gt;
+	 * </code></pre>
+	 * </li>
+	 * <li>Even simpler, a section may be of both classes for a multi-step revelation of following content, Example:
+	 * <pre><code class="html">&lt;p class="appendMore"&gt;Lorem Ipsum …&lt;/p&gt;
+	 * &lt;p class="more appendMore"&gt;Some more…&lt;/p&gt;
+	 * &lt;p class="more"&gt;Even more…&lt;/p&gt;
 	 * </code></pre>
 	 * </li>
 	 * <li>When clicking the more link, the next "more" section will be shown with a
@@ -68,20 +74,22 @@
 	 */
 	$.fn.appendMoreLinks = function(options) {
 		const opts = $.extend({}, $.fn.appendMoreLinks.DEFAULTS, options);
+		//First append "more..." links to the selected elements...
 		this.append(" <a href='#!' class='" + opts.moreLinkClass + "'>" + opts.moreLinkLabel + "</a>");
-		//Soeben eingefügte Links nun mit Leben ausstatten:
+		//...then bring them to life by adding a click event handler to each inserted link:
 		$("a." + opts.moreLinkClass).click(function() {
+			//Hide the clicked "more..." link:
 			$(this).hide();
-			//Suche den .more-Block zum Link.
-			var finder = $(this).parent(); //Ausgangspunkt ist der Vorfahr des .more-Links (Block der Klasse .appendMore)
+			//Find the next .more block following the clicked link and show it:
+			var finder = $(this).parent(); //Start looking from the predecessor of the .more link (block of class .appendMore)
 			var found = finder.next(opts.moreContentSelector);
-			while (!found.length && finder.length) { //Pr¸fe ansonsten noch die Nachfolger der Vorfahren
+			while (!found.length && finder.length) { //If not found yet, start searching the succeeding siblings
 				finder = finder.parent();
 				found = finder.next(opts.moreContentSelector);
 			}
 			found.slideDown("fast");
 
-			return false; //Springen zum Anchor '#' vermeiden
+			return false; //avoid link click event propagation, i.e. avoid jumping to anchor '#'!
 		});
 		return this;
 	};

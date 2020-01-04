@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>showOrHideSection combined with folding-arrow plug-in</title>
+	<meta name="generator" content="BBEdit 12.6" />
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<!--script type="text/javascript" src="../src/js/jquery-showhide.js"></script-->
+	<script type="text/javascript" src="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#nojq").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
+			if (typeof $.fn.prependFoldingArrowIcon === "function") {
+				$("#noFoldingArrow").hide();
+			}
+
+			//Set up folding-arrow-icons:
+			$("ul.folding-arrows:not(.dashes) > li").prependFoldingArrowIcon();
+			$("ul.dashes > li").prependFoldingArrowIcon({preset: "dash"});
+			
+			//setup showOrHide options:
+			$("ul.folding-arrows:not(.dashes) > li > ul").each(function() {
+				var me = $(this);
+				var li = me.parent();
+				me.setupShowOrHideSection({
+					heading: li,
+					toggle: "a",
+					restrictSelectorsToChildren: li,
+					scroll: true,
+					onToggle: function(section, heading) {
+						//For Internet Explorer and older Edge Browser versions that don't support
+						//CSS transitions for inline SVG:
+						heading.transformFoldingArrowIcon();
+						//If you don't care for icon transformations on those older browsers, you
+						//may leave the onToggle option.
+						//See folding-arrow-icon's documentation for details.
+					}
+				});
+			}).hideSection({duration: 0}); //initially collapse all sub-lists
+			//Add click handlers to links
+			$("ul.folding-arrows:not(.dashes) > li > a[href='#!']").click(function() {
+				$(this).next("ul").showOrHideSection();
+				return false;
+			});
+		});
+	</script>
+	
+	<link rel="stylesheet" type="text/css" href="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon.css">
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+		ul.folding-arrows svg path {
+			stroke: none;
+			fill: #aaa;
+		}
+		ul.dashes svg.dash line {
+			stroke: #aaa;
+			stroke-width: 3px;
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noScrollTo" class="error">
+		<h1>jQuery plug-in "scrollTo" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery.scrollto/jquery.scrollTo.min.js</code>, but
+		it was not found there. jQuery.scrollTo is an <em>optional dependency</em>: 
+		The show/HideSection() plug-ins will still work, but auto-scrolling to a certain position in the viewport
+		will not be animated (smooth scrolling) without the scrollTo plug-in, but instead the
+		viewport will instantly "jump" to the target position.
+		</p>
+	</div>
+	<div id="noFoldingArrow" class="error">
+		<h1>jQuery plug-in "jquery-folding-arrow-icon" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js</code>, but
+		it was not found there. Folding-arrow-icon is an <em>optional dependency</em>: 
+		It's not necessary to use the showOrHideSection plug-in, but both plug-ins can <em>optionally</em>
+		be combined. However, this demo page is to demonstrate this combination, i.e. this page won't work
+		as intended without this additional plug-in!
+		</p>
+	</div>
+
+
+	<h1>showOrHideSection combined with folding-arrow plug-in</h1>
+	
+	<ul class="folding-arrows">
+		<li><a href="#!">This demo uses two jQuery plug-ins:</a>
+			<ul class="folding-arrows">
+				<li><a href="#!">folding-arrow-icon</a>
+					<ul class="folding-arrows dashes">
+						<li>This plug-in is used to fit this unordered list with dynamically created SVG icons,
+							either static dashes like for this list item, or arrows like for the items above.
+							The arrows reflect the visibility state of the sub-list items and whenever
+							a link behind such an arrow is clicked to show or hide the sub-list items,
+							the arrow will change its direction with a smooth transition.</li>
+					</ul>
+				</li>
+				<li><a href="#!">showhide-tools</a>
+					<ul class="folding-arrows dashes">
+						<li>This is, of course, the main plug-in whose demo pages you're currently looking at.
+							This plug-in is concerned with giving life to the links in this list by toggling
+							the sub-list visibility by the <code>showOrHideSection()</code> function.</li>
+						<li>The <em>heading elements</em> for <code>showOrHideSection</code> are the parent list items themselves,
+							that are fitted with the folding arrow icons.</li>
+						<li>The <em>toggle elements</em> for showOrHideSection()</code> are the links
+							used for triggering the state change.</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li><a href="#!">Code</a>
+			<ul class="folding-arrows">
+				<li><a href="#!">CSS</a>
+					<ul class="folding-arrows dashes">
+						<li>CSS code for formatting folding-arrows (besides the included default CSS file):
+							<pre><code class="css">ul.folding-arrows svg path {
+    stroke: none;
+    fill: #aaa;
+}
+ul.dashes svg.dash line {
+    stroke: #aaa;
+    stroke-width: 3px;
+}</code></pre>
+						</li>
+					</ul>
+				</li>
+				<li><a href="#!">JavaScript</a>
+					<ul class="folding-arrows">
+						<li><a href="#!">for folding-arrows</a>
+							<ul class="folding-arrows dashes">
+								<li>JavaScript code (in DOM-ready event handler):
+									<pre><code class="javascript">$("ul.folding-arrows:not(.dashes) > li").prependFoldingArrowIcon();
+$("ul.dashes > li").prependFoldingArrowIcon({preset: "dash"});</code></pre>
+								</li>
+							</ul>
+						</li>
+						<li><a href="#!">for showOrHideSection</a>
+							<ul class="folding-arrows dashes">
+								<li>JavaScript code (in DOM-ready event handler):
+									<pre><code class="javascript">//setup showOrHide options:
+$("ul.folding-arrows:not(.dashes) > li > ul").each(function() {
+    var me = $(this);
+    var li = me.parent();
+    me.setupShowOrHideSection({
+        heading: li,
+        toggle: "a",
+        restrictSelectorsToChildren: li,
+        scroll: true,
+        onToggle: function(section, heading) {
+            //For Internet Explorer and older Edge Browser versions that don't support
+            //CSS transitions for inline SVG:
+            heading.transformFoldingArrowIcon();
+            //If you don't care for icon transformations on those older browsers, you
+            //may leave the onToggle option.
+            //See folding-arrow-icon's documentation for details.
+        }
+    });
+}).hideSection(); //initially collapse all sub-lists
+//Add click handlers to links
+$("ul.folding-arrows:not(.dashes) > li > a[href='#!']").click(function() {
+    $(this).next("ul").showOrHideSection();
+    return false;
+});</code></pre>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

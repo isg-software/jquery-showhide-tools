@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Viewport Demos (vertical scrolling)</title>
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<!--script type="text/javascript" src="../src/js/jquery-showhide.js"></script-->
+	<script type="text/javascript">
+		$(function(){
+			$("#nojq, #more").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
+			
+			var funcsel = $("#func");
+			var deltainput = $("#delta");
+			var actionsel = $("#action");
+			var toleranceinput = $("#tolerance");
+			
+			var A = $("#A");
+			var B = $("#B");
+			var C = $("#C");
+			var D = $("#D");
+			var E = $("#E");
+			var sA = $(".status .A");
+			var sB = $(".status .B");
+			var sC = $(".status .C");
+			var sD = $(".status .D");
+			var sE = $(".status .E");
+			
+			function getDelta() {
+				var delta = $.trim(deltainput.val());
+				delta = delta === "" ? undefined : parseInt(delta);
+				return delta;
+			}
+			
+			function getTolerance() {
+				var t = $.trim(toleranceinput.val());
+				t = t === "" ? undefined : parseInt(t);
+				return t;
+			}
+
+			function update(node, stat) {
+				var func = funcsel.val();
+				var b = func === "ti" ? node.isTopInViewport()
+						: func === "bi" ? node.isBottomInViewport()
+						: func === "ta" ? node.isTopAboveViewport(undefined, getDelta())
+						: node.isTopBelowViewport(undefined, getDelta());
+				node.toggleClass("yes", b);
+				node.toggleClass("no", !b);
+				stat.toggleClass("yes", b);
+				stat.toggleClass("no", !b);
+			}
+			
+			function updateAll() {
+				update(A, sA);
+				update(B, sB);
+				update(C, sC);
+				update(D, sD);
+				update(E, sE);
+			}
+			
+			function updateLabels() {
+				var func = funcsel.val();
+				if (func === "ti")
+					$(".status span").text("isTopInViewport()");
+				else if (func === "bi")
+					$(".status span").text("isBottomInViewport()");
+				else if (func === "ta") {
+					var d = getDelta();
+					if (!d)
+						$(".status span").text("isTopAboveViewport()");
+					else
+						$(".status span").text("isTopAboveViewport(undefined, " + d + ")");
+				} else {
+					var d = getDelta();
+					if (!d)
+						$(".status span").text("isTopBelowViewport()");
+					else
+						$(".status span").text("isTopBelowViewport(undefined, " + d + ")");
+				}
+			}
+			
+			function updateActionLabels() {
+				var func = actionsel.val();
+				var t = getTolerance();
+				$(".action-btn").each(function() {
+					var id = $(this).data("id");
+					var s = "$('#" + id + "').";
+					if (func === "vat")
+						s += "viewportAlignTop(";
+					else if (func === "vab")
+						s += "viewportAlignBottom(";
+					else
+						s += "scrollDownIntoView(";
+					if (t)
+						s += "undefined, " + t;
+					s += ")";
+					$(this).text(s);
+				});
+			}
+			
+			funcsel.change(function() {
+				var v = $(this).val();
+				if (v === "ta" || v === "tb")
+					$("#more").show();
+				else
+					$("#more").hide();
+				updateLabels(v);
+				updateAll();
+			}).change();
+
+			$(window).scroll(updateAll);
+			deltainput.change(updateAll).change(updateLabels);
+			
+			actionsel.change(updateActionLabels).change();
+			toleranceinput.change(updateActionLabels);
+			
+			$(".action-btn").click(function() {
+				var id = $(this).data("id");
+				var func = actionsel.val();
+				if (func === "vat")
+					$("#"+id).viewportAlignTop(undefined, getTolerance());
+				else if (func === "vab")
+					$("#"+id).viewportAlignBottom(undefined, getTolerance());
+				else
+					$("#"+id).scrollDownIntoView(undefined, getTolerance());
+			});
+		});
+	</script>
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+		.demoBox {
+			text-align: center;
+			font-size: 300%;
+			font-weight: bold;
+			padding: 0.5em;
+			border: 3px solid navy;
+			border-radius: 0.5em;
+		}
+		.demoBox.yes {
+			background-color: #060;
+			color: white;
+		}
+		.demoBox.no {
+			background-color: #600;
+			color: white;
+		}
+		#A, #E {
+			height: 5em;
+		}
+		#B, #D {
+			height: 2em;
+		}
+		#C {
+			height: 120vh;
+		}
+		.status {
+			border-top: 1px solid silver;
+			border-bottom: 1px solid silver;
+			margin: 1em 0;
+			padding: 0.5em 0;
+		}
+		.status .yes::after {
+			content: " = true";
+			color: #050;
+		}
+		.status .no::after {
+			content: " = false";
+			color: #500;
+		}
+		#howto {
+			border: 1px solid silver;
+			border-radius: 1em;
+			padding: 1em;
+			margin: 5em 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noScrollTo" class="error">
+		<h1>jQuery plug-in "scrollTo" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery.scrollto/jquery.scrollTo.min.js</code>, but
+		it was not found there. jQuery.scrollTo is an <em>optional dependency</em>: 
+		The show/HideSection() plug-ins will still work, but auto-scrolling to a certain position in the viewport
+		will not be animated (smooth scrolling) without the scrollTo plug-in, but instead the
+		viewport will instantly "jump" to the target position.
+		</p>
+	</div>
+	<h1>Demos / Examples for “vertical” viewport functions</h1>
+	<label for="func">Function to test when scrolling:</label> <select id="func">
+		<option value="ti">isTopInViewport</option>
+		<option value="bi">isBottomInViewport</option>
+		<option value="ta">isTopAboveViewport</option>
+		<option value="tb">isTopBelowViewport</option>
+	</select>
+	<div id="more">
+		<label for="delta">Delta:</label>
+		<input id="delta"> (leave empty for default)
+	</div>
+	<br>
+	<label for="action">Function to test by action button:</label>
+	<select id="action">
+		<option value="vat">viewportAlignTop</option>
+		<option value="vab">viewportAlignBottom</option>
+		<option value="sdv">scrollDownIntoView</option>
+	</select>
+	<div id="more2">
+		<label for="tolerance">Tolerance:</label>
+		<input id="tolerance"> (leave empty for default)
+	</div>
+	<p id="howto">
+		Select a “function to test when scrolling” above and then
+		scroll page (vertically) in order to update the status displays. The colors of the
+		large blocks A through E as well as the "true"/"false" displays before and after each block
+		will then update to represent the current return value (boolean) of the selected
+		plug-in function.<br>
+		In the first status block (above block A) you'll also find buttons which will trigger
+		an alignment action. The function to execute when pushing those buttons can also
+		be selected above (“function to test by action button”).
+	</p>
+	<p class="status">
+		$("#A").<span class="A">…</span> <button class="action-btn" data-id="A">…</button><br>
+		$("#B").<span class="B">…</span> <button class="action-btn" data-id="B">…</button><br>
+		$("#C").<span class="C">…</span> <button class="action-btn" data-id="C">…</button><br>
+		$("#D").<span class="D">…</span> <button class="action-btn" data-id="D">…</button><br>
+		$("#E").<span class="E">…</span> <button class="action-btn" data-id="E">…</button>
+	</p>
+	<div class="demoBox" id="A">
+		A
+	</div>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
+	</p>
+	<div class="demoBox" id="B">
+		B
+	</div>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
+	</p>
+	<div class="demoBox" id="C">
+		C
+	</div>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
+	</p>
+	<div class="demoBox" id="D">
+		D
+	</div>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
+	</p>
+	<div class="demoBox" id="E">
+		E
+	</div>
+	<p class="status">
+		$("#A").<span class="A">…</span><br>
+		$("#B").<span class="B">…</span><br>
+		$("#C").<span class="C">…</span><br>
+		$("#D").<span class="D">…</span><br>
+		$("#E").<span class="E">…</span>
+	</p>
+</body>
+</html>

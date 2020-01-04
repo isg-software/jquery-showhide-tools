@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Demo for appendMoreLinks</title>
+	<meta name="generator" content="BBEdit 12.6" />
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<!--script type="text/javascript" src="../src/js/jquery-showhide.js"></script-->
+	<script type="text/javascript">
+		$(function() {
+			$("#nojq").hide();
+			
+			$(".more").hide();
+			$(".appendMore").appendMoreLinks();
+			
+			$(".part2").hide();
+			$(".part1").appendMoreLinks({
+				moreContentSelector: ".part2",
+				moreLinkLabel: "reveal more content…"
+			});
+		});
+	</script>
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<h1>Demo for <code>appendMoreLinks</code></h1>
+	<h2>Demo 1: Default class names</h2>
+	<ul>
+		<li>
+			<p class="appendMore">Imagine your page contains longer text passages, of which you
+			want to initially only present the beginning like in these list entries.
+			If the user wants to read on, he should simply press a link to reveal the rest
+			of the section:</p>
+			<p class="more">When the "more..." link gets pressed, the initially hidden remainder
+			of the content gets shown and the link itself gets removed. Just like demonstrated here.</p>
+		</li>
+		<li><p class="appendMore">To achieve this, simply add the class <code>appendMore</code>
+			to the element of the introducing text to which the "more..." link should be added, and…</p>
+			<p class="more appendMore">add the class <code>more</code> to the element with the remainder, which
+				should be initially hidden and only revealed when the "more…" link is clicked.<br>
+				Note that the <code>more</code> part can also be an <code>appendMore</code> part, as is the case
+				here: This part is of class <code>more</code>, hidden on page load and revealed by clicking
+				the preceding "more…" link. But it's also of class <code>appendMore</code>, i.e. it ends
+				with a "more…" link of its own which will reveal a third part.</p>
+			<p class="more">(This is the third part.)</p>
+		</li>
+		<li><p class="appendMore">Then you'll only need a few lines of JavaScript to enable the plug-in.</p>
+			<pre class="more"><code class="javascript">$(function() {
+    $(".more").hide(); //Initially hide alle "more" parts
+    $(".appendMore").appendMoreLinks(); //And append the "more..." links to show them again to all "appendMore" parts.
+});</code></pre>
+		<li><p class="appendMore">If JavaScript is disabled (or jQuery or the plug-in are not found), then no content will be hidden
+			(and no non-working "more…"-links will be visible). The user will then simply see all your content.</p>
+			<p class="more">You may try this by disabling JavaScript in your browser an reloading this page.</p>
+		</li>
+	</ul>
+	
+	<h2>Demo 2: Custom class names and link labels</h2>
+	<p>In Demo 1, default class names "more" and "appendMore" have been used and the generated links
+		hat the default link label ("more…").</p>
+	<p>Now, suppose you want to…</p>
+	<ol>
+		<li><p class="part1">…use custom class names of your choice instead of "appendMore" and "more".</p>
+			<p class="part1 part2">In this demo, the first paragraph above has the class name "part1" (instead of "appendMore")
+			and the "more" parts now use class name "part2".</p>
+			<div class="part2">
+				<p>Then the script may look like this:</p>
+				<pre><code class="javascript">$(".part2").hide();
+$(".part1").appendMoreLinks({
+    moreContentSelector: ".part2"
+});</code></pre>
+				<p>Please note that it's not sufficient to only hide all ".part2" parts initially, but
+					you also need to tell the <code>appendMoreLinks()</code> function that the 
+					inserted links now should look for a successor of class "part2" when clicked.</p>
+			</div>
+		</li>
+		<li><div class="part1">and/or want to us define your own link label like this:</div>
+			<div class="part2">That's what the <code>moreLinkLabel</code> option is for.</div>
+		</li>
+	</ol>
+	
+	To summarize, the script code for Demo 2 looks like this:
+	<pre><code class="javascript">$(".part2").hide();
+$(".part1").appendMoreLinks({
+    moreContentSelector: ".part2",
+    moreLinkLabel: "reveal more content…"
+});</code></pre>
+		
+</body>
+</html>

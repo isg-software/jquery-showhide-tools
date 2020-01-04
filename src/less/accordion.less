@@ -1,0 +1,142 @@
+@baseColor: #446;
+@myGreen: #170;
+@focusColor: #669;
+@focusGreen: #696;
+
+.accordion {
+	margin: 1em 0;
+	//Custom Font sizes for h2 and h3 headings in accordion (only screen mode, in print view, which
+	//does not support dynamic accordion, leave defaults)
+	@media screen {
+		h2 {
+			font-size: 1.5em;
+		}
+		h3 {
+			font-size: 1.3em;
+		}
+	}
+	section {
+		margin-top: 1em;
+		&:first-of-type {
+			margin-top: 0
+		}
+		padding: 0 0.5rem;
+		border: 1px solid @baseColor;
+		border-radius: 0.5em;
+		@media print {
+			border: none;
+		}
+		> :first-child { //the first child of a section has to be the section heading, typically a h2 or h3
+			margin: 0;
+			padding: 0.2em 0; 
+			//It's important to use a (vertical) padding instead of a margin. Reason:
+			//The bottom margin of the h2 and the top margin of its next sibling (the hideable div container)
+			//will be merged into one gap and not add up, as long as the div is visible, but during
+			//the animation for hiding or showing the div, they will add up instead. So with a bottom
+			//margin, the gap between the heading and the content would instantly increase as soon as
+			//the hide animation starts or would instantly decrease after the show animation finishes.
+			//This would result in a sudden jolt which destroys the smooth transition.
+			//Paddings of two siblings however will, other than margins, never be joined but will
+			//always add up.
+			button {
+				padding: 0 1.5em 0 0;
+				margin:0;
+				border: none;
+				color: @baseColor;
+				background: none;
+				position: relative;
+				width: 100%;
+				text-align: left;
+				font: 1em sans-serif;
+
+				&:hover, &:focus {
+					svg.folding-arrow-icon {
+						circle {
+							stroke: none;
+							fill: @focusColor;
+							.keydown-multiselect&, .touch-hold-multiselect& {
+								fill: @focusGreen;
+							}
+						}
+						line {
+							stroke: white;
+						}
+					}
+				}
+				&:active {
+					color: @focusColor;
+				}
+				
+				//On the toggle buttons
+				//prevent text selection which might be triggered by touch-and-hold 
+				//in order for them not to interfere with the multi-touch multi-select mode.
+				-webkit-user-select: none;
+				-khtml-user-select: none; 
+				-moz-user-select: none; 
+				-ms-user-select: none; 
+				user-select: none;
+				
+				//For iOS: Also prevent opening the pop-up menu (for cut and paste) normally
+				//triggered by touch-and-hold.
+				-webkit-touch-callout: none;
+				//There does not seem to be any equivalent for other browsers like chrome on Android,
+				//so I also added a contextmenu event handler to the script file which should
+				//prohibit opening a context menu for an accordion toggle button by touch-and-hold
+				//(while still allowing a context-menu opened via right-click on desktop browsers).
+			}
+		}
+		> div[id] {
+			margin-top: 0.5em;
+			> :first-child {
+				margin-top: 0;
+				//This also is to prevent a jolt after the show transition or before the hide transition,
+				//see comment above concerning the heading's padding.
+			}
+			@media print {
+				//If the user prints the page, all sections should always be printed, including
+				//those sections currently hidden on screen by display:none. 
+				//So: Overrule the display property of any content div in print style:
+				display: block !important;
+			}
+		}
+		&.showing {
+			//Some alternative styles for different folding-arrow-icon presets in order not to have
+			//to alter this stylesheet if the preset should be changed in the JavaScript file.
+			svg.folding-arrow-icon.updown path {
+				transform: scale(1, -1);
+			}
+
+			svg.folding-arrow-icon.plus > g {
+				transform: rotate(45deg);
+			}
+	
+			svg.folding-arrow-icon.plus-minus  line.v {
+				transform: scale(1, 0);
+			}
+		}
+	}
+	
+	svg.folding-arrow-icon {
+		position: absolute;
+		top: 0;
+		right: 0;
+	    width: 1em;
+    	height: 1.2em;
+
+		circle {
+			fill: none;
+			stroke: none;
+		}
+		line {
+			stroke: @baseColor;
+			stroke-width: 3px; //The actual icon size will adapt to the heading size. Usually this will be scaled down, so don't choose too thin strokes.
+			.keydown-multiselect&, .touch-hold-multiselect& {
+				stroke: @myGreen;
+			}
+		}
+		@media print {
+			display: none;
+		}
+	}
+	
+}

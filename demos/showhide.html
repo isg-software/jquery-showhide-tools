@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Basic Show-Hide-Demos</title>
+	
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery-showhide-min.js"></script>
+	<!--script type="text/javascript" src="../src/js/jquery-showhide.js"></script-->
+	<script type="text/javascript">
+		$(function() {
+			$("#nojq").hide();
+			if (typeof $.fn.scrollTo === "function") {
+				$("#noScrollTo").hide();
+			}
+
+			$("#demo1_toggle").click(function() {
+				$("#demo1").showOrHideSection();
+			});
+			$("#demo1_show").click(function() {
+				$("#demo1").showSection();
+			});
+			$("#demo1_hide").click(function() {
+				$("#demo1").hideSection();
+			});
+			
+			$("#demo2_btn").click(function() {
+				$("#demo2").showOrHideSection({condition: $("#demo2_chk:checked").length > 0});				
+			});
+			
+			
+			$("#demo3").setupShowOrHideSection({
+				scroll: true,
+				store: "#${id}_state",
+				storeValueShowing: "open",
+				storeValueHidden: "closed",
+				condition: function() {
+					return $("#demo3_chk:checked").length > 0;
+				}
+			});
+			$("#demo3_toggle").click(function() {
+				$("#demo3").showOrHideSection();
+			});
+			$("#demo3_show").click(function() {
+				$("#demo3").showSection();
+			});
+			$("#demo3_hide").click(function() {
+				$("#demo3").hideSection();
+			});
+			
+			//Initialise all sections to be hidden or showing depending on class
+			$(".initHidden").hideSection({
+				duration: 0
+			});
+			$(".initShowing").showSection({
+				duration: 0
+			});
+			
+			
+			$(".sec.demo4").setupShowOrHideSection({
+				scroll: true,
+				condition: function() {
+					var radId = $(this).data("rad");
+					return $("#" + radId + ":checked").length > 0;
+				}
+			});
+			$("input[name='demo4']").click(function() {
+				$(".sec.demo4").showOrHideSection();
+			});
+			
+
+		});
+	</script>
+	
+	<style type="text/css">
+		.error {
+			color: red;
+		}
+		.sec_h.showing::after { 
+			content: ' Status: showing';
+			color: #070;
+		}
+		.sec_h.hidden::after { 
+			content: ' Status: hidden';
+			color: #700;
+		}
+		.sec {
+			border: 1px solid silver;
+		}
+	</style>
+</head>
+<body>
+	<div id="nojq" class="error">
+		<h1>jQuery not found (or JavaScript not enabled)!</h1>
+		<p>This example searches for jQuery locally at <code>../node_modules/jquery/dist/jquery.min.js</code>, but
+		jQuery was not found there. Please eather install jQuery (via npm or manually)
+		or modify this HTML file and change the src attribute of the script tag loading jQuery
+		to specify a different local path or a CDN URL.</p>
+	</div>
+	<div id="noScrollTo" class="error">
+		<h1>jQuery plug-in "scrollTo" not found!</h1>
+		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery.scrollto/jquery.scrollTo.min.js</code>, but
+		it was not found there. jQuery.scrollTo is an <em>optional dependency</em>: 
+		The show/HideSection() plug-ins will still work, but auto-scrolling to a certain position in the viewport
+		will not be animated (smooth scrolling) without the scrollTo plug-in, but instead the
+		viewport will instantly "jump" to the target position.
+		</p>
+	</div>
+
+	<h1>Basic Show-Hide-Demos</h1>
+	
+	<h2>Simple parameterless calls (default settings)</h2>
+	<h3 id="demo1_h" class="sec_h">Demo 1</h3>
+	<!-- The id with suffix _h is by default used to update the status (class hidden or showing) of this element
+	     whenever a showSection(), hideSection() or showOrHideSection() function gets called.
+	     The naming convention (ID of section with "_h" appended) can be changed via options.
+	     
+	     The class sec_h is only used by this page's CSS to visualize the state. -->
+	<button id="demo1_toggle">$("#demo1").showOrHideSection()</button>
+	<button id="demo1_show">$("#demo1").showSection()</button>
+	<button id="demo1_hide">$("#demo1").hideSection()</button>
+	<div id="demo1" class="initHidden sec">
+		<!-- The ID is used in order to be able to trigger the showOrHideSection() events. 
+			 The class initHidden is used in this page's JavaScript to initially hide this section whenever the page loads.
+			 The class sec is just used for CSS formatting of all hideable sections in this page.
+		-->
+		<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+		<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
+
+		<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </p>
+	</div>
+	
+	<h2>Toggle conditions, Setup and Auto-Scroll</h2>
+	<h3 id="demo2_h" class="sec_h">Demo 2 (static condition expressions)</h3>
+	<input type="checkbox" id="demo2_chk">  
+	<label for="demo2_chk">#demo2_chk</label>
+	<button id="demo2_btn">$("#demo2").showOrHideSection({condition: $("#demo2_chk:checked").length &gt; 0})</button>
+	<div id="demo2" class="initShowing sec">
+		<p>In this demo, a condition option is set and evaluated each time the button is clicked.</p>
+		<p>So, whenever the button gets clicked, the click event handler will first evaluate the condition expression
+			(check whether the checkbox is checked) and then pass the boolean result as (static) condition
+			to the showOrHide() function, which will in result show the section if the checkbox is checked
+			or hide it if the checkbox is unchecked.</p>
+		<p>The expression selects all Checkboxes with the ID of this example's checkbox that are currently checked.
+			So, the resultset is either empty (if the checkbox is unchecked) or contains one element (the checked checkbox).
+			That means, the length of the resultset is either 0 (unchecked) or 1 (checked).<br>
+			Actually, it's not necessary to add the "&gt; 0" comparison to the expression, the length itself is
+			also a valid and equivalent condition (since the value 0 is falsy, the number 1 is truthy).
+			I just added this "&gt; 0" comparison since I consider it slightly more intuitively readable.
+		</p>
+	</div>
+	
+	<h3 id="demo3_h" class="sec_h">Demo 3 (dynamic condition setup, auto-scroll, state input)</h3>
+	<input type="checkbox" id="demo3_chk">
+	<label for="demo3_chk">#demo3_chk</label>
+	<button id="demo3_toggle">$("#demo3").showOrHideSection()</button>
+	<button id="demo3_show">$("#demo3").showSection()</button>
+	<button id="demo3_hide">$("#demo3").hideSection()</button>
+	<br>
+	<label for="demo3_state">Transmittable state:</label>
+	<input type="text" id="demo3_state" name="demo1_state" size="6" readonly>
+	<div id="demo3" class="initShowing sec">
+		<p>In this demo, some non-default options are set once upon page load by:</p>
+		<pre><code class="javascript">$("#demo3").setupShowOrHideSection({
+    scroll: true,
+    store: "#${id}_state",
+    storeValueShowing: "open",
+    storeValueHidden: "closed",
+    condition: function() {
+        return $("#demo3_chk:checked").length > 0;
+    }
+});</code></pre>
+		<p>
+			The <strong>condition</strong> option in this case is not a static boolean expression but
+			instead a callback function which will evaluate each time the <code>showOrHide()</code>
+			function is called. Since this is initially set up,
+			the actual <code>showOrHideSection()</code> calls don't need a condition option but can be
+			parameterless (see button label).
+		</p>
+		<p>Note that this setup (condition) does only affect the <code>showOrHideSection()</code>
+			function, while the <code>showSection()</code> and <code>hideSection()</code>
+			(naturally) ignore the condition and always show resp. hide the section.</p>
+		<p>In addition to the condition call-back, the setup above contains a <strong>scroll</strong>
+			option: <code>scroll: true</code>. This activates auto-scrolling.
+			To test this, first hide this section, then ensure that the buttons to re-show
+			it again are near the bottom of the window. (If necessary, show the sections 
+			of the other demos above first or reduce your browser's window size to achieve this).
+			Then, if you expand the section again, it first appears below the buttons in the
+			invisible part of the window. With auto-scroll activated, the page will then
+			automatically scroll down so that the newly expanded section gets moved
+			into view. (This is internally done via the <code>scrollDownIntoView()</code>
+			plug-in function, see <a href="viewport-vertical.html">vertical viewport demos</a>.)
+			For a comparison, 
+			you can try the same with the first demos above which don't have auto-scroll enabled.
+		</p>
+		<p>Are you designing a web-interface for a web application and want to transmit the
+			current state of a section (visible or hidden) to your server as part of a form
+			submit? Then you can insert a <em>hidden input field</em> into your form and 
+			set up the showOrHide plug-in to update this hidden field's value according to the state. 
+			This is done by the <strong>store</strong> option. 
+			While normally a hidden input is preferrable, in this demo a visible
+			read-only input (labelled "Transmittable state") is used to visualize the technique.</p>
+		<p>This state input has the ID "demo3_state". 
+			In this simple example, the option could also have been set constantly to
+			<code>store: "#demo3_state"</code>, but the demonstrated syntax
+			<code>store: "#${id}_state"</code> is recommended: In this syntax, the
+			expression "${id}" is dynamically replaced by the ID of the section which is about
+			to be shown or hidden (<code>"demo3"</code> in this case).
+			This syntax may also be used in a common setup which is applied to more than one section,
+			while a constant string like "#demo3_state" can only be used if the setup is 
+			applied to exactly one section.</p>
+		<p>By default, this input would be filled with the value "X" if the section is showing
+			or empty if the section is hidden. In this example, those default values have been 
+			overridden by the options <code>storeValueShowing</code> and <code>storeValueHidden</code>
+			to read "open" resp. "closed".</p>
+			
+	</div>
+	
+	<h3>Demo 4: More practical example</h3>
+	<p>This demo uses 3 radio buttons and contains 3 sections, one of which can be shown
+		at the time, depending on the selected radio button. There are several ways to
+		achieve this. The radio buttons are equipped with a click handler which performs
+		the change.</p>
+	<p>There are several ways to implement this click handler. One solution would be that
+		it always hides all three sections and then shows the right one again.
+		This implementation however, which I consider the more elegant one, uses the
+		a condition setup (see previous demo) and always calls the showOrHide() function
+		for all three sections (with one jQuery call selecting all three sections at once
+		by their common class:</p>
+	<pre><code class="javascript">$(".sec.demo4").setupShowOrHideSection({
+    scroll: true,
+    condition: function() {
+        var radId = $(this).data("rad");
+        return $("#" + radId + ":checked").length > 0;
+    }
+});
+$("input[name='demo4']").click(function() {
+    $(".sec.demo4").showOrHideSection();
+});</code></pre>
+	<p>For each section, the condition gets evaluated individually: 
+		to true if its corresponding radiobutton is checked, or to false otherwise.</p>
+	<p>See source code of this page for details.</p>
+		
+		
+	<input type="radio" name="demo4" id="demo4_rad1">
+	<label for="demo4_rad1">Alternative 1</label>
+	<br>
+	<input type="radio" name="demo4" id="demo4_rad2">
+	<label for="demo4_rad2">Alternative 2</label>
+	<br>
+	<input type="radio" name="demo4" id="demo4_rad3">
+	<label for="demo4_rad3">Alternative 3</label>
+	<div id="demo4_1" class="initHidden sec demo4" data-rad="demo4_rad1">
+		<p>Content for alternative 1: This is the section with ID <code>demo4_1</code></p>
+	</div>
+	<div id="demo4_2" class="initHidden sec demo4" data-rad="demo4_rad2">
+		<p>Content for alternative 2: This is the section with ID <code>demo4_2</code></p>
+	</div>
+	<div id="demo4_3" class="initHidden sec demo4" data-rad="demo4_rad3">
+		<p>Content for alternative 3: This is the section with ID <code>demo4_3</code></p>
+	</div>
+	
+</body>
+</html>

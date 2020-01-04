@@ -7,7 +7,7 @@
 		"uuidString": "6119C91F-080B-4DDE-9098-09C8E501859A"
 		}
 	],
-"creatorBuild": "31491",
+"creatorBuild": "31934",
 "files": {
 	"/.gitignore": {
 		"cB": 0,
@@ -17,13 +17,138 @@
 		"oAP": "/.gitignore",
 		"oF": 0
 		},
-	"/dist/apply-showhide-defaults-min.js": {
+	"/demos/accordion-multi.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/accordion-multi.html",
+		"oF": 0
+		},
+	"/demos/accordion.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/accordion.html",
+		"oF": 0
+		},
+	"/demos/appendmore.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/appendmore.html",
+		"oF": 0
+		},
+	"/demos/enable-default-links.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/enable-default-links.html",
+		"oF": 0
+		},
+	"/demos/index.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/index.html",
+		"oF": 0
+		},
+	"/demos/showhide.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/showhide.html",
+		"oF": 0
+		},
+	"/demos/showOrHideChildren.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/showOrHideChildren.html",
+		"oF": 0
+		},
+	"/demos/slidingpanels.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/slidingpanels.html",
+		"oF": 0
+		},
+	"/demos/slidingpanels2.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/slidingpanels2.html",
+		"oF": 0
+		},
+	"/demos/viewport-horizontal.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/viewport-horizontal.html",
+		"oF": 0
+		},
+	"/demos/viewport-vertical.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/viewport-vertical.html",
+		"oF": 0
+		},
+	"/demos/withFoldingArrows.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/demos/withFoldingArrows.html",
+		"oF": 0
+		},
+	"/dist/accordion-min.js": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "/dist/apply-showhide-defaults-min-min.js",
+		"oAP": "/dist/accordion-min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/dist/accordion.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "/dist/accordion-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"/dist/accordion.css.map": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/dist/accordion.css.map",
+		"oF": 0
+		},
+	"/dist/enable-default-links-min.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/dist/enable-default-links-min-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 1
@@ -101,6 +226,14 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"/README.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/README.html",
+		"oF": 0
+		},
 	"/README.md": {
 		"cB": 0,
 		"cS": 0,
@@ -120,6 +253,17 @@
 		"rFN": 0,
 		"uCM": 0
 		},
+	"/src/js/accordion.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/dist/accordion-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
 	"/src/js/appendMoreLinks.js": {
 		"bF": 0,
 		"ft": 64,
@@ -131,13 +275,13 @@
 		"sC": 3,
 		"tS": 1
 		},
-	"/src/js/apply-showhide-defaults.js": {
+	"/src/js/enable-default-links.js": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "/dist/apply-showhide-defaults-min.js",
+		"oAP": "/dist/enable-default-links-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 1
@@ -164,12 +308,27 @@
 		"sC": 3,
 		"tS": 1
 		},
+	"/src/less/accordion.less": {
+		"aP": 0,
+		"bl": 0,
+		"eJ": 0,
+		"ft": 1,
+		"iI": 0,
+		"ma": 1,
+		"mS": 0,
+		"oA": 0,
+		"oAP": "/dist/accordion.css",
+		"oF": 0,
+		"oS": 0,
+		"rwU": 0,
+		"sI": 0,
+		"sU": 0
+		},
 	"/src/less/slidingpanels.less": {
 		"aP": 0,
 		"bl": 0,
 		"eJ": 0,
 		"ft": 1,
-		"ie": 0,
 		"iI": 0,
 		"ma": 1,
 		"mS": 0,
@@ -626,6 +785,7 @@
 			"flagValue": -1
 			}
 		},
+	"environmentVariablesString": "NODE_ENV:::production",
 	"esLintConfigFileHandlingType": 0,
 	"esLintECMAVersion": 7,
 	"esLintEnvironmentsMask": 8193,
@@ -727,6 +887,10 @@
 			"optionString": "'all'"
 			},
 		"default-case": {
+			"active": 0,
+			"optionString": ""
+			},
+		"default-param-last": {
 			"active": 0,
 			"optionString": ""
 			},
@@ -1076,6 +1240,10 @@
 			},
 		"no-implied-eval": {
 			"active": 0,
+			"optionString": ""
+			},
+		"no-import-assign": {
+			"active": 1,
 			"optionString": ""
 			},
 		"no-inline-comments": {
@@ -1501,6 +1669,10 @@
 		"prefer-promise-reject-errors": {
 			"active": 0,
 			"optionString": "{'allowEmptyReject': false}"
+			},
+		"prefer-regex-literals": {
+			"active": 0,
+			"optionString": ""
 			},
 		"prefer-rest-params": {
 			"active": 0,
@@ -2110,7 +2282,6 @@
 		"autoOutputPathStyle": 1,
 		"createSourceMap": 1,
 		"enableJavascript": 0,
-		"ieCompatibility": 0,
 		"mathStyle": 0,
 		"outputStyle": 0,
 		"rewriteURLStyle": 0,
@@ -2249,7 +2420,10 @@
 	"npmSaveExactVersion": 0,
 	"npmTargetDependencyListType": 4,
 	"overrideExternalServerCSS": 0,
-	"previewPathAddition": "",
+	"previewPathAddition": "/demos/index.html",
+	"rollupExternals": "",
+	"rollupReplacements": "process.env.NODE_ENV:::$NODE_ENV,,,ENVIRONMENT:::$NODE_ENV",
+	"rollupTreeshakingEnabled": 1,
 	"skippedFoldersString": "_cache,cache,.idea,log,_logs,logs,node_modules,/storage/framework/sessions,doc",
 	"sourceFolderName": "source",
 	"susyVersion": 3,
