@@ -46,8 +46,8 @@ $(function(){
 		.prop("viewboxMargin", 0)
 		.prop("closePath", false);
 		
-	$(".accordeon").each(function() {
-		var accordeon = $(this);
+	$(".accordion").each(function() {
+		var accordion = $(this);
 		var showhideOpts = {
 			duration: SHOW_TRANSITION_DURATION,
 			scroll: true,
@@ -56,11 +56,11 @@ $(function(){
 				heading.transformFoldingArrowIcon();
 			}
 		}
-		var storeSelector = accordeon.data("storeSelector");
+		var storeSelector = accordion.data("storeSelector");
 		if (storeSelector)
 			showhideOpts.store = storeSelector;
 			
-		$("section > :first-child", accordeon).each(function() {
+		$("section > :first-child", accordion).each(function() {
 			var h2 = $(this);
 			var text = h2.html();
 			var content = h2.next();
@@ -68,14 +68,14 @@ $(function(){
 			
 			function click(ev) {
 				content.showOrHideSection();
-				if (section.is(".showing") && !accordeon.is(".multi") && !accordeon.is(".touch-hold-multiselect") 
-					&& !ev.ctrlKey && !ev.metaKey && !accordeon.is(".keydown-multiselect")) {
+				if (section.is(".showing") && !accordion.is(".multi") && !accordion.is(".touch-hold-multiselect") 
+					&& !ev.ctrlKey && !ev.metaKey && !accordion.is(".keydown-multiselect")) {
 					//No multi-select mode (neither permanent by class multi nor temporally enabled
 					//by touch-hold-gesture or held-down control or meta key): Close all other open sections.
 					//(Only when _opening_ a new section, not when closing a section.)
 					//In some browsers, reading .ev.ctrlKey or ev.metaKey does not seem to work in a click
 					//event handler, so also check the .keydown-multiselect class set by the keydown handlers!
-					$("section.showing", accordeon)
+					$("section.showing", accordion)
 						.filter(function() {
 							return ! $(this).is(h2.parent());
 						})
@@ -97,9 +97,9 @@ $(function(){
 				target.data("touchedY", touch.clientY);
 				target.data("touch-hold", true);
 				if (ev.touches.length == 1) {
-					accordeon.data("touch-timer", window.setTimeout(function() {
+					accordion.data("touch-timer", window.setTimeout(function() {
 						ev.preventDefault();
-						accordeon.addClass("touch-hold-multiselect");
+						accordion.addClass("touch-hold-multiselect");
 						//This class is explicitly added _before_ the click event gets triggered.
 						//See click handler.
 						if (!section.is(".showing")) {
@@ -133,13 +133,13 @@ $(function(){
 			
 			function touchEndOrCancel(ev) {
 				var target = $(this);
-				var timer = accordeon.data("touch-timer");
+				var timer = accordion.data("touch-timer");
 				if (typeof timer != "undefined") {
 					window.clearTimeout(timer);
-					accordeon.removeData("touch-timer");
+					accordion.removeData("touch-timer");
 				}
 				if (ev.touches.length == 0) {
-					accordeon.removeClass("touch-hold-multiselect");
+					accordion.removeClass("touch-hold-multiselect");
 				}
 				target.removeData("touchedY");
 				target.removeData("touch-hold");
@@ -170,24 +170,24 @@ $(function(){
 		$("section").setupFoldingArrowIconTransformation({
 			preset: presetWithCircle
 		});
-		$("section.showing > div[id]:nth-child(2)", accordeon).showSection({
+		$("section.showing > div[id]:nth-child(2)", accordion).showSection({
 			scroll: false
 		}); 
 	});
 
 	
-	$(".accordeon section:not(.showing) > div[id]:nth-child(2)").hideSection({
+	$(".accordion section:not(.showing) > div[id]:nth-child(2)").hideSection({
 		duration: 0
 	});
 	
 	$(document).keydown(function(ev) {
 		var k = ev.key;
 		if (k === "Meta" || k === "Control") 
-			$(".accordeon").addClass("keydown-multiselect");
+			$(".accordion").addClass("keydown-multiselect");
 	}).keyup(function(ev) {
 		var k = ev.key;
 		if ((k === "Meta" || k === "Control") && !ev.ctrlKey && !ev.metaKey) 
-			$(".accordeon").removeClass("keydown-multiselect");
+			$(".accordion").removeClass("keydown-multiselect");
 			
 	});
 });

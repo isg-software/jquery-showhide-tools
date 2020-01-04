@@ -17,20 +17,20 @@
 		"oAP": "/.gitignore",
 		"oF": 0
 		},
-	"/demos/accordeon-multi.html": {
+	"/demos/accordion-multi.html": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/demos/accordeon-multi.html",
+		"oAP": "/demos/accordion-multi.html",
 		"oF": 0
 		},
-	"/demos/accordeon.html": {
+	"/demos/accordion.html": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/demos/accordeon.html",
+		"oAP": "/demos/accordion.html",
 		"oF": 0
 		},
 	"/demos/appendmore.html": {
@@ -113,33 +113,33 @@
 		"oAP": "/demos/withFoldingArrows.html",
 		"oF": 0
 		},
-	"/dist/accordeon-min.js": {
+	"/dist/accordion-min.js": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "/dist/accordeon-min-min.js",
+		"oAP": "/dist/accordion-min-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 1
 		},
-	"/dist/accordeon.css": {
+	"/dist/accordion.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "/dist/accordeon-min.css",
+		"oAP": "/dist/accordion-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"/dist/accordeon.css.map": {
+	"/dist/accordion.css.map": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
-		"oAP": "/dist/accordeon.css.map",
+		"oAP": "/dist/accordion.css.map",
 		"oF": 0
 		},
 	"/dist/enable-default-links-min.js": {
@@ -226,6 +226,14 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"/README.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/README.html",
+		"oF": 0
+		},
 	"/README.md": {
 		"cB": 0,
 		"cS": 0,
@@ -245,13 +253,13 @@
 		"rFN": 0,
 		"uCM": 0
 		},
-	"/src/js/accordeon.js": {
+	"/src/js/accordion.js": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "/dist/accordeon-min.js",
+		"oAP": "/dist/accordion-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 1
@@ -300,7 +308,7 @@
 		"sC": 3,
 		"tS": 1
 		},
-	"/src/less/accordeon.less": {
+	"/src/less/accordion.less": {
 		"aP": 0,
 		"bl": 0,
 		"eJ": 0,
@@ -309,7 +317,7 @@
 		"ma": 1,
 		"mS": 0,
 		"oA": 0,
-		"oAP": "/dist/accordeon.css",
+		"oAP": "/dist/accordion.css",
 		"oF": 0,
 		"oS": 0,
 		"rwU": 0,

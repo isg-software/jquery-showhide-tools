@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>Accordeon Demo</title>
+	<title>Accordion Demo</title>
 	<meta name="generator" content="BBEdit 12.6" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -21,10 +21,10 @@
 			}
 		});
 	</script>
-	<script type="text/javascript" src="../dist/accordeon-min.js"></script>
+	<script type="text/javascript" src="../dist/accordion-min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon.css">
-	<link rel="stylesheet" type="text/css" href="../dist/accordeon.css">
+	<link rel="stylesheet" type="text/css" href="../dist/accordion.css">
 	<style type="text/css">
 		.error {
 			color: red;
@@ -53,18 +53,18 @@
 		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js</code>, but
 		it was not found there. Folding-arrow-icon is an <em>optional dependency</em>: 
 		It's not generally necessary to use the showOrHideSection plug-in, but
-		the accordeon script relies on both plug-ins and won't work without folding-arrow-icon.
+		the accordion script relies on both plug-ins and won't work without folding-arrow-icon.
 		</p>
 	</div>
 
-	<h1>Accordeon Demo</h1>
+	<h1>Accordion Demo</h1>
 	
-	<div class="accordeon" data-store-selector="#${id}_store">
+	<div class="accordion" data-store-selector="#${id}_store">
 		<section id="sec1_h">
 			<h2>Source files</h2>
 			<div id="sec1">
-				<p>This is not simply a demo page. This page uses the script file <code>accordeon-min.js</code>
-				and the stylesheet <code>accordeon.css</code> that are distributed alongside the
+				<p>This is not simply a demo page. This page uses the script file <code>accordion-min.js</code>
+				and the stylesheet <code>accordion.css</code> that are distributed alongside the
 				jquery plug-in (in the <code>dist</code> directory).</p>
 				<p>You may use these files unaltered in your own projects, if the default configurations of
 				those files fit your needs. Otherwise you may of course simply make copies of these files
@@ -78,10 +78,10 @@
 			<h2>HTML Structure, HTML sections vs. "showOrHideSection()"</h2>
 			<div id="sec2">
 				<p>If you have a look at the source HTML file, you'll notice some simple, plain HTML document structure:
-					You've got a div of class 'accordeon' which contains sections. Each section consists of a section
+					You've got a div of class 'accordion' which contains sections. Each section consists of a section
 					heading (in this case a <code>h2</code>, but the script's not limited to this heading level) and a 
 					<code>div</code> containing the main content which may be visible or invisible, depending on
-					the section's visiblity. Only if the javascript (<code>accordeon(-min).js</code>) is loaded
+					the section's visiblity. Only if the javascript (<code>accordion(-min).js</code>) is loaded
 					and executed successfully, this modifies the parsed DOM structure and wraps the headings (<code>h2</code>)
 					in buttons which then may toggle the section visibility, equipped with a folding-arrow-icon,
 					in this case not really an arrow, but a plus- or cross-icon with rotation-transition.
@@ -92,7 +92,7 @@
 					the <em>section content</em> (first <code>div</code> with <code>id</code> attribute inside the section)
 					is the part that can be shown or hidden via the <code>showOrHideSection()</code> function.
 					So the word “section” in <code>showOrHideSection</code> does, in this structure not actually
-					refer to a whole accordeon section (<code>&lt;section&gt;</code>), but to the section content.
+					refer to a whole accordion section (<code>&lt;section&gt;</code>), but to the section content.
 					That's reflected by the hard-wired IDs in the source code: The section content <code>div</code>s
 					get IDs like <code>"sec1"</code>.<br> The section heading elements (<code>&lt;h2&gt;</code>) also
 					don't actually refer to what the <code>showOrHideSection()</code> function refers to with its
@@ -100,7 +100,7 @@
 					reflect the state, but in this case, I've decided I want to add the <code>showing</code>
 					or <code>hidden</code> class respectively not to the h2 but to the whole section. That's why
 					in the HTML code, the IDs with the standard <code>_h</code> suffix are assigned to the <code>section</code>
-					elements instead of the <code>h2</code> elements. The <code>accordeon.css</code> contains rules
+					elements instead of the <code>h2</code> elements. The <code>accordion.css</code> contains rules
 					that rely on this structure.
 				</p>
 			</div>
@@ -111,7 +111,7 @@
 			<div id="sec3">
 				<p>This realization retains printablility: The stylesheet ensures two main features:</p>
 				<ul>
-					<li>The accordeon styles like border, the icon reflecting the showing/hidden state etc. are 
+					<li>The accordion styles like border, the icon reflecting the showing/hidden state etc. are 
 						screen-only-styles and not visible in a print-out. The print will only contains the 
 						section headings and section content.</li>
 					<li>Also the CSS uses a display rule with <code>!important</code> flag in order to
@@ -134,12 +134,12 @@
 		<section id="sec4_h">
 			<h2>Support for opening more than one section at the time (multi-select mode)</h2>
 			<div id="sec4">
-				<p>By default, the accordeon only ever shows one or no section. If one section is expanded
+				<p>By default, the accordion only ever shows one or no section. If one section is expanded
 				 	and you toggle another section's heading, the new section will unfold, but the currently
 				 	expanded section will collapse at the same time.</p>
 				<p>If this is unwanted, the page author can globally disable this auto-fold feature by adding
-					the class <code>multi</code> to the accordeon div: <code>&lt;div class="accordeon multi"&gt;</code>.
-					This is demonstrated in a <a href="accordeon-multi.html">separate demo page
+					the class <code>multi</code> to the accordion div: <code>&lt;div class="accordion multi"&gt;</code>.
+					This is demonstrated in a <a href="accordion-multi.html">separate demo page
 					for permanent multi-select mode</a>.
 					</p>
 				<p>But if this auto-folding is active (default), the user can still unfold more than one
@@ -167,13 +167,13 @@
 				<p>Just like in earlier demos, this demo includes the feature to reflect the state
 					of each section in a form input element. Normally, these would be hidden inputs.
 					Such inputs can be used to transmit the state (which section(s) is/are expanded)
-					to a server whenever a form (containing the accordeon) is transmitted to a
+					to a server whenever a form (containing the accordion) is transmitted to a
 					web application server, in order to enable the web app to return a page
-					containing the very same accordeon in the same state.</p>
-				<p>The use of a store is optional in the included <code>accordeon-min.js</code> script.
-					To enable it, the <code>&lt;div class="accordeon"&gt;</code> tag is equipped
+					containing the very same accordion in the same state.</p>
+				<p>The use of a store is optional in the included <code>accordion-min.js</code> script.
+					To enable it, the <code>&lt;div class="accordion"&gt;</code> tag is equipped
 					with a data-attribute defining the store selector (see jsdoc of plug-in), 
-					in this demo thats:<br> <code>&lt;div class="accordeon" data-store-selector="#${id}_store"&gt;</code>.</p>
+					in this demo thats:<br> <code>&lt;div class="accordion" data-store-selector="#${id}_store"&gt;</code>.</p>
 				<p>Just for demonstration and testing purpose, this page uses visible (read-only)
 					text inputs for these stores. You'll find them at the bottom of the page.
 			</div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>Accordeon Demo</title>
+	<title>Accordion Demo</title>
 	<meta name="generator" content="BBEdit 12.6" />
 	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="../node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
@@ -20,10 +20,10 @@
 			}
 		});
 	</script>
-	<script type="text/javascript" src="../dist/accordeon-min.js"></script>
+	<script type="text/javascript" src="../dist/accordion-min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon.css">
-	<link rel="stylesheet" type="text/css" href="../dist/accordeon.css">
+	<link rel="stylesheet" type="text/css" href="../dist/accordion.css">
 	<style type="text/css">
 		.error {
 			color: red;
@@ -52,22 +52,22 @@
 		<p>This example searches for jQuery.scrollTo locally at <code>../node_modules/jquery-folding-arrow-icon/dist/jquery-folding-arrow-icon-min.js</code>, but
 		it was not found there. Folding-arrow-icon is an <em>optional dependency</em>: 
 		It's not generally necessary to use the showOrHideSection plug-in, but
-		the accordeon script relies on both plug-ins and won't work without folding-arrow-icon.
+		the accordion script relies on both plug-ins and won't work without folding-arrow-icon.
 		</p>
 	</div>
 
-	<h1>Multi-Select Accordeon Demo</h1>
+	<h1>Multi-Select Accordion Demo</h1>
 	
-	<div class="accordeon multi" data-store-selector="#${id}_store">
+	<div class="accordion multi" data-store-selector="#${id}_store">
 		<section id="sec1_h">
 			<h2>Permanent Multi-Select Mode</h2>
 			<div id="sec1">
-				<p>This demo page is a variation of the <a href="accordeon.html">Original Accordeon Demo</a>.
-				It uses the same source file (<code>accordeon-min.js</code> and <code>accordeon.css</code>) and
+				<p>This demo page is a variation of the <a href="accordion.html">Original Accordion Demo</a>.
+				It uses the same source file (<code>accordion-min.js</code> and <code>accordion.css</code>) and
 				(apart from different text content like this paragraph) only differs from the first example
 				in setting <em>permanent Multi-Select mode</em> by adding the class <code>multi</code>
-				to the <code>class</code> attribute of the accordeon <code>div</code>:</p>
-				<pre><code>&lt;div class="accordeon multi" data-store-selector="#${id}_store"&gt;</code></pre>
+				to the <code>class</code> attribute of the accordion <code>div</code>:</p>
+				<pre><code>&lt;div class="accordion multi" data-store-selector="#${id}_store"&gt;</code></pre>
 				<p>Try to open multiple sections of this page and you'll see, that other sections
 				don't get auto-closed any more.</p>
 			</div>
